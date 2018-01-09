@@ -16,39 +16,86 @@
         $('.ui.menu .ui.dropdown').dropdown({
             on: 'hover'
         });
+
+        $('.ui.form').form({
+            fields: {
+                requestName: {
+                    identifier: 'requestName',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please enter [Request Name]'
+                        }
+                    ]
+                },
+                requestType: {
+                    identifier: 'requestType',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please select [Request Type]'
+                        }
+                    ]
+                },
+                imagingType: {
+                    identifier: 'imagingType',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please select [Imaging Type]'
+                        }
+                    ]
+                }
+            }
+        });
+
+        $('#requestType').change(function () {
+            hideAllRequestTypeField();
+
+            var val = $(this).val();
+            if (val == 'POINT') {
+                $('#requestType_point').show();
+                drawPoint();
+            }
+            if (val == 'AREA') {
+                $('#requestType_area').show();
+                drawPolygon();
+            }
+            if (val == 'REPEATED-POINT') {
+                $('#requestType_point').show();
+                $('#requestType_during').show();
+                drawPoint();
+            }
+        });
+
+        hideAllRequestTypeField();
     });
 
-    $('.ui.form').form({
-        fields: {
-            requestName: {
-                identifier: 'requestName',
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Please enter [Request Name]'
-                    }
-                ]
-            },
-            requestType: {
-                identifier: 'requestType',
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Please select [Request Type]'
-                    }
-                ]
-            },
-            imagingType: {
-                identifier: 'imagingType',
-                rules: [
-                    {
-                        type: 'empty',
-                        prompt: 'Please select [Imaging Type]'
-                    }
-                ]
-            }
+    function hideAllRequestTypeField() {
+        $('#requestType_point').hide();
+        $('#requestType_during').hide();
+        $('#requestType_area').hide();
+    }
+
+    function loggingPolygon(positions) {
+        var wkt = "POLYGON ((";
+        for(var i = 0; i < positions.length;i++) {
+            var position = positions[i];
+            var cartographic = Cesium.Cartographic.fromCartesian(new Cesium.Cartesian3(position.x, position.y, position.z));
+            var longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(8);
+            var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(8);
+            wkt += longitudeString + " " + latitudeString + ",";
         }
-    });
+        wkt = wkt.substring(0, wkt.length - 1) + "))";
+        $("#area").val(wkt);
+    }
+
+    var loggingMark = function(lon, lat) {
+        $("#longitude").val(lon);
+        $("#latitude").val(lat);
+    };
+
+
 </script>
 <style>
     @import url(${serverAddress}/Cesium/Widgets/widgets.css);
@@ -82,17 +129,11 @@
 <form class="ui form" action="submitUserRequest" method="post" style="margin-top: 0.5rem">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <div class="field">
-        <label>Request Name</label>
-        <div class="two fields">
+        <div class="four fields">
             <div class="field">
+                <label>Request Name</label>
                 <input type="text" id="requestName" name="requestName" placeholder="Request Name" value="${userRequest.requestName}">
             </div>
-            <div class="field">
-            </div>
-        </div>
-    </div>
-    <div class="field">
-        <div class="four fields">
             <div class="field">
                 <label>Request Submitter</label>
                 <input type="hidden" name="submitterId" value="${submitter.id}" >
@@ -106,6 +147,23 @@
     </div>
     <div class="field">
         <div class="four fields">
+            <div class="field">
+                <label>Request Type</label>
+                <div class="ui fluid dropdown selection" tabindex="0">
+                    <select id="requestType" name="requestType">
+                        <option value=""></option>
+                        <option value="POINT" <c:if test="${userRequest.requestType == 'POINT'}">selected</c:if>>点目标</option>
+                        <option value="AREA" <c:if test="${userRequest.requestType == 'AREA'}">selected</c:if>>大区域</option>
+                        <option value="REPEATED-POINT" <c:if test="${userRequest.requestType == 'REPEATED-POINT'}">selected</c:if>>单点多次</option>
+                    </select><i class="dropdown icon"></i>
+                    <div class="default text">Request Type</div>
+                    <div class="menu transition hidden" tabindex="-1">
+                        <div class="item" data-value="POINT">点目标</div>
+                        <div class="item" data-value="AREA">大区域</div>
+                        <div class="item" data-value="REPEATED-POINT">单点多次</div>
+                    </div>
+                </div>
+            </div>
             <div class="field">
                 <label>Request Satellites</label>
                 <div class="ui fluid dropdown selection multiple" tabindex="0">
@@ -136,29 +194,6 @@
                 </div>
             </div>
             <div class="field">
-            </div>
-        </div>
-    </div>
-    <div class="field">
-        <div class="four fields">
-            <div class="field">
-                <label>Request Type</label>
-                <div class="ui fluid dropdown selection" tabindex="0">
-                    <select id="requestType" name="requestType">
-                        <option value=""></option>
-                        <option value="POINT" <c:if test="${userRequest.requestType == 'POINT'}">selected</c:if>>点目标</option>
-                        <option value="AREA" <c:if test="${userRequest.requestType == 'AREA'}">selected</c:if>>大区域</option>
-                        <option value="REPEATED-POINT" <c:if test="${userRequest.requestType == 'REPEATED-POINT'}">selected</c:if>>单点多次</option>
-                    </select><i class="dropdown icon"></i>
-                    <div class="default text">Request Type</div>
-                    <div class="menu transition hidden" tabindex="-1">
-                        <div class="item" data-value="POINT">点目标</div>
-                        <div class="item" data-value="AREA">大区域</div>
-                        <div class="item" data-value="REPEATED-POINT">单点多次</div>
-                    </div>
-                </div>
-            </div>
-            <div class="field">
                 <label>Imaging Type</label>
                 <div class="ui fluid dropdown selection" tabindex="0">
                     <select id="imagingType" name="imagingType">
@@ -175,8 +210,8 @@
             </div>
         </div>
     </div>
-    <div id="cesiumContainer"></div>
-    <div class="field">
+    <div id="cesiumContainer" style="margin-bottom: 0.75rem"></div>
+    <div id="requestType_point" class="field" >
         <div class="four fields">
             <div class="field">
                 <label>经度 Longitude</label>
@@ -188,7 +223,7 @@
             </div>
         </div>
     </div>
-    <div class="field">
+    <div id="requestType_during" class="field">
         <div class="four fields">
             <div class="field">
                 <label>开始时间</label>
@@ -201,7 +236,7 @@
             </div>
         </div>
     </div>
-    <div class="field">
+    <div id="requestType_area" class="field">
         <div class="two fields">
             <div class="field">
                 <label>区域 Area</label>

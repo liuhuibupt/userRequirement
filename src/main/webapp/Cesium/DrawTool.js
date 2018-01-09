@@ -155,11 +155,6 @@ function listenerPolygon(positions) {
     });
 }
 
-var loggingMark = function(lon, lat) {
-    $("#longitude").val(lon);
-    $("#latitude").val(lat);
-};
-
 function removeAll(scene) {
     b = new Cesium.BillboardCollection();
     billboard = b.add({
@@ -175,17 +170,4 @@ function removeAll(scene) {
     });
     scene.primitives.removeAll();
     scene.primitives.add(b);
-}
-
-function loggingPolygon(positions) {
-    var wkt = "POLYGON ((";
-    for(var i = 0; i < positions.length;i++) {
-        var position = positions[i];
-        var cartographic = Cesium.Cartographic.fromCartesian(new Cesium.Cartesian3(position.x, position.y, position.z));
-        var longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(8);
-        var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(8);
-        wkt += longitudeString + " " + latitudeString + ",";
-    }
-    wkt = wkt.substring(0, wkt.length - 1) + "))";
-    $("#area").val(wkt);
 }
