@@ -185,7 +185,7 @@
     <div class="field">
         <div class="two fields">
             <div class="field">
-                <c:if test="${userRequest == null}"> <div class="ui submit button">Submit</div>
+                <c:if test="${userRequest == null}"> <div class="ui teal submit button">Submit</div>
                 </c:if>
             </div>
         </div>
