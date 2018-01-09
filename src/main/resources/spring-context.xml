@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+    <task:annotation-driven scheduler="myScheduler"/>
+    <task:scheduler id="myScheduler" pool-size="10"/>
+
+    <context:component-scan base-package="com.charmingglobe.gr.dao"/>
+    <context:component-scan base-package="com.charmingglobe.gr.service"/>
+
+    <context:property-placeholder location="classpath:conf.properties" file-encoding="utf-8"/>
+
+    <import resource="spring-hibernate.xml"/>
+    <import resource="spring-webservice.xml"/>
+
+    <security:http pattern="/js*" security="none" />
+    <security:http pattern="/webservice/**" security="none" />
+    <security:http pattern="/thumbs/**" security="none" />
+    <security:http pattern="/upload*" security="none" />
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/gr_login*" access="permitAll"/>
+        <security:intercept-url pattern="/fonts/**" access="permitAll"/>
+        <security:intercept-url pattern="/css/**" access="permitAll"/>
+        <security:intercept-url pattern="/js/**" access="permitAll"/>
+        <security:intercept-url pattern="/images/**" access="permitAll"/>
+        <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+        <security:form-login login-page="/gr_login" authentication-failure-url="/gr_login?error=true"/>
+        <security:logout logout-success-url="/gr_login"/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="myUserDetailService" />
+    </security:authentication-manager>
+</beans>
