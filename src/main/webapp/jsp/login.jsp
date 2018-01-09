@@ -4,8 +4,8 @@
 <html>
 <head>
     <!-- Standard Meta -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Site Properties -->
@@ -21,18 +21,23 @@
         body {
             background-color: #DADADA;
         }
+
         body > .grid {
             height: 100%;
         }
+
         .image {
             margin-top: -100px;
         }
+
         .column {
             max-width: 450px;
         }
+
         .app_name {
             font-family: "Microsoft YaHei";
         }
+
         .ui.message.submit_error {
             background-color: #FFF6F6;
             color: #9F3A38;
@@ -50,6 +55,7 @@
             list-style-position: inside;
             margin: 0.5em 0em 0em;
         }
+
         .ui.message.submit_error .list:not(.ui) li {
             display: list-item;
             text-align: -webkit-match-parent;
@@ -60,38 +66,36 @@
         }
     </style>
     <script>
-        $(document)
-            .ready(function() {
-                $('.ui.form')
-                    .form({
-                        fields: {
-                            username: {
-                                identifier  : 'username',
-                                rules: [
-                                    {
-                                        type   : 'empty',
-                                        prompt : 'Please enter your username'
-                                    }
-                                ]
-                            },
-                            password: {
-                                identifier  : 'password',
-                                rules: [
-                                    {
-                                        type   : 'empty',
-                                        prompt : 'Please enter your password'
-                                    },
-                                    {
-                                        type   : 'length[6]',
-                                        prompt : 'Your password must be at least 6 characters'
-                                    }
-                                ]
-                            }
+        $(document).ready(function () {
+            $('.ui.form')
+                .form({
+                    fields: {
+                        username: {
+                            identifier: 'username',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Please enter your username'
+                                }
+                            ]
+                        },
+                        password: {
+                            identifier: 'password',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Please enter your password'
+                                },
+                                {
+                                    type: 'length[6]',
+                                    prompt: 'Your password must be at least 6 characters'
+                                }
+                            ]
                         }
-                    })
-                ;
-            })
-        ;
+                    }
+                })
+            ;
+        });
     </script>
 </head>
 <body>
@@ -122,14 +126,14 @@
             <div class="ui error message">
             </div>
             <c:if test="${'true' eq param.error}">
-            <div class="ui message submit_error ">
-                <ul class="list">
-                    <li> Invalid username or password</li>
-                </ul>
+                <div class="ui message submit_error ">
+                    <ul class="list">
+                        <li> Invalid username or password</li>
+                    </ul>
 
-            </div>
+                </div>
             </c:if>
-            <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
 
         <div class="ui message">

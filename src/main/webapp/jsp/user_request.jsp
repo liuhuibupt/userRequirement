@@ -11,24 +11,58 @@
             $('.ui.menu .ui.dropdown').dropdown({
                 on: 'hover'
             });
+
+            $('.ui.form')
+                .form({
+                    fields: {
+                        requestName: {
+                            identifier: 'requestName',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please enter [Request Name]'
+                                }
+                            ]
+                        },
+                        requestType: {
+                            identifier: 'requestType',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please select [Request Type]'
+                                }
+                            ]
+                        },
+                        imagingType: {
+                            identifier: 'imagingType',
+                            rules: [
+                                {
+                                    type   : 'empty',
+                                    prompt : 'Please select [Imaging Type]'
+                                }
+                            ]
+                        }
+                    }
+                });
         });
 
-        $('.ui.form')
-            .form({
-                fields: {
-                    requestName: 'empty'
-                }
-            })
-        ;
+
     </script>
 </head>
 <body>
 <h2 class="ui header">提交需求</h2>
 <div class="ui divider"></div>
 <img class="ui image" src="./images/map.png">
-<form class="ui form" action="submitUserRequest" method="post" style="margin-top: 2rem">
+<form class="ui form" action="submitUserRequest" method="post" style="margin-top: 1.5rem">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <h4 class="ui dividing header">Imaging Request Information</h4>
+    <div class="field">
+        <div class="two fields">
+            <div class="field">
+                <div class="ui error message"></div>
+            </div>
+        </div>
+    </div>
     <div class="field">
         <label>Request Name</label>
         <div class="two fields">
@@ -185,7 +219,7 @@
     <div class="field">
         <div class="two fields">
             <div class="field">
-                <c:if test="${userRequest == null}"> <div class="ui teal submit button">Submit</div>
+                <c:if test="${userRequest == null}"> <input type="submit" class="ui teal submit button" value="Submit">
                 </c:if>
             </div>
         </div>
