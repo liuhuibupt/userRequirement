@@ -2,13 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="serverAddress" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
+<c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
 <title>提交需求</title>
-<script src="${serverAddress}/Cesium/Cesium.js"></script>
-<script src="${serverAddress}/Cesium/DrawTool.js"></script>
-<script src="${serverAddress}/Cesium/DrawHelper.js"></script>
+<script src="${serverUrl}/Cesium/Cesium.js"></script>
+<script src="${serverUrl}/Cesium/DrawTool.js"></script>
+<script src="${serverUrl}/Cesium/DrawHelper.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -58,7 +58,6 @@
                 drawPoint();
             }
             if (val == 'AREA') {
-                $('#requestType_area').show();
                 drawPolygon();
             }
             if (val == 'REPEATED-POINT') {
@@ -74,7 +73,6 @@
     function hideAllRequestTypeField() {
         $('#requestType_point').hide();
         $('#requestType_during').hide();
-        $('#requestType_area').hide();
     }
 
     function loggingPolygon(positions) {
@@ -98,8 +96,8 @@
 
 </script>
 <style>
-    @import url(${serverAddress}/Cesium/Widgets/widgets.css);
-    @import url(${serverAddress}/Cesium/DrawHelper.css);
+    @import url(${serverUrl}/Cesium/Widgets/widgets.css);
+    @import url(${serverUrl}/Cesium/DrawHelper.css);
 
     #cesiumContainer {
         width: 1200px;
@@ -233,14 +231,6 @@
             <div class="field">
                 <label>结束时间</label>
                 <input type="text" id="endDate" name="endDate" placeholder="End Date">
-            </div>
-        </div>
-    </div>
-    <div id="requestType_area" class="field">
-        <div class="two fields">
-            <div class="field">
-                <label>区域 Area</label>
-                <input type="text" id="area" name="area" placeholder="Area">
             </div>
         </div>
     </div>
