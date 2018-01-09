@@ -153,10 +153,10 @@ function listenerPolygon(positions) {
     });
     scene.primitives.add(polygon);
     //setPostion(event.positions, "polygon");
-    polygon.setEditable();
-    polygon.addListener('onEdited', function(event) {
+    // polygon.setEditable();
+    // polygon.addListener('onEdited', function(event) {
         // loggingMessage('Polygon edited, ' + event.positions.length + ' points');
-    });
+    // });
 }
 
 function removeAll(scene) {
