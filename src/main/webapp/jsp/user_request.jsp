@@ -2,15 +2,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="shieldAddress" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
     <title>提交需求</title>
+    <script src="${shieldAddress}/Cesium/Cesium.js"></script>
+    <script src="${shieldAddress}/Cesium/DrawTool.js"></script>
+    <script src="${shieldAddress}/Cesium/DrawHelper.js"></script>
+
     <script>
         $(document).ready(function () {
             $('.ui.selection.dropdown').dropdown();
             $('.ui.menu .ui.dropdown').dropdown({
                 on: 'hover'
             });
+
+
         });
 
         $('.ui.form')
@@ -18,14 +25,41 @@
                 fields: {
                     requestName: 'empty'
                 }
-            })
-        ;
+            });
+
     </script>
+    <style>
+        @import url(${shieldAddress}/Cesium/Widgets/widgets.css);
+        @import url(${shieldAddress}/Cesium/DrawHelper.css);
+
+        #cesiumContainer {
+            width: 1200px;
+            height: 500px;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #toolbar {
+            z-index: 1;
+            position: absolute;
+            top: 200px;
+            left: 240px;
+            display: inline;
+            margin: 10px;
+            padding: 0px;
+            background: white;
+        }
+        .cesium-viewer-bottom {
+            display: none!important;
+        }
+    </style>
 </head>
 <body>
+<div id="toolbar">
+</div>
 <h2 class="ui header">提交需求</h2>
 <div class="ui divider"></div>
-<img class="ui image" src="./images/map.png">
+<div id="cesiumContainer"> </div>
 <form class="ui form" action="submitUserRequest" method="post" style="margin-top: 2rem">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <h4 class="ui dividing header">Imaging Request Information</h4>
@@ -91,7 +125,7 @@
         <div class="four fields">
             <div class="field">
                 <label>Request Type</label>
-                <div class="ui fluid dropdown selection" tabindex="0">
+                <div class="ui fluid dropdown selection" tabindex="0" id="requestTypeParent">
                     <select id="requestType" name="requestType">
                         <option value=""></option>
                         <option value="POINT" <c:if test="${userRequest.requestType == 'POINT'}">selected</c:if>>点目标</option>
