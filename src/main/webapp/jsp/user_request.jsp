@@ -5,88 +5,82 @@
 <c:set var="serverAddress" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
-    <title>提交需求</title>
-    <script src="${serverAddress}/Cesium/Cesium.js"></script>
-    <script src="${serverAddress}/Cesium/DrawTool.js"></script>
-    <script src="${serverAddress}/Cesium/DrawHelper.js"></script>
+<title>提交需求</title>
+<script src="${serverAddress}/Cesium/Cesium.js"></script>
+<script src="${serverAddress}/Cesium/DrawTool.js"></script>
+<script src="${serverAddress}/Cesium/DrawHelper.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('.ui.selection.dropdown').dropdown();
-            $('.ui.menu .ui.dropdown').dropdown({
-                on: 'hover'
-            });
-
-
+<script>
+    $(document).ready(function () {
+        $('.ui.selection.dropdown').dropdown();
+        $('.ui.menu .ui.dropdown').dropdown({
+            on: 'hover'
         });
+    });
 
-        $('.ui.form').form({
-            fields: {
-                requestName: {
-                    identifier: 'requestName',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: 'Please enter [Request Name]'
-                        }
-                    ]
-                },
-                requestType: {
-                    identifier: 'requestType',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: 'Please select [Request Type]'
-                        }
-                    ]
-                },
-                imagingType: {
-                    identifier: 'imagingType',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: 'Please select [Imaging Type]'
-                        }
-                    ]
-                }
+    $('.ui.form').form({
+        fields: {
+            requestName: {
+                identifier: 'requestName',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please enter [Request Name]'
+                    }
+                ]
+            },
+            requestType: {
+                identifier: 'requestType',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please select [Request Type]'
+                    }
+                ]
+            },
+            imagingType: {
+                identifier: 'imagingType',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please select [Imaging Type]'
+                    }
+                ]
             }
-        });
+        }
+    });
+</script>
+<style>
+    @import url(${serverAddress}/Cesium/Widgets/widgets.css);
+    @import url(${serverAddress}/Cesium/DrawHelper.css);
 
-    </script>
-    <style>
-        @import url(${serverAddress}/Cesium/Widgets/widgets.css);
-        @import url(${serverAddress}/Cesium/DrawHelper.css);
-
-        #cesiumContainer {
-            width: 1200px;
-            height: 500px;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        #toolbar {
-            z-index: 1;
-            position: absolute;
-            top: 200px;
-            left: 240px;
-            display: inline;
-            margin: 10px;
-            padding: 0px;
-            background: white;
-        }
-        .cesium-viewer-bottom {
-            display: none!important;
-        }
-    </style>
+    #cesiumContainer {
+        width: 1200px;
+        height: 500px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    #toolbar {
+        z-index: 1;
+        position: absolute;
+        top: 200px;
+        left: 240px;
+        display: inline;
+        margin: 10px;
+        padding: 0px;
+        background: white;
+    }
+    .cesium-viewer-bottom {
+        display: none!important;
+    }
+</style>
 </head>
 <body>
-<div id="toolbar"></div>
 <h2 class="ui header">提交需求</h2>
 <div class="ui divider"></div>
-<div id="cesiumContainer"> </div>
-<form class="ui form" action="submitUserRequest" method="post" style="margin-top: 2rem">
+<form class="ui form" action="submitUserRequest" method="post" style="margin-top: 0.5rem">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    <h4 class="ui dividing header">Imaging Request Information</h4>
     <div class="field">
         <label>Request Name</label>
         <div class="two fields">
@@ -181,6 +175,7 @@
             </div>
         </div>
     </div>
+    <div id="cesiumContainer"></div>
     <div class="field">
         <div class="four fields">
             <div class="field">
