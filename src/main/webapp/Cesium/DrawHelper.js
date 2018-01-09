@@ -832,9 +832,9 @@ var DrawHelper = (function() {
             if(position != null) {
                 var cartesian = scene.camera.pickEllipsoid(position, ellipsoid);
                 if (cartesian) {
-                    // tooltip.showAt(position, "<p>Click to add your marker. Position is: </p>" + getDisplayLatLngString(ellipsoid.cartesianToCartographic(cartesian)));
+                    tooltip.showAt(position, "<p>Click to add your marker. Position is: </p>" + getDisplayLatLngString(ellipsoid.cartesianToCartographic(cartesian)));
                 } else {
-                    // tooltip.showAt(position, "<p>Click on the globe to add your marker.</p>");
+                    tooltip.showAt(position, "<p>Click on the globe to add your marker.</p>");
                 }
             }
         }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
@@ -1684,35 +1684,6 @@ var DrawHelper = (function() {
                 span.appendChild(image);
                 return div;
             }
-
-            var scene = drawHelper._scene;
-
-            addIcon('marker', options.markerIcon, 'Click to start drawing a 2D marker', function() {
-                removeAll(scene);
-                drawHelper.startDrawingMarker({
-                    callback: function(position) {
-                        _self.executeListeners({name: 'markerCreated', position: position});
-                    }
-                });
-            })
-
-
-            addIcon('polygon', options.polygonIcon, 'Click to start drawing a 2D polygon', function() {
-                removeAll(scene);
-                drawHelper.startDrawingPolygon({
-                    callback: function(positions) {
-                        _self.executeListeners({name: 'polygonCreated', positions: positions});
-                    }
-                });
-            })
-
-            var div = document.createElement('DIV');
-            div.className = 'divider';
-            toolbar.appendChild(div);
-            addIcon('clear', options.clearIcon, 'Remove all primitives', function() {
-                removeAll(scene);
-            });
-
             enhanceWithListeners(this);
 
         }
@@ -1768,19 +1739,19 @@ var DrawHelper = (function() {
             this._title = title;
 
             // add to frame div and display coordinates
-            frameDiv.appendChild(div);
+            // frameDiv.appendChild(div);
         }
 
         tooltip.prototype.setVisible = function(visible) {
-            this._div.style.display = visible ? 'block' : 'none';
+            // this._div.style.display = visible ? 'block' : 'none';
         }
 
         tooltip.prototype.showAt = function(position, message) {
             if(position && message) {
-                this.setVisible(true);
-                this._title.innerHTML = message;
-                this._div.style.left = position.x + 10 + "px";
-                this._div.style.top = (position.y - this._div.clientHeight / 2) + "px";
+                // this.setVisible(true);
+                // this._title.innerHTML = message;
+                // this._div.style.left = position.x + 40 + "px";
+                // this._div.style.top = (position.y - this._div.clientHeight / 2) + "px";
             }
         }
 

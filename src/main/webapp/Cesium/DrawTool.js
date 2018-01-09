@@ -41,10 +41,49 @@ $(document).ready(function(){
         destination: Cesium.Cartesian3.fromDegrees(116, 39, 10000000.0),
     });
 
+    var label = viewer.entities.add({
+        label : {
+            show : false,
+            showBackground : true,
+            font : '14px monospace',
+            horizontalOrigin : Cesium.HorizontalOrigin.LEFT,
+            verticalOrigin : Cesium.VerticalOrigin.TOP,
+            pixelOffset : new Cesium.Cartesian2(15, 0)
+        }
+    });
+
+    var handler;
+    handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+    handler.setInputAction(function(movement) {
+        if (isDrawPolygon) {
+            removeAll(viewer.scene);
+            drawPolygon();
+        }
+
+    }, Cesium.ScreenSpaceEventType.RIGHT_CLICK );
+
+    handler.setInputAction(function(movement) {
+        var cartesian = viewer.camera.pickEllipsoid(movement.endPosition, scene.globe.ellipsoid);
+        if (cartesian) {
+            var cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+            var longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(6);
+            var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(6);
+
+            label.position = cartesian;
+            label.label.show = true;
+            label.label.text =
+                'Lon: ' + ('   ' + longitudeString) + '\u00B0' +
+                '\nLat: ' + ('   ' + latitudeString) + '\u00B0';
+        } else {
+            label.label.show = false;
+        }
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE );
     startMap(viewer);
 });
+var isDrawPolygon = false;
 var drawHelper;
 var scene;
+
 var b = new Cesium.BillboardCollection();
 var billboard = b.add({
     name : "test",
@@ -53,28 +92,14 @@ var billboard = b.add({
     eyeOffset : new Cesium.Cartesian3(0.0, 0.0, 0.0),
     horizontalOrigin : Cesium.HorizontalOrigin.CENTER,
     verticalOrigin : Cesium.VerticalOrigin.CENTER,
-    scale : 1.0,
-    image: './Cesium/img/glyphicons_242_google_maps.png',
+    scale : 0.7,
+    image: './Cesium/img/marker.png',
     color : new Cesium.Color(1.0, 0.0, 1.0, 1.0)
 });
 function startMap(viewer) {
     drawHelper = new DrawHelper(viewer);
     scene = viewer.scene;
-    var toolbar = drawHelper.addToolbar(document.getElementById("toolbar"), {
-        buttons: ['marker', 'polygon']
-    });
-
 	scene.primitives.add(b);
-
-    toolbar.addListener('markerCreated', function(event) {
-        listenerMark(event.position);
-        billboard.setEditable();
-    });
-
-    toolbar.addListener('polygonCreated', function(event) {
-        removeAll(scene);
-        listenerPolygon(event.positions);
-    });
 }
 
 function drawPoint() {
@@ -95,6 +120,7 @@ function drawPolygon() {
 }
 
 function listenerMark(position) {
+    isDrawPolygon = false;
     var cartographic = Cesium.Cartographic.fromCartesian(new Cesium.Cartesian3(position.x, position.y, position.z));
     var longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(6);
     var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(6);
@@ -106,6 +132,7 @@ function listenerMark(position) {
 }
 
 function listenerPolygon(positions) {
+    isDrawPolygon = true;
     loggingPolygon(positions);
     var polygon = new DrawHelper.PolygonPrimitive({
         positions: positions,
