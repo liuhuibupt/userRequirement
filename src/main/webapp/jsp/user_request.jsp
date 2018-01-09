@@ -20,13 +20,38 @@
 
         });
 
-        $('.ui.form')
-            .form({
-                fields: {
-                    requestName: 'empty'
-                }
-            });
-
+    $('.ui.form').form({
+        fields: {
+            requestName: {
+                identifier: 'requestName',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please enter [Request Name]'
+                    }
+                ]
+            },
+            requestType: {
+                identifier: 'requestType',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please select [Request Type]'
+                    }
+                ]
+            },
+            imagingType: {
+                identifier: 'imagingType',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please select [Imaging Type]'
+                    }
+                ]
+            }
+        }
+    });
+});
     </script>
     <style>
         @import url(${shieldAddress}/Cesium/Widgets/widgets.css);
@@ -55,8 +80,6 @@
     </style>
 </head>
 <body>
-<div id="toolbar">
-</div>
 <h2 class="ui header">提交需求</h2>
 <div class="ui divider"></div>
 <div id="cesiumContainer"> </div>
@@ -125,7 +148,7 @@
         <div class="four fields">
             <div class="field">
                 <label>Request Type</label>
-                <div class="ui fluid dropdown selection" tabindex="0" id="requestTypeParent">
+                <div class="ui fluid dropdown selection" tabindex="0">
                     <select id="requestType" name="requestType">
                         <option value=""></option>
                         <option value="POINT" <c:if test="${userRequest.requestType == 'POINT'}">selected</c:if>>点目标</option>
