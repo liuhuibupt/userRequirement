@@ -2,13 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="shieldAddress" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
+<c:set var="serverAddress" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
     <title>提交需求</title>
-    <script src="${shieldAddress}/Cesium/Cesium.js"></script>
-    <script src="${shieldAddress}/Cesium/DrawTool.js"></script>
-    <script src="${shieldAddress}/Cesium/DrawHelper.js"></script>
+    <script src="${serverAddress}/Cesium/Cesium.js"></script>
+    <script src="${serverAddress}/Cesium/DrawTool.js"></script>
+    <script src="${serverAddress}/Cesium/DrawHelper.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -54,8 +54,8 @@
 
     </script>
     <style>
-        @import url(${shieldAddress}/Cesium/Widgets/widgets.css);
-        @import url(${shieldAddress}/Cesium/DrawHelper.css);
+        @import url(${serverAddress}/Cesium/Widgets/widgets.css);
+        @import url(${serverAddress}/Cesium/DrawHelper.css);
 
         #cesiumContainer {
             width: 1200px;
