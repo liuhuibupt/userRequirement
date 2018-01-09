@@ -85,12 +85,14 @@
             wkt += longitudeString + " " + latitudeString + ",";
         }
         wkt = wkt.substring(0, wkt.length - 1) + "))";
-        $("#area").val(wkt);
+        $("#imagingCode").val(wkt);
     }
 
     var loggingMark = function(lon, lat) {
         $("#longitude").val(lon);
         $("#latitude").val(lat);
+        var wkt = "POINT(" + lon + " " + lat + ")";
+        $("#imagingCode").val(wkt);
     };
 
 

@@ -4,7 +4,7 @@
 
 $(document).ready(function(){
     var arcgisImageProvider = new Cesium.ArcGisMapServerImageryProvider({
-        url: "http://10.10.20.234:6080/arcgis/rest/services/World13/MapServer"
+        url: "http://10.10.20.234:6080/arcgis/rest/services/World14/MapServer"
     });
     var arcgisImageViewMode = new Cesium.ProviderViewModel({
         name: 'Argis',
