@@ -100,9 +100,13 @@ function startMap(viewer) {
     drawHelper = new DrawHelper(viewer);
     scene = viewer.scene;
 	scene.primitives.add(b);
+	// drawPolygon();
 }
 
 function drawPoint() {
+    if (isDrawPolygon) {
+        removeAll(scene);
+    }
     drawHelper.startDrawingMarker({
         callback: function(position) {
             listenerMark(position);
@@ -164,10 +168,19 @@ function removeAll(scene) {
         eyeOffset : new Cesium.Cartesian3(0.0, 0.0, 0.0),
         horizontalOrigin : Cesium.HorizontalOrigin.CENTER,
         verticalOrigin : Cesium.VerticalOrigin.CENTER,
-        scale : 1.0,
-        image: './Cesium/img/glyphicons_242_google_maps.png',
+        scale : 0.7,
+        image: './Cesium/img/marker.png',
         color : new Cesium.Color(1.0, 0.0, 1.0, 1.0)
     });
-    scene.primitives.removeAll();
+    var primitiveCollection = [];
+    for(var i = 0; i< scene.primitives.length; i++) {
+        var o = scene.primitives.get(i);
+        if (o._textureAtlasGUID != undefined || o._createPrimitive != undefined) {
+            primitiveCollection.push(o);
+        }
+    }
+    for(var i = 0; i < primitiveCollection.length; i++) {
+        scene.primitives.remove(primitiveCollection[i]);
+    }
     scene.primitives.add(b);
 }
