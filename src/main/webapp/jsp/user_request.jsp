@@ -4,50 +4,47 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-    <title>提交需求</title>
-    <script>
-        $(document).ready(function () {
-            $('.ui.selection.dropdown').dropdown();
-            $('.ui.menu .ui.dropdown').dropdown({
-                on: 'hover'
-            });
+<title>提交需求</title>
+<script>
+$(document).ready(function () {
+    $('.ui.selection.dropdown').dropdown();
+    $('.ui.menu .ui.dropdown').dropdown({
+        on: 'hover'
+    });
 
-            $('.ui.form')
-                .form({
-                    fields: {
-                        requestName: {
-                            identifier: 'requestName',
-                            rules: [
-                                {
-                                    type   : 'empty',
-                                    prompt : 'Please enter [Request Name]'
-                                }
-                            ]
-                        },
-                        requestType: {
-                            identifier: 'requestType',
-                            rules: [
-                                {
-                                    type   : 'empty',
-                                    prompt : 'Please select [Request Type]'
-                                }
-                            ]
-                        },
-                        imagingType: {
-                            identifier: 'imagingType',
-                            rules: [
-                                {
-                                    type   : 'empty',
-                                    prompt : 'Please select [Imaging Type]'
-                                }
-                            ]
-                        }
+    $('.ui.form').form({
+        fields: {
+            requestName: {
+                identifier: 'requestName',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please enter [Request Name]'
                     }
-                });
-        });
-
-
-    </script>
+                ]
+            },
+            requestType: {
+                identifier: 'requestType',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please select [Request Type]'
+                    }
+                ]
+            },
+            imagingType: {
+                identifier: 'imagingType',
+                rules: [
+                    {
+                        type   : 'empty',
+                        prompt : 'Please select [Imaging Type]'
+                    }
+                ]
+            }
+        }
+    });
+});
+</script>
 </head>
 <body>
 <h2 class="ui header">提交需求</h2>
