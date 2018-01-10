@@ -78,6 +78,8 @@ $(document).ready(function(){
             label.label.show = false;
         }
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE );
+    viewer.scene.camera.zoomOut(100000000);
+    viewer.scene.camera.moveDown(4000000);
     startMap(viewer);
 });
 var isDrawPolygon = false;
