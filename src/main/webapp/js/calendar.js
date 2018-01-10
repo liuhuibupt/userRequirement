@@ -1081,7 +1081,7 @@
         var year = date.getFullYear();
         return settings.type === 'year' ? year :
           settings.type === 'month' ? month + ' ' + year :
-          (settings.monthFirst ? month + ' ' + day : day + ' ' + month) + ', ' + year;
+          year + '-' + month + '-' + day;
       },
       time: function (date, settings, forCalendar) {
         if (!date) {
@@ -1090,11 +1090,13 @@
         var hour = date.getHours();
         var minute = date.getMinutes();
         var ampm = '';
+        /*
         if (settings.ampm) {
           ampm = ' ' + (hour < 12 ? settings.text.am : settings.text.pm);
           hour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
         }
-        return hour + ':' + (minute < 10 ? '0' : '') + minute + ampm;
+        */
+        return hour + ':' + (minute < 10 ? '0' : '') + minute;
       },
       today: function (settings) {
         return settings.type === 'date' ? settings.text.today : settings.text.now;

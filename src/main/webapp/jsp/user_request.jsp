@@ -121,7 +121,7 @@
         hideAllRequestTypeField();
 
         $('#example1').calendar({
-            type: 'date'
+            type: 'datetime'
         });
     });
 
