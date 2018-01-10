@@ -6,9 +6,13 @@
 <html>
 <head>
 <title>提交需求</title>
+
+<link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
+
 <script src="${serverUrl}/Cesium/Cesium.js"></script>
 <script src="${serverUrl}/Cesium/DrawTool.js"></script>
 <script src="${serverUrl}/Cesium/DrawHelper.js"></script>
+<script src="${serverUrl}/js/calendar.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -68,11 +72,14 @@
         });
 
         hideAllRequestTypeField();
+
+        $('#example1').calendar({
+            type: 'date'
+        });
     });
 
     function hideAllRequestTypeField() {
         $('#requestType_point').hide();
-        $('#requestType_during').hide();
     }
 
     function loggingPolygon(positions) {
@@ -108,26 +115,16 @@
         padding: 0;
         overflow: hidden;
     }
-    #toolbar {
-        z-index: 1;
-        position: absolute;
-        top: 200px;
-        left: 240px;
-        display: inline;
-        margin: 10px;
-        padding: 0px;
-        background: white;
-    }
-    .cesium-viewer-bottom {
-        display: none!important;
-    }
 </style>
 </head>
 <body>
 <h2 class="ui header">提交需求</h2>
 <div class="ui divider"></div>
+
 <form class="ui form" action="submitUserRequest" method="post" style="margin-top: 0.5rem">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    <div class="ui error message">
+    </div>
     <div class="field">
         <div class="four fields">
             <div class="field">
@@ -232,7 +229,12 @@
 
             <div class="field">
                 <label>结束时间</label>
-                <input type="text" id="endDate" name="endDate" placeholder="End Date">
+                <div class="ui calendar" id="example1">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input type="text" placeholder="Date/Time">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -240,7 +242,7 @@
         <div class="two fields">
             <div class="field">
                 <label>成像代码 Imaging Code</label>
-                <input type="text"  id="imagingCode" name="imagingCode" placeholder="Imaging Code">
+                <textarea class="ready-only" id="imagingCode" name="imagingCode" readonly>${userRequest.imagingCode}</textarea>
             </div>
         </div>
     </div>
@@ -248,7 +250,7 @@
         <div class="two fields">
             <div class="field">
                 <label>关键字 Keyword</label>
-                <input type="text" id="keyword" name="keyword" placeholder="Imaging Code">
+                <input type="text" id="keyword" name="keyword" placeholder="Imaging Code" value="${userRequest.keyword}">
             </div>
         </div>
     </div>
@@ -256,7 +258,7 @@
         <div class="two fields">
             <div class="field">
                 <label>备注 Comments</label>
-                <textarea id="comments" name="comments"></textarea>
+                <textarea id="comments" name="comments">${userRequest.comments}</textarea>
             </div>
             <div class="field">
             </div>
@@ -265,7 +267,7 @@
     <div class="field">
         <div class="two fields">
             <div class="field">
-                <c:if test="${userRequest == null}"> <div class="ui teal submit button">Submit</div>
+                <c:if test="${userRequest == null}"><input class="ui teal submit button" type="submit" value="Submit Request">
                 </c:if>
             </div>
         </div>
