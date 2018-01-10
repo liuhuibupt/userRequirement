@@ -14,10 +14,11 @@ var DrawHelper = (function() {
     var ellipsoid = Cesium.Ellipsoid.WGS84;
 
     // constructor
-    function _(cesiumWidget) {
+    function _(cesiumWidget, loggingMark) {
         this._scene = cesiumWidget.scene;
         this._tooltip = createTooltip(cesiumWidget.container);
         this._surfaces = [];
+        this._loggingMark = loggingMark;
         this.initialiseHandlers();
         this.enhancePrimitives();
 
@@ -1147,7 +1148,9 @@ var DrawHelper = (function() {
 						var cartographic = Cesium.Cartographic.fromCartesian(cartesian);
 				        var longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(6);
 				        var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(6);
-                        loggingMark(longitudeString, latitudeString);
+				        if (drawHelper._loggingMark != undefined) {
+                            drawHelper._loggingMark(longitudeString, latitudeString);
+                        }
                         onDrag(cartesian);
                     } else {
                         onDragEnd(cartesian);

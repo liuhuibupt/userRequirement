@@ -16,6 +16,41 @@
 
 <script>
     $(document).ready(function () {
+        var arcgisImageProvider = new Cesium.ArcGisMapServerImageryProvider({
+            url: "http://10.10.20.234:6080/arcgis/rest/services/World14/MapServer"
+        });
+        var arcgisImageViewMode = new Cesium.ProviderViewModel({
+            name: 'Argis',
+            iconUrl: Cesium.buildModuleUrl('Widgets/Images/ImageryProviders/bingAerial.png'),
+            tooltip: 'Argis',
+            creationFunction: function () {
+                return arcgisImageProvider;
+            }
+        });
+        var imageryViewModels = new Array();
+        imageryViewModels.push(arcgisImageViewMode);
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+            animation: false, //是否创建动画小器件，左下角仪表
+            baseLayerPicker: true, //是否显示图层选择器
+            imageryProviderViewModels: imageryViewModels,
+            //imageryProvider:googleImageProvider,
+            // terrainProvider:terrainProvider,
+            fullscreenButton: false, //是否显示全屏按钮
+            geocoder: false, //是否显示geocoder小器件，右上角查询按钮
+            homeButton: false, //是否显示Home按钮
+            infoBox: false, //是否显示信息框
+            sceneModePicker: false, //是否显示3D/2D选择器
+            selectionIndicator: false, //是否显示选取指示器组件
+            timeline: false, //是否显示时间轴
+            navigationHelpButton: false, //是否显示右上角的帮助按钮
+            scene3DOnly: false, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
+            navigationInstructionsInitiallyVisible: false,
+            showRenderLoopErrors: false,
+            shadows: true,
+            sceneMode: Cesium.SceneMode.SCENE2D,
+        });
+        startMap(viewer, loggingPolygon, loggingMark, loggingMessage);
+
         $('.ui.selection.dropdown').dropdown();
         $('.ui.menu .ui.dropdown').dropdown({
             on: 'hover'
@@ -59,17 +94,29 @@
             var val = $(this).val();
             if (val == 'POINT') {
                 $('#requestType_point').show();
-                drawPoint();
+                drawPoint(loggingMark);
             }
             if (val == 'AREA') {
-                drawPolygon();
+                drawPolygon(loggingPolygon);
             }
             if (val == 'REPEATED-POINT') {
                 $('#requestType_point').show();
                 $('#requestType_during').show();
-                drawPoint();
+                drawPoint(loggingMark);
             }
         });
+
+        $("#longitude").on("input propertychange", setPoint);
+
+        $("#latitude").on("input propertychange", setPoint);
+
+        function setPoint() {
+            var lon = $("#longitude").val();
+            var lat = $("#latitude").val();
+            if (lon != "" && lat != "") {
+                setPointPosition(lon, lat);
+            }
+        }
 
         hideAllRequestTypeField();
 
@@ -82,7 +129,7 @@
         $('#requestType_point').hide();
     }
 
-    function loggingPolygon(positions) {
+    var loggingPolygon = function(positions) {
         var wkt = "POLYGON ((";
         for(var i = 0; i < positions.length;i++) {
             var position = positions[i];
@@ -102,7 +149,9 @@
         $("#imagingCode").val(wkt);
     };
 
-
+    var loggingMessage = function(message) {
+        $(".loggingMessage").html(message);
+    }
 </script>
 <style>
     @import url(${serverUrl}/Cesium/Widgets/widgets.css);
@@ -114,6 +163,20 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
+        position: relative;
+    }
+    .loggingMessage {
+        z-index: 1;
+        position: absolute;
+        bottom: 0px;
+        right: 0;
+        display: inline;
+        margin: 10px;
+        padding: 10px;
+        background: white;
+    }
+    .cesium-viewer-bottom {
+        display: none!important;
     }
 </style>
 </head>
@@ -207,7 +270,11 @@
             </div>
         </div>
     </div>
-    <div id="cesiumContainer" style="margin-bottom: 0.75rem"></div>
+    <div id="cesiumContainer" style="margin-bottom: 0.75rem">
+        <div class="loggingMessage">
+
+        </div>
+    </div>
     <div id="requestType_point" class="field" >
         <div class="four fields">
             <div class="field">
