@@ -1,5 +1,6 @@
 package com.charmingglobe.gr.controller;
 
+import com.charmingglobe.gr.cri.UserRequestCri;
 import com.charmingglobe.gr.dao.UserDao;
 import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.entity.UserRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by PANZHENG on 2017/11/18.
@@ -37,7 +39,9 @@ public class UserRequestController {
     }
 
     @RequestMapping("/userRequest-list")
-    public String getUserRequestList() {
+    public String getUserRequestList(UserRequestCri cri, Model model) {
+        List<UserRequest> userRequestList = userRequestService.getUserRequestList(cri);
+        model.addAttribute("resultSet", userRequestList);
         return "user_request_list";
     }
 

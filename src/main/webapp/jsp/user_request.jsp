@@ -317,8 +317,8 @@
     <div class="field">
         <div class="two fields">
             <div class="field">
-                <label>成像代码 Imaging Code</label>
-                <textarea class="ready-only" id="imagingCode" name="imagingCode" readonly>${userRequest.imagingCode}</textarea>
+                <label>成像代码 Imaging WKT</label>
+                <textarea class="ready-only" id="imagingWkt" name="imagingWkt" readonly>${userRequest.imagingWkt}</textarea>
             </div>
         </div>
     </div>

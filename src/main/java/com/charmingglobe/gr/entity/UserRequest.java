@@ -1,5 +1,8 @@
 package com.charmingglobe.gr.entity;
 
+import com.vividsolutions.jts.geom.Geometry;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -46,8 +49,12 @@ public class UserRequest {
     @Column(name = "imaging_type")
     private String imagingType;
 
-    @Column(name = "imaging_code")
-    private String imagingCode;
+    @Column(name = "imaging_wkt")
+    private String imagingWkt;
+
+    @Type(type="com.vividsolutions.jts.geom.Geometry")
+    @Column(name = "imaging_geometry")
+    private Geometry imagingGeometry;
 
     @Column(name = "keyword")
     private String keyword;
@@ -143,12 +150,20 @@ public class UserRequest {
         this.imagingType = imagingType;
     }
 
-    public String getImagingCode() {
-        return imagingCode;
+    public String getImagingWkt() {
+        return imagingWkt;
     }
 
-    public void setImagingCode(String imagingCode) {
-        this.imagingCode = imagingCode;
+    public void setImagingWkt(String imagingWkt) {
+        this.imagingWkt = imagingWkt;
+    }
+
+    public Geometry getImagingGeometry() {
+        return imagingGeometry;
+    }
+
+    public void setImagingGeometry(Geometry imagingGeometry) {
+        this.imagingGeometry = imagingGeometry;
     }
 
     public String getKeyword() {

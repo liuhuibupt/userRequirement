@@ -41,33 +41,27 @@
     <thead>
     <tr>
         <th width="10%">No.</th>
+        <th width="10%">需求代码</th>
         <th>需求名称</th>
-        <th width="10%">需求用户</th>
+        <th width="10%">提交者</th>
         <th width="10%">提交时间</th>
-        <th width="10%">地图位置</th>
+        <th width="10%">状态</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>01</td>
-        <td>需求名称</td>
-        <td>Alex Pan</td>
-        <td>时间</td>
-        <td>地图位置</td>
-    </tr>
-    <c:forEach items="${userList}" var="user">
+    <c:forEach items="${resultSet}" var="userRequest">
         <tr>
             <td>01</td>
-            <td>${user.username}</td>
-            <td>${user.displayName}</td>
-            <td>${user.role}</td>
-            <td>${user.departmentName}</td>
-            <td>Cell</td>
+            <td><a href="userRequest?userRequestId=${userRequest.id}">${userRequest.requestCode}</a></td>
+            <td>${userRequest.requestName}</td>
+            <td>${userRequest.submitter.displayName}</td>
+            <td>${userRequest.submitTime}</td>
+            <td>Status</td>
         </tr>
     </c:forEach>
     <tfoot>
     <tr>
-        <th colspan="5">
+        <th colspan="6">
             <div class="ui left floated pagination menu">
                 <a class="icon item">
                     <i class="left chevron icon"></i>
