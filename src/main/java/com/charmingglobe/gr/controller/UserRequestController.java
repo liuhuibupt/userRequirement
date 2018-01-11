@@ -5,11 +5,18 @@ import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.service.UserRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by PANZHENG on 2017/11/18.
@@ -20,8 +27,15 @@ public class UserRequestController {
     @Autowired
     private UserRequestService userRequestService;
 
-    @Autowired
-    private UserDao userDao;
+
+    @InitBinder
+    public void InitBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, null, new CustomDateEditor(
+                dateFormat, true));
+    }
+
     @RequestMapping("/userRequest-list")
     public String getUserRequestList() {
         return "user_request_list";
@@ -39,11 +53,7 @@ public class UserRequestController {
 
     @RequestMapping("/submitUserRequest")
     public String submitUserRequest(UserRequest userRequest, int submitterId) {
-
-        User0 submitter = userDao.getUser(submitterId);
-
-        userRequest.setSubmitter(submitter);
-        userRequestService.submitService(userRequest);
+        userRequestService.submitService(userRequest, submitterId);
         int userRequestId = userRequest.getId();
         return "redirect:userRequest?userRequestId=" + userRequestId;
     }

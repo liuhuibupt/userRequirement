@@ -89,7 +89,7 @@
         });
 
         $('#requestType').change(function () {
-            hideAllRequestTypeField();
+            $('#requestType_point').hide();
 
             var val = $(this).val();
             if (val == 'POINT') {
@@ -101,7 +101,6 @@
             }
             if (val == 'REPEATED-POINT') {
                 $('#requestType_point').show();
-                $('#requestType_during').show();
                 drawPoint(loggingMark);
             }
         });
@@ -118,16 +117,16 @@
             }
         }
 
-        hideAllRequestTypeField();
+        $('#requestType_point').hide();
 
-        $('#example1').calendar({
+        $('#requestStartDiv').calendar({
+            type: 'datetime'
+        });
+
+        $('#requestEndDiv').calendar({
             type: 'datetime'
         });
     });
-
-    function hideAllRequestTypeField() {
-        $('#requestType_point').hide();
-    }
 
     var loggingPolygon = function(positions) {
         var wkt = "POLYGON ((";
@@ -188,25 +187,33 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <div class="ui error message">
     </div>
-    <div class="field">
-        <div class="four fields">
-            <div class="field">
-                <label>Request Name</label>
-                <input type="text" id="requestName" name="requestName" placeholder="Request Name" value="${userRequest.requestName}">
-            </div>
-            <div class="field">
-                <label>Request Submitter</label>
-                <input type="hidden" name="submitterId" value="${submitter.id}" >
-                <input class="read-only" placeholder="Request Submitter"  value="${submitter.displayName}" readonly>
-            </div>
-            <div class="field">
-                <label>Submit Time</label>
-                <input class="read-only" placeholder="Submit Time" value="<fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly>
-            </div>
+
+    <div class="four fields">
+        <div class="field">
+            <label>Request Code</label>
+            <input type="text" id="requestCode" name="requestCode" placeholder="Request Code" value="${userRequest.requestCode}" readonly>
+        </div>
+        <div class="eight wide field">
+            <label>Request Name</label>
+            <input type="text" id="requestName" name="requestName" placeholder="Request Name" value="${userRequest.requestName}">
         </div>
     </div>
-    <div class="field">
-        <div class="four fields">
+    <div class="four fields">
+        <div class="field">
+            <label>Request From</label>
+            <input class="read-only" id="requestFrom" name="requestFrom" placeholder="Request From" value="${userRequest.requestFrom}" readonly>
+        </div>
+        <div class="field">
+            <label>Request Submitter</label>
+            <input type="hidden" name="submitterId" value="${submitter.id}" >
+            <input class="read-only" placeholder="Request Submitter"  value="${submitter.displayName}" readonly>
+        </div>
+        <div class="field">
+            <label>Submit Time</label>
+            <input class="read-only" id="submitTime" name="submitTime" placeholder="Submit Time" value="<fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly>
+        </div>
+    </div>
+    <div class="four fields">
             <div class="field">
                 <label>Request Type</label>
                 <div class="ui fluid dropdown selection" tabindex="0">
@@ -269,11 +276,8 @@
                 </div>
             </div>
         </div>
-    </div>
     <div id="cesiumContainer" style="margin-bottom: 0.75rem">
-        <div class="loggingMessage">
-
-        </div>
+        <div class="loggingMessage"></div>
     </div>
     <div id="requestType_point" class="field" >
         <div class="four fields">
@@ -290,16 +294,21 @@
     <div id="requestType_during" class="field">
         <div class="four fields">
             <div class="field">
-                <label>开始时间</label>
-                <input type="text" id="startDate" name="startDate" placeholder="Start Date">
+                <label>需求开始时间</label>
+                <div class="ui calendar" id="requestStartDiv">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input type="text" id="requestStart" name="requestStart" placeholder="Request Start" value="${userRequest.requestStart}">
+                    </div>
+                </div>
             </div>
 
             <div class="field">
-                <label>结束时间</label>
-                <div class="ui calendar" id="example1">
+                <label>需求结束时间</label>
+                <div class="ui calendar" id="requestEndDiv">
                     <div class="ui input left icon">
                         <i class="calendar icon"></i>
-                        <input type="text" placeholder="Date/Time">
+                        <input type="text" id="requestEnd" name="requestEnd" placeholder="Request End" value="${userRequest.requestEnd}">
                     </div>
                 </div>
             </div>
@@ -317,7 +326,7 @@
         <div class="two fields">
             <div class="field">
                 <label>关键字 Keyword</label>
-                <input type="text" id="keyword" name="keyword" placeholder="Imaging Code" value="${userRequest.keyword}">
+                <input type="text" id="keyword" name="keyword" placeholder="Keyword" value="${userRequest.keyword}">
             </div>
         </div>
     </div>

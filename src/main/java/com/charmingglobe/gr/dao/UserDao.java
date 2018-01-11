@@ -33,7 +33,7 @@ public class UserDao {
 
     public List<User0> getUser(String username) {
         Session session = sessionFactoryForReading.getCurrentSession();
-        Query query = session.createQuery("from User0 where userName='" + username + "' order by id asc");
+        Query query = session.createQuery("from User0 where upper(userName)=upper('" + username + "') order by id asc");
         List<User0> list = query.list();
         return list;
     }

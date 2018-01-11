@@ -1096,7 +1096,7 @@
           hour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
         }
         */
-        return hour + ':' + (minute < 10 ? '0' : '') + minute;
+        return (hour < 10 ? '0' : '') + hour + ':' + (minute < 10 ? '0' : '') + minute + ":00";
       },
       today: function (settings) {
         return settings.type === 'date' ? settings.text.today : settings.text.now;

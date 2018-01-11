@@ -15,11 +15,17 @@ public class UserRequest {
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
+    @Column(name = "request_code")
+    private String requestCode;
+
     @Column(name = "request_name")
     private String requestName;
 
     @Column(name = "request_satellites")
     private String requestSatellites;
+
+    @Column(name = "request_from")
+    private String requestFrom;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "submitter_id")
@@ -30,6 +36,12 @@ public class UserRequest {
 
     @Column(name = "request_type")
     private String requestType;
+
+    @Column(name = "request_start")
+    private Date requestStart;
+
+    @Column(name = "request_end")
+    private Date requestEnd;
 
     @Column(name = "imaging_type")
     private String imagingType;
@@ -51,6 +63,14 @@ public class UserRequest {
         this.id = id;
     }
 
+    public String getRequestCode() {
+        return requestCode;
+    }
+
+    public void setRequestCode(String requestCode) {
+        this.requestCode = requestCode;
+    }
+
     public String getRequestName() {
         return requestName;
     }
@@ -65,6 +85,14 @@ public class UserRequest {
 
     public void setRequestSatellites(String requestSatellites) {
         this.requestSatellites = requestSatellites;
+    }
+
+    public String getRequestFrom() {
+        return requestFrom;
+    }
+
+    public void setRequestFrom(String requestFrom) {
+        this.requestFrom = requestFrom;
     }
 
     public User0 getSubmitter() {
@@ -89,6 +117,22 @@ public class UserRequest {
 
     public void setRequestType(String requestType) {
         this.requestType = requestType;
+    }
+
+    public Date getRequestStart() {
+        return requestStart;
+    }
+
+    public void setRequestStart(Date requestStart) {
+        this.requestStart = requestStart;
+    }
+
+    public Date getRequestEnd() {
+        return requestEnd;
+    }
+
+    public void setRequestEnd(Date requestEnd) {
+        this.requestEnd = requestEnd;
     }
 
     public String getImagingType() {

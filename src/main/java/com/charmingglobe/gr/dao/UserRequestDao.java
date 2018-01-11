@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,5 +42,14 @@ public class UserRequestDao {
     public void saveUserRequest(UserRequest userRequest) {
         Session session = sessionFactoryForWriting.getCurrentSession();
         session.saveOrUpdate(userRequest);
+    }
+
+    public int countUserRequestByDate(Date date) {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
+        Session session = sessionFactoryForReading.getCurrentSession();
+        Query query = session.createQuery("select count(*) from UserRequest where submitTime >= '" + f.format(date) + "'");
+        int count = ((Long) query.uniqueResult()).intValue();
+
+        return count;
     }
 }
