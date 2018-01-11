@@ -3,6 +3,7 @@ package com.charmingglobe.gr.controller;
 import com.charmingglobe.gr.cri.UserRequestCri;
 import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.entity.UserRequest;
+import com.charmingglobe.gr.geo.GeometryTools;
 import com.charmingglobe.gr.service.UserRequestService;
 import com.vividsolutions.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class UserRequestController {
     @Autowired
     private UserRequestService userRequestService;
 
+    @Autowired
+    private GeometryTools geometryTools;
 
     @InitBinder
     public void InitBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
@@ -70,7 +73,7 @@ public class UserRequestController {
         model.addAttribute("submitter", submitter);
 
         Geometry imagingGeometry = userRequest.getImagingGeometry();
-        String imagingGeojson = null;
+        String imagingGeojson = geometryTools.getGeoJsonFromGeometry(imagingGeometry);
         model.addAttribute("imagingGeojson", imagingGeojson);
 
         model.addAttribute("userRequest", userRequest);

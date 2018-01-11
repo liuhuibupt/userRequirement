@@ -126,31 +126,50 @@
         $('#requestEndDiv').calendar({
             type: 'datetime'
         });
+
+        setGeoJson(${imagingGeojson});
     });
 
     var loggingPolygon = function(positions) {
         var wkt = "POLYGON ((";
-        for(var i = 0; i < positions.length;i++) {
-            var position = positions[i];
+        for(var i = 0; i <= positions.length - 2;i++) {
+            var position;
+            if (i == positions.length - 2) {
+                position = positions[0];
+            }else {
+                position = positions[i];
+            }
             var cartographic = Cesium.Cartographic.fromCartesian(new Cesium.Cartesian3(position.x, position.y, position.z));
             var longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(8);
             var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(8);
             wkt += longitudeString + " " + latitudeString + ",";
         }
         wkt = wkt.substring(0, wkt.length - 1) + "))";
-        $("#imagingCode").val(wkt);
+        $("#imagingWkt").val(wkt);
     }
 
     var loggingMark = function(lon, lat) {
         $("#longitude").val(lon);
         $("#latitude").val(lat);
         var wkt = "POINT(" + lon + " " + lat + ")";
-        $("#imagingCode").val(wkt);
+        $("#imagingWkt").val(wkt);
     };
 
     var loggingMessage = function(message) {
         $(".loggingMessage").html(message);
     }
+
+    function setGeoJson(geoJson) {
+        var type = geoJson.type;
+        if (type == "Point") {
+            var lon = geoJson.coordinates[0];
+            var lat = geoJson.coordinates[1];
+            setPointPosition(lon, lat);
+        }else if (type == "Polygon") {
+            addPolygonFromGeo(geoJson.coordinates[0]);
+        }
+    }
+
 </script>
 <style>
     @import url(${serverUrl}/Cesium/Widgets/widgets.css);
@@ -167,6 +186,7 @@
     .loggingMessage {
         z-index: 1;
         position: absolute;
+        width: 250px;
         bottom: 0px;
         right: 0;
         display: inline;

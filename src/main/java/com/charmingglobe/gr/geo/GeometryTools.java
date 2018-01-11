@@ -7,11 +7,14 @@ import org.geotools.data.shapefile.ShapefileDataStore;
 import org.geotools.data.shapefile.ShapefileDataStoreFactory;
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.simple.SimpleFeatureSource;
+import org.geotools.geojson.geom.GeometryJSON;
 import org.opengis.feature.Property;
 import org.opengis.feature.simple.SimpleFeature;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Iterator;
 
 /**
@@ -97,5 +100,18 @@ public class GeometryTools {
         }
         Polygon polygon = geometryFactory.createPolygon(coordinates);
         return polygon;
+    }
+
+    public String getGeoJsonFromGeometry(Geometry geometry) {
+        GeometryJSON geoJson = new GeometryJSON();
+        StringWriter writer = new StringWriter();
+        String json = "";
+        try {
+            geoJson.write(geometry, writer);
+            json = writer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }

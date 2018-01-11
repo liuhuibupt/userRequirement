@@ -224,6 +224,12 @@
       <version>2.8.2</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-geojson</artifactId>
+      <version>18.1</version>
+    </dependency>
+
   </dependencies>
   <repositories>
     <repository>

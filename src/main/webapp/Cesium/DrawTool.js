@@ -93,6 +93,19 @@ function listenerPolygon(positions, loggingFunction) {
     if (loggingFunction != undefined) {
         loggingFunction(positions);
     }
+    addPolygon(positions);
+}
+
+function setPointPosition(lon, lat) {
+    var cartesian = Cesium.Cartesian3.fromDegrees(lon, lat, 0);
+    if (!isDrawPolygon) {
+        billboard.position = cartesian;
+        billboard.show = true;
+        billboard.setEditable();
+    }
+}
+
+function addPolygon(positions) {
     var polygon = new DrawHelper.PolygonPrimitive({
         positions: positions,
         material : new Cesium.Material({
@@ -109,12 +122,16 @@ function listenerPolygon(positions, loggingFunction) {
     scene.primitives.add(polygon);
 }
 
-function setPointPosition(lon, lat) {
-    var cartesian = Cesium.Cartesian3.fromDegrees(lon, lat, 0);
-    if (!isDrawPolygon) {
-        billboard.position = cartesian;
-        billboard.show = true;
+function addPolygonFromGeo(geoJson) {
+    isDrawPolygon = true;
+    var cartesianArray = [];
+    for(var i = 0; i < geoJson.length; i++){
+        var lon = geoJson[i][0];
+        var lat = geoJson[i][1];
+        var cartesian = Cesium.Cartesian3.fromDegrees(lon, lat, 0);
+        cartesianArray.push(cartesian);
     }
+    addPolygon(cartesianArray);
 }
 
 function removeAll(scene) {
