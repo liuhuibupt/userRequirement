@@ -5,6 +5,8 @@ import com.charmingglobe.gr.dao.UserDao;
 import com.charmingglobe.gr.dao.UserRequestDao;
 import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.entity.UserRequest;
+import com.charmingglobe.gr.geo.GeometryTools;
+import com.vividsolutions.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +26,18 @@ public class UserRequestService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private GeometryTools geometryTools;
+
     public void submitService(UserRequest userRequest, int submitterId) {
         User0 submitter = userDao.getUser(submitterId);
 
         String requestCode = getNextRequestCode();
         userRequest.setRequestCode(requestCode);
+
+        String imagingWkt = userRequest.getImagingWkt();
+        Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
+        userRequest.setImagingGeometry(imagingGeometry);
 
         userRequest.setSubmitter(submitter);
         userRequest.setSubmitTime(new Date());

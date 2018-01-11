@@ -1,10 +1,10 @@
 package com.charmingglobe.gr.controller;
 
 import com.charmingglobe.gr.cri.UserRequestCri;
-import com.charmingglobe.gr.dao.UserDao;
 import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.service.UserRequestService;
+import com.vividsolutions.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,9 +65,14 @@ public class UserRequestController {
     @RequestMapping("/userRequest")
     public String viewUserRequest(int userRequestId, Model model) {
         UserRequest userRequest = userRequestService.getUserRequest(userRequestId);
-        User0 submitter = userRequest.getSubmitter();
 
+        User0 submitter = userRequest.getSubmitter();
         model.addAttribute("submitter", submitter);
+
+        Geometry imagingGeometry = userRequest.getImagingGeometry();
+        String imagingGeojson = null;
+        model.addAttribute("imagingGeojson", imagingGeojson);
+
         model.addAttribute("userRequest", userRequest);
         return "user_request";
     }

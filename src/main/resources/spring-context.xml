@@ -19,6 +19,7 @@
 
     <context:component-scan base-package="com.charmingglobe.gr.dao"/>
     <context:component-scan base-package="com.charmingglobe.gr.service"/>
+    <context:component-scan base-package="com.charmingglobe.gr.geo"/>
 
     <context:property-placeholder location="classpath:conf.properties" file-encoding="utf-8"/>
 
