@@ -34,6 +34,7 @@
             <td>${user.displayName}</td>
             <td>${user.role}</td>
             <td>${user.departmentName}</td>
+            <td>${user.lastRequestTime}</td>
             <td>${user.enable}</td>
         </tr>
     </c:forEach>
