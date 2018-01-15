@@ -29,6 +29,30 @@ public class UserRequestService {
     @Autowired
     private GeometryTools geometryTools;
 
+    public void uploadUserRequest(UserRequest userRequest) {
+
+        String imagingWkt = userRequest.getImagingWkt();
+        Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
+        userRequest.setImagingGeometry(imagingGeometry);
+
+        User0 submitter = userDao.getUser(1);
+        userRequest.setSubmitter(submitter);
+
+        userRequest.setRequestFrom("内部需求");
+        userRequest.setRequestType("POINT");
+        userRequest.setImagingType("常规推扫");
+
+        String requestSatellites = userRequest.getRequestSatellites();
+
+        if (null == requestSatellites || "".equals(requestSatellites)) {
+            userRequest.setRequestSatellites("ALL-SATELLITES");
+        }
+        Date timenow = new Date();
+        userRequest.setCreateDate(timenow);
+        userRequest.setUpdateDate(timenow);
+        userRequestDao.saveUserRequest(userRequest);
+    }
+
     public void submitService(UserRequest userRequest, int submitterId) {
         User0 submitter = userDao.getUser(submitterId);
 

@@ -21,18 +21,18 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
     UserDao userDao;
 
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        tryInitAlex();
         tryInitAdmin();
+        tryInitAlex();
     }
 
     private void tryInitAlex() {
-        String username = "Alex";
+        String username = "alex";
         List<User0> userList = userDao.getUser(username);
         if (userList == null || userList.size() == 0) {
             User0 user = new User0();
             user.setUserName(username);
             user.setDisplayName("Alex Pan");
-            user.setPassword("123456.");
+            user.setPassword("123456,");
 
             user.setDepartmentName("数据中心二室");
             user.setRole(UserRole.ROLE_ADMIN);
@@ -44,7 +44,7 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
     }
 
     private void tryInitAdmin() {
-        String username = "Admin";
+        String username = "admin";
         List<User0> userList = userDao.getUser(username);
         if (userList == null || userList.size() == 0) {
             User0 user = new User0();

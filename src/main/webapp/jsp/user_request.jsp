@@ -214,8 +214,8 @@
     </div>
     <div class="four fields">
         <div class="field">
-            <label>Request Code</label>
-            <input type="text" id="requestCode" name="requestCode" placeholder="Request Code" value="${userRequest.requestCode}" readonly>
+            <label>Request ID</label>
+            <input type="text" id="requestId" name="requestId" placeholder="Request ID" value="${userRequest.requestId}" readonly>
         </div>
         <div class="eight wide field">
             <label>Request Name</label>

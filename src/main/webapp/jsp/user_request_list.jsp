@@ -69,7 +69,7 @@ function requestResult(pageNum) {
     <c:forEach items="${resultSet}" var="userRequest">
         <tr>
             <td>${userRequest.num}</td>
-            <td><a href="userRequest?userRequestId=${userRequest.id}">${userRequest.requestCode}</a></td>
+            <td><a href="userRequest?userRequestId=${userRequest.id}">${userRequest.requestId}</a></td>
             <td>${userRequest.requestName}</td>
             <td>${userRequest.requestSatellites}</td>
             <td>${userRequest.requestFrom}</td>
