@@ -31,7 +31,7 @@
     <bean id="dataSourceForReading" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="${datasource_read_url}"/>
-        <property name="username" value="${repl_user}"/>
+        <property name="username" value="${grc_user}"/>
         <property name="password" value="${password}"/>
         <property name="initialSize" value="5" />
         <property name="maxActive" value="100" />
@@ -62,7 +62,7 @@
     <bean id="dataSourceForWriting" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="${datasource_write_url}"/>
-        <property name="username" value="${repl_user}"/>
+        <property name="username" value="${grc_user}"/>
         <property name="password" value="${password}"/>
         <property name="initialSize" value="5" />
         <property name="maxActive" value="100" />
