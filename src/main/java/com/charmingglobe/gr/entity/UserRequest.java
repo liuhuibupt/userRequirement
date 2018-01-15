@@ -18,6 +18,9 @@ public class UserRequest {
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
+    @Transient
+    private int num;
+
     @Column(name = "request_code")
     private String requestCode;
 
@@ -62,12 +65,29 @@ public class UserRequest {
     @Column(name = "comments")
     private String comments;
 
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "create_date")
+    private Date createDate;
+
+    @Column(name = "update_date")
+    private Date updateDate;
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getRequestCode() {
@@ -180,5 +200,29 @@ public class UserRequest {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 }

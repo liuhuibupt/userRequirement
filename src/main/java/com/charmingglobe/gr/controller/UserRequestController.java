@@ -45,6 +45,8 @@ public class UserRequestController {
     public String getUserRequestList(UserRequestCri cri, Model model) {
         List<UserRequest> userRequestList = userRequestService.getUserRequestList(cri);
         model.addAttribute("resultSet", userRequestList);
+
+        model.addAttribute("cri", cri);
         return "user_request_list";
     }
 

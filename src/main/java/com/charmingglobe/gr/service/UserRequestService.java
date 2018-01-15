@@ -41,6 +41,14 @@ public class UserRequestService {
 
         userRequest.setSubmitter(submitter);
         userRequest.setSubmitTime(new Date());
+
+        userRequest.setRequestFrom("内部需求");
+
+        String requestSatellites = userRequest.getRequestSatellites();
+
+        if (null == requestSatellites || "".equals(requestSatellites)) {
+            userRequest.setRequestSatellites("ALL-SATELLITES");
+        }
         userRequestDao.saveUserRequest(userRequest);
     }
 
@@ -49,7 +57,7 @@ public class UserRequestService {
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
         String timestamp = f.format(new Date());
 
-        return "IMG_I_" + timestamp + "_" + (count + 1);
+        return "REQ_IMG_" + timestamp + "_" + (count + 1);
     }
 
     public UserRequest getUserRequest(int userRequestId) {
@@ -57,6 +65,12 @@ public class UserRequestService {
     }
 
     public List<UserRequest> getUserRequestList(UserRequestCri cri) {
-        return userRequestDao.selectUserRequest();
+        List<UserRequest> resultList =  userRequestDao.selectUserRequest();
+        int pageNum = cri.getCurPageNum();
+        int num = 1;
+        for (UserRequest userRequest : resultList) {
+            userRequest.setNum(pageNum * 50 + num++);
+        }
+        return resultList;
     }
 }

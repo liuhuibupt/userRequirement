@@ -24,4 +24,47 @@ public class UserController {
         model.addAttribute("userList", userList);
         return "user_list";
     }
+
+    @RequestMapping("/user")
+    public String viewUser(int userId, Model model) {
+        User0 user = userService.getUser(userId);
+        model.addAttribute("user", user);
+        return "user_form";
+    }
+
+    @RequestMapping("/goRegister")
+    public String goRegister() {
+        return "user_register";
+    }
+
+    @RequestMapping("/registerUser")
+    public String registerUser(User0 user, Model model) {
+        model.addAttribute("user", user);
+        try {
+            userService.registerUser(user);
+            model.addAttribute("user", user);
+            model.addAttribute("success", "true");
+        } catch (Exception e) {
+            model.addAttribute("success", "false");
+            model.addAttribute("errorMessage", e.getMessage());
+        }
+        return "user_register";
+    }
+
+    @RequestMapping("/newUser")
+    public String newUser() {
+        return "user_form";
+    }
+
+    @RequestMapping("/saveUser")
+    public String saveUser(User0 user) {
+        userService.saveUser(user);
+        int userId = user.getId();
+        return "redirect:user?userId=" + userId;
+    }
+
+    public String enableUser(int userId) {
+        userService.setEnable(userId, true);
+        return "redirect:user?userId=" + userId;
+    }
 }

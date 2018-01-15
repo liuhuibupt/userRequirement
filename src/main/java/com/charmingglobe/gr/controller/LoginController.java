@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
 
-    @RequestMapping("/gr_login")
+    @RequestMapping("/grc_login")
     public String gr_login() {
         return "login";
     }

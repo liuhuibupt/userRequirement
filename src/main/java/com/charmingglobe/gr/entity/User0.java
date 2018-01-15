@@ -43,11 +43,14 @@ public class User0 implements UserDetails {
     @Column(name = "dep_name")
     private String departmentName;
 
-    @Column(name = "telephone_num")
-    private String telephoneNum;
+    @Column(name = "cell_num")
+    private String cellNum;
 
     @Column(name = "last_request_time")
     private Date lastRequestTime;
+
+    @Column(name = "is_enable")
+    private boolean isEnable;
 
     @Transient
     private List<GrantedAuthority> grantedAuthorities;
@@ -55,6 +58,10 @@ public class User0 implements UserDetails {
     public User0() {
         grantedAuthorities = new ArrayList<GrantedAuthority>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    public void addAuthority(String authority) {
+        grantedAuthorities.add(new SimpleGrantedAuthority(authority));
     }
 
     public Integer getId() {
@@ -153,11 +160,19 @@ public class User0 implements UserDetails {
         this.departmentName = departmentName;
     }
 
-    public String getTelephoneNum() {
-        return telephoneNum;
+    public String getCellNum() {
+        return cellNum;
     }
 
-    public void setTelephoneNum(String telephoneNum) {
-        this.telephoneNum = telephoneNum;
+    public void setCellNum(String cellNum) {
+        this.cellNum = cellNum;
+    }
+
+    public boolean isEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(boolean enable) {
+        isEnable = enable;
     }
 }

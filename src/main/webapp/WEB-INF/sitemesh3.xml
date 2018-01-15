@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
     <mapping path="/*" decorator="/decorator/main.jsp"/>
-    <mapping path="/gr_login" exclue="true"/>
+    <mapping path="/grc_login" exclue="true"/>
+    <mapping path="/goRegister" exclue="true"/>
+    <mapping path="/registerUser" exclue="true"/>
     <mapping path="/index.jsp" exclue="true"/>
     <mapping path="/webservice" exclue="true"/>
     <mapping path="/webservice/*" exclue="true"/>

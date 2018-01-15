@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,11 +19,17 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Autowired
     UserDao userDao;
+
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails userDetails;
+        User0 userDetails;
         List<User0> users = userDao.getUser(username);
         if (null != users && users.size() > 0) {
             userDetails = users.get(0);
+            String userRole = userDetails.getRole();
+            userDetails.addAuthority(userRole);
+
+            userDetails.setLastRequestTime(new Date());
+            userDao.saveUser(userDetails);
         } else {
             throw new UsernameNotFoundException("no user found");
         }

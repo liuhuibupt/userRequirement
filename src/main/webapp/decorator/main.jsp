@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<%@ taglib uri='http://www.springframework.org/security/tags' prefix='sec' %>
 <c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -68,21 +69,11 @@
         <a href="#" class="item">遥测计划</a>
         <a href="user-list" class="item">用户列表</a>
         <div class="ui simple dropdown item">
-            Dropdown <i class="dropdown icon"></i>
+            <i class="user icon"></i><sec:authentication property="principal.displayName"/>
+            <i class="dropdown icon"></i>
             <div class="menu">
-                <a class="item" href="#">Link Item</a>
-                <a class="item" href="#">Link Item</a>
-                <div class="divider"></div>
-                <div class="header">Header Item</div>
-                <div class="item">
-                    <i class="dropdown icon"></i>
-                    Sub Menu
-                    <div class="menu">
-                        <a class="item" href="#">Link Item</a>
-                        <a class="item" href="#">Link Item</a>
-                    </div>
-                </div>
-                <a class="item" href="#">Link Item</a>
+                <a class="item" href="user?userId=<sec:authentication property="principal.id"/>">账号信息</a>
+                <a class="item" href="grc_logout">Logout</a>
             </div>
         </div>
     </div>

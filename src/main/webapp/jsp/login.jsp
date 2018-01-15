@@ -137,7 +137,7 @@
         </form>
 
         <div class="ui message">
-            New to us? <a href="#">Sign Up</a>
+            没有账户? <a href="goRegister">注册新用户</a>
         </div>
     </div>
 </div>

@@ -38,6 +38,7 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
             user.setRole(UserRole.ROLE_ADMIN);
 
             user.setLastRequestTime(new Date());
+            user.setEnable(true);
             userDao.saveUser(user);
         }
     }
@@ -55,6 +56,7 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
             user.setRole(UserRole.ROLE_ADMIN);
 
             user.setLastRequestTime(new Date());
+            user.setEnable(true);
             userDao.saveUser(user);
         }
     }

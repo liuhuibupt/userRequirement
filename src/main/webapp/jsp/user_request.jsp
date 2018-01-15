@@ -255,7 +255,6 @@
                 <label>Request Satellites</label>
                 <div class="ui fluid dropdown selection multiple" tabindex="0">
                     <select id="requestSatellites" name="requestSatellites" multiple="">
-                        <option value="ALL-SATELLITE"></option>
                         <option value="JL101A" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101A')}">selected</c:if>>光学A星</option>
                         <option value="JL101B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101B')}">selected</c:if>>视频01星</option>
                         <option value="JL102B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL102B')}">selected</c:if>>视频02星</option>

@@ -30,15 +30,18 @@
     <security:http pattern="/webservice/**" security="none" />
     <security:http pattern="/thumbs/**" security="none" />
     <security:http pattern="/upload*" security="none" />
+    <security:http pattern="/goRegister*" security="none" />
+    <security:http pattern="/registerUser*" security="none" />
     <security:http auto-config="true">
-        <security:intercept-url pattern="/gr_login*" access="permitAll"/>
+        <security:intercept-url pattern="/grc_login*" access="permitAll"/>
         <security:intercept-url pattern="/fonts/**" access="permitAll"/>
         <security:intercept-url pattern="/css/**" access="permitAll"/>
         <security:intercept-url pattern="/js/**" access="permitAll"/>
         <security:intercept-url pattern="/images/**" access="permitAll"/>
         <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
-        <security:form-login login-page="/gr_login" authentication-failure-url="/gr_login?error=true"/>
-        <security:logout logout-success-url="/gr_login"/>
+        <security:form-login login-page="/grc_login" authentication-failure-url="/grc_login?error=true"/>
+        <security:logout logout-url="/grc_logout" logout-success-url="/grc_login" invalidate-session="true"/>
+        <security:csrf disabled="true"/>
     </security:http>
 
     <security:authentication-manager>
