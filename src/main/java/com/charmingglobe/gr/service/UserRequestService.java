@@ -33,7 +33,7 @@ public class UserRequestService {
         User0 submitter = userDao.getUser(submitterId);
 
         String requestCode = getNextRequestCode();
-        userRequest.setRequestCode(requestCode);
+        userRequest.setRequestId(requestCode);
 
         String imagingWkt = userRequest.getImagingWkt();
         Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
