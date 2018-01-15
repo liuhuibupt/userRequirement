@@ -7,4 +7,10 @@
 		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <jaxws:server address="/userRequest" name="userRequest">
+        <jaxws:serviceBean>
+            <bean class="com.charmingglobe.gr.webservice.UserRequestWebService"/>
+        </jaxws:serviceBean>
+    </jaxws:server>
 </beans>

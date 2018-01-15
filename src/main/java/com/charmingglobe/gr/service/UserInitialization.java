@@ -31,7 +31,7 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
         if (userList == null || userList.size() == 0) {
             User0 user = new User0();
             user.setUserName(username);
-            user.setDepartmentName("Alex Pan");
+            user.setDisplayName("Alex Pan");
             user.setPassword("123456.");
 
             user.setDepartmentName("数据中心二室");
@@ -49,7 +49,7 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
         if (userList == null || userList.size() == 0) {
             User0 user = new User0();
             user.setUserName(username);
-            user.setDepartmentName("ADMIN");
+            user.setDisplayName("ADMIN");
             user.setPassword("admin");
 
             user.setDepartmentName("数据中心二室");

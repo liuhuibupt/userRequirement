@@ -207,7 +207,11 @@
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <div class="ui error message">
     </div>
-
+    <div class="two fields">
+        <div class="field">
+            <div class="ui mini blue message">需求状态：等待规划</div>
+        </div>
+    </div>
     <div class="four fields">
         <div class="field">
             <label>Request Code</label>
