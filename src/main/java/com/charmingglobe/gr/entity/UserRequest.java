@@ -21,8 +21,8 @@ public class UserRequest {
     @Transient
     private int num;
 
-    @Column(name = "request_code")
-    private String requestCode;
+    @Column(name = "request_id")
+    private String requestId;
 
     @Column(name = "request_name")
     private String requestName;
@@ -90,12 +90,12 @@ public class UserRequest {
         this.num = num;
     }
 
-    public String getRequestCode() {
-        return requestCode;
+    public String getRequestId() {
+        return requestId;
     }
 
-    public void setRequestCode(String requestCode) {
-        this.requestCode = requestCode;
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     public String getRequestName() {
