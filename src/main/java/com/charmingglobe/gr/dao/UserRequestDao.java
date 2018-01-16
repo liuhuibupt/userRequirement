@@ -65,7 +65,7 @@ public class UserRequestDao {
     public List<UserRequest> selectUserRequest(UserRequestCri cri) {
         Session session = sessionFactoryForReading.getCurrentSession();
         String where = getSelectUserRequestSqlWhere(cri);
-        String orderby = " order by submitTime asc";
+        String orderby = getSelectUserRequestSqlOrderby(cri);
         Query query = session.createQuery("from UserRequest " + where + orderby);
 
         int pageNum = cri.getCurPageNum();
@@ -80,7 +80,56 @@ public class UserRequestDao {
 
     private String getSelectUserRequestSqlWhere(UserRequestCri cri) {
         String where = "where 1=1 ";
+        Date dateStart = cri.getDateStart();
+        if (null != dateStart) {
+            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
+            where += " and submitTime > '" + f.format(dateStart) + "' ";
+        }
+        Date dateEnd = cri.getDateEnd();
+        if (null != dateEnd) {
+            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+            where += " and submitTime < '" + f.format(dateEnd) + "' ";
+        }
+
+        String requestSatellite = cri.getRequestSatellite();
+        if (null != requestSatellite && !"".equals(requestSatellite)) {
+            where += " and requestSatellites = '" + requestSatellite + "' ";
+        }
+
+        String imagingMode = cri.getImagingMode();
+        if (null != imagingMode && !"".equals(imagingMode)) {
+            where += " and imagingMode = '" + imagingMode + "' ";
+        }
+
+        String requestName = cri.getRequestName();
+        if (null != requestName && !"".equals(requestName)) {
+            where += " and requestName like '%" + requestName + "%' ";
+        }
+
+        String keyword = cri.getKeyword();
+        if (null != keyword && !"".equals(keyword)) {
+            where += " and keyword like '%" + keyword + "%' ";
+        }
 
         return where;
+    }
+
+    private String getSelectUserRequestSqlOrderby(UserRequestCri cri) {
+        String orderby = " order by ";
+        String mode = cri.getOrderby();
+
+        if (null != mode && !"".equals(mode)) {
+            if ("submitTimeAsc".equals(mode)) {
+                orderby += "submitTime asc";
+            }
+
+            if ("submitTimeDesc".equals(mode)) {
+                orderby += "submitTime desc";
+            }
+        } else {
+            orderby += "submitTime asc";
+        }
+
+        return orderby;
     }
 }

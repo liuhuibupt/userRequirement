@@ -40,7 +40,7 @@ public class UserRequestService {
 
         userRequest.setRequestFrom("内部需求");
         userRequest.setRequestType("POINT");
-        userRequest.setImagingType("常规推扫");
+        userRequest.setImagingMode("常规推扫");
 
         String requestSatellites = userRequest.getRequestSatellites();
 

@@ -49,8 +49,8 @@ public class UserRequest {
     @Column(name = "request_end")
     private Date requestEnd;
 
-    @Column(name = "imaging_type")
-    private String imagingType;
+    @Column(name = "imaging_mode")
+    private String imagingMode;
 
     @Column(name = "imaging_wkt")
     private String imagingWkt;
@@ -162,12 +162,12 @@ public class UserRequest {
         this.requestEnd = requestEnd;
     }
 
-    public String getImagingType() {
-        return imagingType;
+    public String getImagingMode() {
+        return imagingMode;
     }
 
-    public void setImagingType(String imagingType) {
-        this.imagingType = imagingType;
+    public void setImagingMode(String imagingMode) {
+        this.imagingMode = imagingMode;
     }
 
     public String getImagingWkt() {
