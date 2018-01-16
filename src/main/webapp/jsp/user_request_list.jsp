@@ -48,9 +48,9 @@ function requestResult(pageNum) {
                     <input id="keyword" placeholder="Keyword" type="text">
                 </div>
             </div>
-            <div class="two fields">
+            <div class="eight fields">
                 <div class="field">
-                    <label>需求名称</label>
+                    <label>选择卫星</label>
                     <div class="ui fluid dropdown selection" tabindex="0">
                         <select id="requestSatellites" name="requestSatellites" multiple="">
                             <option value="JL101A" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101A')}">selected</c:if>>光学A星</option>
@@ -77,12 +77,8 @@ function requestResult(pageNum) {
                         </div>
                     </div>
                 </div>
-                <div class="field">
-                    <label>关键字</label>
-                    <input id="keyword" placeholder="Keyword" type="text">
-                </div>
             </div>
-            <a class="ui submit button" href="javascript:requestResult(0)">Search</a>
+            <a class="ui teal submit button" href="javascript:requestResult(0)">Search</a>
         </div>
     </div>
 </div>
