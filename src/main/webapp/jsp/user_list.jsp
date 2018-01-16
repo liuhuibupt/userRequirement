@@ -23,6 +23,7 @@
         <th>Display Name</th>
         <th width="10%">User Role</th>
         <th width="10%">Department Name</th>
+        <th width="15%">Last Request Time</th>
         <th width="10%">Enable</th>
     </tr>
     </thead>
@@ -34,7 +35,7 @@
             <td>${user.displayName}</td>
             <td>${user.role}</td>
             <td>${user.departmentName}</td>
-            <td>${user.lastRequestTime}</td>
+            <td><fmt:formatDate value="${user.lastRequestTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
             <td>${user.enable}</td>
         </tr>
     </c:forEach>

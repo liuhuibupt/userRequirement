@@ -128,9 +128,8 @@
             <c:if test="${'true' eq param.error}">
                 <div class="ui message submit_error ">
                     <ul class="list">
-                        <li> Invalid username or password</li>
+                        <li> ${SPRING_SECURITY_LAST_EXCEPTION.message}</li>
                     </ul>
-
                 </div>
             </c:if>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

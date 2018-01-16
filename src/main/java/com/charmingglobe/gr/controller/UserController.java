@@ -3,10 +3,18 @@ package com.charmingglobe.gr.controller;
 import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +25,14 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @InitBinder
+    public void InitBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, null, new CustomDateEditor(
+                dateFormat, true));
+    }
 
     @RequestMapping("/user-list")
     public String listUsers(Model model) {
@@ -29,6 +45,9 @@ public class UserController {
     public String viewUser(int userId, Model model) {
         User0 user = userService.getUser(userId);
         model.addAttribute("user", user);
+
+        UserDetails author = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        model.addAttribute("author", author);
         return "user_form";
     }
 
@@ -63,8 +82,15 @@ public class UserController {
         return "redirect:user?userId=" + userId;
     }
 
+    @RequestMapping("/enableUser")
     public String enableUser(int userId) {
         userService.setEnable(userId, true);
+        return "redirect:user?userId=" + userId;
+    }
+
+    @RequestMapping("/disableUser")
+    public String disableUser(int userId) {
+        userService.setEnable(userId, false);
         return "redirect:user?userId=" + userId;
     }
 }

@@ -1,5 +1,6 @@
 package com.charmingglobe.gr.dao;
 
+import com.charmingglobe.gr.cri.UserRequestCri;
 import com.charmingglobe.gr.entity.UserRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,13 +27,6 @@ public class UserRequestDao {
     @Qualifier("sessionFactoryForReading")
     private SessionFactory sessionFactoryForReading;
 
-    public List<UserRequest> selectUserRequest() {
-        Session session = sessionFactoryForReading.getCurrentSession();
-        Query query = session.createQuery("from UserRequest where 1=1 order by id asc");
-        List<UserRequest> list = query.list();
-        return list;
-    }
-
     public UserRequest getUserRequest(int id) {
         Session session = sessionFactoryForReading.getCurrentSession();
         UserRequest entity = session.get(UserRequest.class, id);
@@ -51,5 +45,42 @@ public class UserRequestDao {
         int count = ((Long) query.uniqueResult()).intValue();
 
         return count;
+    }
+
+    public List<UserRequest> selectUserRequest() {
+        Session session = sessionFactoryForReading.getCurrentSession();
+        Query query = session.createQuery("from UserRequest where 1=1 order by id asc");
+        List<UserRequest> list = query.list();
+        return list;
+    }
+
+    public int countUserRequest(UserRequestCri cri) {
+        Session session = sessionFactoryForReading.getCurrentSession();
+        String where = getSelectUserRequestSqlWhere(cri);
+        Query query = session.createQuery("select count(*) from UserRequest " + where);
+        int a = ((Long) query.uniqueResult()).intValue();
+        return a;
+    }
+
+    public List<UserRequest> selectUserRequest(UserRequestCri cri) {
+        Session session = sessionFactoryForReading.getCurrentSession();
+        String where = getSelectUserRequestSqlWhere(cri);
+        String orderby = " order by submitTime asc";
+        Query query = session.createQuery("from UserRequest " + where + orderby);
+
+        int pageNum = cri.getCurPageNum();
+        int maxResult = cri.getMaxResult();
+        int beginIndex = pageNum * maxResult;
+        query.setFirstResult(beginIndex);
+        query.setMaxResults(maxResult);
+        List<UserRequest> list = query.list();
+
+        return list;
+    }
+
+    private String getSelectUserRequestSqlWhere(UserRequestCri cri) {
+        String where = "where 1=1 ";
+
+        return where;
     }
 }

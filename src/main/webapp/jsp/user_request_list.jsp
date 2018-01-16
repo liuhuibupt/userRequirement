@@ -51,12 +51,12 @@ function requestResult(pageNum) {
         </div>
     </div>
 </div>
-<div class="ui mini blue message">共检索1024条记录</div>
+<div class="ui mini blue message">共检索${cri.resultCount}条记录</div>
 <table class="ui celled table">
     <thead>
     <tr>
         <th width="5%">No.</th>
-        <th width="12%">需求代码</th>
+        <th width="15%">需求代码</th>
         <th>需求名称</th>
         <th width="10%">Satellite</th>
         <th width="10%">From</th>

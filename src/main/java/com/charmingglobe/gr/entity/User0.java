@@ -113,7 +113,7 @@ public class User0 implements UserDetails {
     }
 
     public boolean isEnabled() {
-        return true;
+        return this.isEnable;
     }
 
     public void setPassword(String password) {

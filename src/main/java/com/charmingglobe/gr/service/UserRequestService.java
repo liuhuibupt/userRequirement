@@ -89,12 +89,32 @@ public class UserRequestService {
     }
 
     public List<UserRequest> getUserRequestList(UserRequestCri cri) {
-        List<UserRequest> resultList =  userRequestDao.selectUserRequest();
+        int maxResult = 50;
+        cri.setMaxResult(50);
+
         int pageNum = cri.getCurPageNum();
+        if (pageNum < 0) {
+            pageNum = 0;
+            cri.setCurPageNum(pageNum);
+        }
+
+        int resultCount = new Long(userRequestDao.countUserRequest(cri)).intValue();
+        int totalPageNum = resultCount % maxResult == 0 ? resultCount / maxResult : resultCount / maxResult + 1;
+        if (pageNum > totalPageNum) {
+            pageNum = totalPageNum;
+            cri.setCurPageNum(totalPageNum);
+        }
+
+        cri.setTotalPageNum(totalPageNum);
+        cri.setResultCount(resultCount);
+
+        List<UserRequest> resultList =  userRequestDao.selectUserRequest(cri);
+
         int num = 1;
         for (UserRequest userRequest : resultList) {
-            userRequest.setNum(pageNum * 50 + num++);
+            userRequest.setNum(pageNum * maxResult + num++);
         }
+
         return resultList;
     }
 }

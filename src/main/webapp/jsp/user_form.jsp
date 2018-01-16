@@ -135,10 +135,10 @@ $(document).ready(function () {
         </div>
     </div>
     <div class="three fields">
-        <div class="field">
+        <div class="<sec:authorize access="not hasRole('ROLE_ADMIN')">disabled</sec:authorize> field">
             <label>Department Name</label>
             <div class="ui fluid dropdown selection" tabindex="0">
-                <select id="departmentName" name="departmentName">
+                <select id="departmentName" name="departmentName" >
                     <option value=""></option>
                     <option value="市场部" <c:if test="${user.departmentName == '市场部'}">selected</c:if>>ROLE_DEV</option>
                     <option value="数据中心一室" <c:if test="${user.departmentName == '数据中心一室'}">selected</c:if>>数据中心一室</option>
@@ -158,7 +158,7 @@ $(document).ready(function () {
         </div>
     </div>
     <div class="three fields">
-        <div class="field">
+        <div class="<sec:authorize access="not hasRole('ROLE_ADMIN')">disabled</sec:authorize> field">
             <label>User Role</label>
             <div class="ui fluid dropdown selection" tabindex="0">
                 <select id="role" name="role">
@@ -177,6 +177,13 @@ $(document).ready(function () {
         </div>
     </div>
     <div class="three fields">
+    <div class="field">
+        <label>Last Request Time</label>
+        <input type="text" readonly value="<fmt:formatDate value="${user.lastRequestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>">
+        <input type="hidden" name="lastRequestTime" value="<fmt:formatDate value="${user.lastRequestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>">
+    </div>
+    </div>
+    <div class="three fields">
         <div class="field">
             <label>Cell Number</label>
             <input type="text" id="cellNum" name="cellNum" placeholder="Cell Number" value="${user.cellNum}">
@@ -184,20 +191,27 @@ $(document).ready(function () {
     </div>
     <div class="field">
         <div class="sixteen fields">
-            <c:if test="${principal.id eq user.id}">
+            <c:if test="${author.id eq user.id}">
                 <div class="field">
                     <input class="ui teal submit button" type="submit" value="Save User">
                 </div>
             </c:if>
-            <c:if test="${principal.id != user.id}">
+            <c:if test="${author.id != user.id}">
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <div class="field">
-                    <input class="ui teal submit button" type="submit" value="Save User">
-                </div>
+                    <input class="ui blue submit button" type="submit" value="Save User">
+                </div></sec:authorize>
             </c:if>
             <c:if test="${user.enable == false}">
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <div class="field">
                         <a class="ui teal submit button" href="enableUser?userId=${user.id}">Enable User</a>
+                    </div></sec:authorize>
+            </c:if>
+            <c:if test="${user.enable == true}">
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <div class="field">
+                        <a class="ui teal submit button" href="disableUser?userId=${user.id}">Enable User</a>
                     </div></sec:authorize>
             </c:if>
         </div>

@@ -46,6 +46,11 @@
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider user-service-ref="myUserDetailService" />
+        <security:authentication-provider ref="authenticationProvider" />
     </security:authentication-manager>
+
+    <bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="myUserDetailService"/>
+        <property name="hideUserNotFoundExceptions" value="false" />
+    </bean>
 </beans>

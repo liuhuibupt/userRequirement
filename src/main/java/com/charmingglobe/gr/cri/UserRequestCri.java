@@ -9,6 +9,8 @@ public class UserRequestCri {
 
     private int totalPageNum;
 
+    private int maxResult;
+
     private int resultCount;
 
     private String requestName;
@@ -29,6 +31,14 @@ public class UserRequestCri {
 
     public void setTotalPageNum(int totalPageNum) {
         this.totalPageNum = totalPageNum;
+    }
+
+    public int getMaxResult() {
+        return maxResult;
+    }
+
+    public void setMaxResult(int maxResult) {
+        this.maxResult = maxResult;
     }
 
     public int getResultCount() {
