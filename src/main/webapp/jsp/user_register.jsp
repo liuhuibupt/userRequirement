@@ -266,7 +266,7 @@
                 <div class="ui mini teal message" id="departmentNameHint">
                     <div class="header">请选择您所在的部门，之后将不能修改</div>
                 </div>
-                <div class="field">
+                <div class="disabled field">
                     <label>User Role</label>
                     <div class="ui fluid dropdown selection" tabindex="0"  id="roleDiv">
                         <select id="role" name="role">
