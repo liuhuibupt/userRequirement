@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri='http://www.springframework.org/security/tags' prefix='sec' %>
+
 <c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
@@ -364,11 +366,19 @@
         </div>
     </div>
     <div class="field">
-        <div class="two fields">
-            <div class="field">
-                <c:if test="${userRequest == null}"><input class="ui teal submit button" type="submit" value="Submit Request">
-                </c:if>
-            </div>
+        <div class="sixteen fields">
+            <c:if test="${userRequest == null}"><div class="field">
+                <input class="ui teal submit button" type="submit" value="Submit Request">
+            </div></c:if>
+            <c:if test="${author.id eq submitter.id}"><div class="field">
+                <a class="ui teal submit button"  href="cancelUserRequest?userRequestId=${userRequest.id}">Cancel Request</a>
+            </div></c:if>
+            <c:if test="${author.id != submitter.id}"><sec:authorize access="hasRole('ROLE_ADMIN')"><div class="field">
+                <a class="ui blue submit button"  href="cancelUserRequest?userRequestId=${userRequest.id}">Cancel Request</a>
+            </div></sec:authorize></c:if>
+            <sec:authorize access="hasRole('ROLE_ADMIN')"><div class="field">
+                <a class="ui red submit button"  href="deleteUserRequest?userRequestId=${userRequest.id}">Delete Request</a>
+            </div></sec:authorize>
         </div>
     </div>
 </form>

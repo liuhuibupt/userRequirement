@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
 <title>用户需求</title>
@@ -41,6 +42,40 @@ function requestResult(pageNum) {
                 <div class="field">
                     <label>需求名称</label>
                     <input id="requestName" placeholder="Request Name" type="text">
+                </div>
+                <div class="field">
+                    <label>关键字</label>
+                    <input id="keyword" placeholder="Keyword" type="text">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>需求名称</label>
+                    <div class="ui fluid dropdown selection" tabindex="0">
+                        <select id="requestSatellites" name="requestSatellites" multiple="">
+                            <option value="JL101A" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101A')}">selected</c:if>>光学A星</option>
+                            <option value="JL101B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101B')}">selected</c:if>>视频01星</option>
+                            <option value="JL102B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL102B')}">selected</c:if>>视频02星</option>
+                            <option value="JL103B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL103B')}">selected</c:if>>视频03星</option>
+                            <option value="JL104B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL104B')}">selected</c:if>>视频04星</option>
+                            <option value="JL105B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL105B')}">selected</c:if>>视频05星</option>
+                            <option value="JL106B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL106B')}">selected</c:if>>视频06星</option>
+                            <option value="JL107B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL107B')}">selected</c:if>>视频07星</option>
+                            <option value="JL108B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL108B')}">selected</c:if>>视频08星</option>
+                        </select><i class="dropdown icon"></i>
+                        <div class="default text">All Satellites</div>
+                        <div class="menu transition hidden" tabindex="-1">
+                            <div class="item" data-value="JL101A">光学A星</div>
+                            <div class="item" data-value="JL101B">视频01星</div>
+                            <div class="item" data-value="JL102B">视频02星</div>
+                            <div class="item" data-value="JL103B">视频03星</div>
+                            <div class="item" data-value="JL104B">视频04星</div>
+                            <div class="item" data-value="JL105B">视频05星</div>
+                            <div class="item" data-value="JL106B">视频06星</div>
+                            <div class="item" data-value="JL107B">视频07星</div>
+                            <div class="item" data-value="JL108B">视频08星</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="field">
                     <label>关键字</label>

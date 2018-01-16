@@ -79,6 +79,9 @@ public class UserRequestController {
         model.addAttribute("imagingGeojson", imagingGeojson);
 
         model.addAttribute("userRequest", userRequest);
+
+        UserDetails author = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        model.addAttribute("author", author);
         return "user_request";
     }
 }
