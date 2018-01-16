@@ -213,7 +213,7 @@
     </div>
     <div class="two fields">
         <div class="field">
-            <div class="ui mini blue message">需求状态：等待规划</div>
+            <div class="ui mini blue message">需求状态: ${userRequest.status}</div>
         </div>
     </div>
     <div class="four fields">

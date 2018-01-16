@@ -86,7 +86,6 @@
                     <div class="header">User Requirements</div>
                     <div class="menu">
                         <a class="item" href="userRequest-list" >全部需求</a>
-                        <a class="item">我的需求</a>
                         <a class="item" href="userRequest-submit">新建需求</a>
                     </div>
                 </div>

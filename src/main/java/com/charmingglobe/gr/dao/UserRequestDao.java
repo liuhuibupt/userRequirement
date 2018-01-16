@@ -127,7 +127,7 @@ public class UserRequestDao {
                 orderby += "submitTime desc";
             }
         } else {
-            orderby += "submitTime asc";
+            orderby += "submitTime desc";
         }
 
         return orderby;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @RequestMapping("/grc_login")
-    public String gr_login() {
+    public String grc_login() {
         return "login";
     }
 

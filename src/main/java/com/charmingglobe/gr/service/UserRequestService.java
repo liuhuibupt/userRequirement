@@ -41,6 +41,7 @@ public class UserRequestService {
         userRequest.setRequestFrom("内部需求");
         userRequest.setRequestType("POINT");
         userRequest.setImagingMode("常规推扫");
+        userRequest.setStatus("历史需求");
 
         String requestSatellites = userRequest.getRequestSatellites();
 
@@ -67,6 +68,7 @@ public class UserRequestService {
         userRequest.setSubmitTime(new Date());
 
         userRequest.setRequestFrom("内部需求");
+        userRequest.setStatus("等待规划");
 
         String requestSatellites = userRequest.getRequestSatellites();
 
@@ -80,8 +82,7 @@ public class UserRequestService {
         int count = userRequestDao.countUserRequestByDate(new Date());
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
         String timestamp = f.format(new Date());
-
-        return "REQ_IMG_" + timestamp + "_" + (count + 1);
+        return "REQ_IMG_" + timestamp + "_" + (new String(10001 + count+ "").substring(1, 5));
     }
 
     public UserRequest getUserRequest(int userRequestId) {

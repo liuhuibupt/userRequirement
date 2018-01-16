@@ -166,6 +166,12 @@ function requestResult(pageNum) {
                     </div>
                 </div>
             </div>
+            <div class="inline field">
+                <div class="ui checkbox">
+                    <input type="checkbox" class="hidden">
+                    <label>仅显示我的需求</label>
+                </div>
+            </div>
             <a class="ui teal submit button" href="javascript:requestResult(0)">Search</a>
         </div>
     </div>
@@ -197,8 +203,8 @@ function requestResult(pageNum) {
             <td>${userRequest.imagingMode}</td>
             <td>${userRequest.requestFrom}</td>
             <td>${userRequest.submitter.displayName}</td>
-            <td>${userRequest.submitTime}</td>
-            <td>Status</td>
+            <td><fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td>${userRequest.status}</td>
         </tr>
     </c:forEach>
     <tfoot>
