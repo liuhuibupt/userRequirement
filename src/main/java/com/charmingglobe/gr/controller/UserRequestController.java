@@ -62,7 +62,7 @@ public class UserRequestController {
 
     @RequestMapping("/submitUserRequest")
     public String submitUserRequest(UserRequest userRequest, int submitterId) {
-        userRequestService.submitService(userRequest, submitterId);
+        userRequestService.submitUserRequest(userRequest, submitterId);
         int userRequestId = userRequest.getId();
         return "redirect:userRequest?userRequestId=" + userRequestId;
     }
@@ -83,5 +83,11 @@ public class UserRequestController {
         UserDetails author = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
         model.addAttribute("author", author);
         return "user_request";
+    }
+
+    @RequestMapping("/cancelUserRequest")
+    public String cancelUserRequest(int userRequestId) {
+        userRequestService.cancelUserRequest(userRequestId);
+        return "redirect:userRequest?userRequestId=" + userRequestId;
     }
 }

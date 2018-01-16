@@ -54,7 +54,11 @@ public class UserRequestService {
         userRequestDao.saveUserRequest(userRequest);
     }
 
-    public void submitService(UserRequest userRequest, int submitterId) {
+    public void cancelUserRequest(int userRequestId) {
+        userRequestDao.saveUserRequest(userRequestId, "Cancelled");
+    }
+
+    public void submitUserRequest(UserRequest userRequest, int submitterId) {
         User0 submitter = userDao.getUser(submitterId);
 
         String requestCode = getNextRequestCode();

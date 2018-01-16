@@ -38,6 +38,15 @@ public class UserRequestDao {
         session.saveOrUpdate(userRequest);
     }
 
+    public void saveUserRequest(int uerRequestId, String status) {
+        Session session = sessionFactoryForWriting.getCurrentSession();
+        UserRequest userRequest = session.get(UserRequest.class, uerRequestId);
+        if (null != userRequest) {
+            userRequest.setStatus(status);
+            session.update(userRequest);
+        }
+    }
+
     public int countUserRequestByDate(Date date) {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
         Session session = sessionFactoryForReading.getCurrentSession();
