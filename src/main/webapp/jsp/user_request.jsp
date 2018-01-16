@@ -166,6 +166,8 @@
         if (type == "Point") {
             var lon = geoJson.coordinates[0];
             var lat = geoJson.coordinates[1];
+            $('#requestType_point').show();
+            loggingMark(lon, lat);
             setPointPosition(lon, lat);
         }else if (type == "Polygon") {
             addPolygonFromGeo(geoJson.coordinates[0]);
