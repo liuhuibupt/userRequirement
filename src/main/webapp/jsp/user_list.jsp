@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri='http://www.springframework.org/security/tags' prefix='sec' %>
 <html>
 <head>
     <title>用户列表</title>
@@ -8,6 +9,7 @@
 <body>
 <h2 class="ui header">用户列表</h2>
 <div class="ui divider"></div>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <div class="field">
     <div class="two fields">
         <div class="field">
@@ -15,6 +17,7 @@
         </div>
     </div>
 </div>
+</sec:authorize>
 <table class="ui celled table">
     <thead>
     <tr>
