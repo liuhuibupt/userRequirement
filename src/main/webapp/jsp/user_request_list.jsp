@@ -93,11 +93,13 @@ function requestResult(pageNum) {
         <th width="5%">No.</th>
         <th width="15%">需求代码</th>
         <th>需求名称</th>
-        <th width="10%">Satellite</th>
+        <th width="7%">Satellite</th>
+        <th width="7%">需求类型</th>
+        <th width="7%">成像模式</th>
         <th width="10%">From</th>
         <th width="10%">提交者</th>
-        <th width="20%">提交时间</th>
-        <th width="10%">状态</th>
+        <th width="15%">提交时间</th>
+        <th width="5%">状态</th>
     </tr>
     </thead>
     <tbody>
@@ -107,6 +109,8 @@ function requestResult(pageNum) {
             <td><a href="userRequest?userRequestId=${userRequest.id}">${userRequest.requestId}</a></td>
             <td>${userRequest.requestName}</td>
             <td>${userRequest.requestSatellites}</td>
+            <td>${userRequest.requestType}</td>
+            <td>${userRequest.imagingType}</td>
             <td>${userRequest.requestFrom}</td>
             <td>${userRequest.submitter.displayName}</td>
             <td>${userRequest.submitTime}</td>
