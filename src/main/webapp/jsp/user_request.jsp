@@ -300,11 +300,13 @@
                     <select id="imagingMode" name="imagingMode">
                         <option value=""></option>
                         <option value="常规推扫" <c:if test="${userRequest.imagingMode == '常规推扫'}">selected</c:if>>常规推扫</option>
+                        <option value="反向推扫" <c:if test="${userRequest.imagingMode == '反向推扫'}">selected</c:if>>反向推扫</option>
                         <option value="凝视视频" <c:if test="${userRequest.imagingMode == '凝视视频'}">selected</c:if>>凝视视频</option>
                     </select><i class="dropdown icon"></i>
                     <div class="default text">Imaging Mode</div>
                     <div class="menu transition hidden" tabindex="-1">
                         <div class="item" data-value="常规推扫">常规推扫</div>
+                        <div class="item" data-value="反向推扫">反向推扫</div>
                         <div class="item" data-value="凝视视频">凝视视频</div>
                     </div>
                 </div>
