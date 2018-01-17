@@ -1,12 +1,15 @@
 package com.charmingglobe.gr.dao;
 
 import com.charmingglobe.gr.cri.UserRequestCri;
+import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.entity.UserRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -118,6 +121,12 @@ public class UserRequestDao {
         String keyword = cri.getKeyword();
         if (null != keyword && !"".equals(keyword)) {
             where += " and keyword like '%" + keyword + "%' ";
+        }
+
+        boolean onlyme = cri.isOnlyme();
+        if (onlyme) {
+            User0 me = (User0) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+            where += " and submitter.id = " + me.getId();
         }
 
         return where;

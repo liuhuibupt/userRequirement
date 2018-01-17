@@ -29,6 +29,8 @@ public class UserRequestCri {
 
     private String orderby;
 
+    private boolean onlyme;
+
     public int getCurPageNum() {
         return curPageNum;
     }
@@ -115,5 +117,13 @@ public class UserRequestCri {
 
     public void setOrderby(String orderby) {
         this.orderby = orderby;
+    }
+
+    public boolean isOnlyme() {
+        return onlyme;
+    }
+
+    public void setOnlyme(boolean onlyme) {
+        this.onlyme = onlyme;
     }
 }

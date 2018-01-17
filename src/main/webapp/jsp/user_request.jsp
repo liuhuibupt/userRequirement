@@ -92,6 +92,8 @@
 
         $('#requestType').change(function () {
             $('#requestType_point').hide();
+            $('#imagingWkt').attr("readonly", "readonly");
+            $('#imagingWkt').val("");
 
             var val = $(this).val();
             if (val == 'POINT') {
@@ -104,6 +106,9 @@
             if (val == 'REPEATED-POINT') {
                 $('#requestType_point').show();
                 drawPoint(loggingMark);
+            }
+            if (val == 'IN-SPACE') {
+                $('#imagingWkt').removeAttr('readonly');
             }
         });
 
@@ -250,12 +255,14 @@
                         <option value="POINT" <c:if test="${userRequest.requestType == 'POINT'}">selected</c:if>>点目标</option>
                         <option value="AREA" <c:if test="${userRequest.requestType == 'AREA'}">selected</c:if>>大区域</option>
                         <option value="REPEATED-POINT" <c:if test="${userRequest.requestType == 'REPEATED-POINT'}">selected</c:if>>单点多次</option>
+                        <option value="IN-SPACE" <c:if test="${userRequest.requestType == 'IN-SPACE'}">selected</c:if>>惯性空间</option>
                     </select><i class="dropdown icon"></i>
                     <div class="default text">Request Type</div>
                     <div class="menu transition hidden" tabindex="-1">
                         <div class="item" data-value="POINT">点目标</div>
                         <div class="item" data-value="AREA">大区域</div>
                         <div class="item" data-value="REPEATED-POINT">单点多次</div>
+                        <div class="item" data-value="IN-SPACE">惯性空间</div>
                     </div>
                 </div>
             </div>

@@ -12,9 +12,7 @@
 <script>
 $(document).ready(function() {
     $('.ui.selection.dropdown').dropdown();
-    $('.ui.menu .ui.dropdown').dropdown({
-        on: 'hover'
-    });
+    $('.ui.checkbox').checkbox();
 
     $('#dateStartDiv').calendar({
         type: 'date'
@@ -62,6 +60,10 @@ function requestResult(pageNum) {
     var orderby = $("#orderby").val();
     if ('' != orderby) {
         locationHref += "&orderby=" + orderby;
+    }
+
+    if  ($("#onlyme").prop('checked')) {
+        locationHref += '&onlyme=true';
     }
 
     window.location.href = locationHref;
@@ -168,8 +170,8 @@ function requestResult(pageNum) {
             </div>
             <div class="inline field">
                 <div class="ui checkbox">
-                    <input type="checkbox" class="hidden">
-                    <label>仅显示我的需求</label>
+                    <input type="checkbox" class="hidden" id="onlyme" name="onlyme" value="true" <c:if test="${cri.onlyme == true}">checked</c:if>>
+                    <label style="font-size: 0.75rem">仅显示我的需求</label>
                 </div>
             </div>
             <a class="ui teal submit button" href="javascript:requestResult(0)">Search</a>
@@ -209,7 +211,7 @@ function requestResult(pageNum) {
     </c:forEach>
     <tfoot>
     <tr>
-        <th colspan="8">
+        <th colspan="10">
             <div class="ui left floated pagination menu">
                 <a class="icon item"  href="javascript:requestResult(${cri.curPageNum - 1})">
                     <i class="left chevron icon"></i>
