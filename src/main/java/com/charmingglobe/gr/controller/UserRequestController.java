@@ -69,7 +69,6 @@ public class UserRequestController {
         do {
             Thread.sleep(200);
             count++;
-            System.out.println("check to replica[count=" + count + "");
             replica = userRequestService.getUserRequest(userRequestId);
             if (count > 10)
                 return "error";
@@ -96,8 +95,9 @@ public class UserRequestController {
     }
 
     @RequestMapping("/cancelUserRequest")
-    public String cancelUserRequest(int userRequestId) {
+    public String cancelUserRequest(int userRequestId) throws InterruptedException {
         userRequestService.cancelUserRequest(userRequestId);
+        Thread.sleep(500);
         return "redirect:userRequest?userRequestId=" + userRequestId;
     }
 }
