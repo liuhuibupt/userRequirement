@@ -83,14 +83,16 @@ public class UserController {
     }
 
     @RequestMapping("/enableUser")
-    public String enableUser(int userId) {
+    public String enableUser(int userId) throws InterruptedException {
         userService.setEnable(userId, true);
+        Thread.sleep(500);
         return "redirect:user?userId=" + userId;
     }
 
     @RequestMapping("/disableUser")
-    public String disableUser(int userId) {
+    public String disableUser(int userId) throws InterruptedException {
         userService.setEnable(userId, false);
+        Thread.sleep(500);
         return "redirect:user?userId=" + userId;
     }
 }

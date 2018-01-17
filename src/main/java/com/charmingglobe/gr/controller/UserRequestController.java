@@ -61,9 +61,19 @@ public class UserRequestController {
     }
 
     @RequestMapping("/submitUserRequest")
-    public String submitUserRequest(UserRequest userRequest, int submitterId) {
+    public String submitUserRequest(UserRequest userRequest, int submitterId) throws InterruptedException {
         userRequestService.submitUserRequest(userRequest, submitterId);
         int userRequestId = userRequest.getId();
+        int count = 0;
+        UserRequest replica = null;
+        do {
+            Thread.sleep(200);
+            count++;
+            System.out.println("check to replica[count=" + count + "");
+            replica = userRequestService.getUserRequest(userRequestId);
+            if (count > 10)
+                return "error";
+        } while (replica == null);
         return "redirect:userRequest?userRequestId=" + userRequestId;
     }
 
