@@ -89,7 +89,7 @@ public class UserRequestService {
         int count = userRequestDao.countUserRequestByDate(new Date());
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
         String timestamp = f.format(new Date());
-        return "REQ_IMG_" + timestamp + "_" + (new String(10001 + count+ "").substring(1, 5));
+        return "REQ_IMG_" + timestamp + "_" + (new String(10001 + count + "").substring(1, 5));
     }
 
     public UserRequest getUserRequest(int userRequestId) {

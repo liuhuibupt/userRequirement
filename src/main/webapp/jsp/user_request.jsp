@@ -54,9 +54,7 @@
         startMap(viewer, loggingPolygon, loggingMark, loggingMessage);
 
         $('.ui.selection.dropdown').dropdown();
-        $('.ui.menu .ui.dropdown').dropdown({
-            on: 'hover'
-        });
+        $('.ui.dropdown').dropdown();
 
         $('.ui.form').form({
             fields: {
@@ -179,6 +177,22 @@
         }
     }
 
+    function setRequestDate(obj, future) {
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var date = today.getDate() + future;
+
+        month = month > 9 ? month : '0' + month;
+        date = date > 9 ? date : '0' + date;
+
+        if ('start' == obj) {
+            $('#requestStart').val(year + '-' + month + '-' + date + ' 00:00:00');
+        }
+        if ('end' == obj) {
+            $('#requestEnd').val(year + '-' + month + '-' + date + ' 23:59:59');
+        }
+    }
 </script>
 <style>
     @import url(${serverUrl}/Cesium/Widgets/widgets.css);
@@ -327,7 +341,7 @@
             </div>
         </div>
     </div>
-    <div id="requestType_during" class="field">
+    <div class="field">
         <div class="four fields">
             <div class="field">
                 <label>需求开始时间</label>
@@ -338,13 +352,52 @@
                     </div>
                 </div>
             </div>
-
             <div class="field">
                 <label>需求结束时间</label>
                 <div class="ui calendar" id="requestEndDiv">
                     <div class="ui input left icon">
                         <i class="calendar icon"></i>
                         <input type="text" id="requestEnd" name="requestEnd" placeholder="Request End" value="${userRequest.requestEnd}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <div class="four fields">
+            <div class="field">
+                <a class="mini ui labeled icon button" href="javascript:setRequestDate('start', 1)">
+                    <i class="checked calendar icon"></i>
+                    Enter Tomorrow
+                </a>
+                <div class="mini ui floating labeled icon dropdown button">
+                    <i class="right arrow icon"></i>
+                    <span>More Selection</span>
+                    <div class="left menu">
+                        <div class="item" onclick="javascript:setRequestDate('start', 2)">2 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 3)">3 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 4)">4 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 5)">5 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 6)">6 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 7)">7 days later</div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <a class="mini ui labeled icon button" href="javascript:setRequestDate('end', 1)">
+                    <i class="checked calendar icon"></i>
+                    Enter Tomorrow
+                </a>
+                <div class="mini ui floating labeled icon dropdown button">
+                    <i class="right arrow icon"></i>
+                    <span>More Selection</span>
+                    <div class="left menu">
+                        <div class="item" onclick="javascript:setRequestDate('end', 2)">2 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 3)">3 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 4)">4 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 5)">5 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 6)">6 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 7)">7 days later</div>
                     </div>
                 </div>
             </div>
