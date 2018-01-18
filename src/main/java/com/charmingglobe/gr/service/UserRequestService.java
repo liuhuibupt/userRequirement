@@ -61,12 +61,15 @@ public class UserRequestService {
     public void submitUserRequest(UserRequest userRequest, int submitterId) {
         User0 submitter = userDao.getUser(submitterId);
 
-        String requestCode = getNextRequestCode();
-        userRequest.setRequestId(requestCode);
+        String requestId = getNextRequestId();
+        userRequest.setRequestId(requestId);
 
         String imagingWkt = userRequest.getImagingWkt();
-        Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
-        userRequest.setImagingGeometry(imagingGeometry);
+        String requestType = userRequest.getRequestType();
+        if (!"IN-SPACE".equals(requestType)) {
+            Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
+            userRequest.setImagingGeometry(imagingGeometry);
+        }
 
         userRequest.setSubmitter(submitter);
         userRequest.setSubmitTime(new Date());
@@ -82,7 +85,7 @@ public class UserRequestService {
         userRequestDao.saveUserRequest(userRequest);
     }
 
-    private String getNextRequestCode() {
+    private String getNextRequestId() {
         int count = userRequestDao.countUserRequestByDate(new Date());
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
         String timestamp = f.format(new Date());
