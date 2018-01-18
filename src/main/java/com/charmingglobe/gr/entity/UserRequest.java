@@ -74,6 +74,9 @@ public class UserRequest {
     @Column(name = "update_date")
     private Date updateDate;
 
+    @Transient
+    private String label;
+
     public int getId() {
         return id;
     }
@@ -224,5 +227,13 @@ public class UserRequest {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

@@ -21,6 +21,14 @@ $(document).ready(function() {
     $('#dateEndDiv').calendar({
         type: 'date'
     });
+
+    $('div[name="moredetail"]').popup({
+        hoverable: true,
+        delay: {
+            show: 100,
+            hide: 100
+        }
+    });
 });
 
 function requestResult(pageNum) {
@@ -182,36 +190,75 @@ function requestResult(pageNum) {
 <table class="ui celled table">
     <thead>
     <tr>
-        <th width="5%">No.</th>
+        <th width="10%">No.</th>
         <th width="15%">需求代码</th>
         <th>需求名称</th>
-        <th width="7%">Satellite</th>
-        <th width="7%">需求类型</th>
-        <th width="7%">成像模式</th>
-        <th width="10%">From</th>
-        <th width="10%">提交者</th>
-        <th width="15%">提交时间</th>
-        <th width="5%">状态</th>
+        <th width="15%">Satellite</th>
+        <th width="10%">More Detial</th>
+        <th width="10%">状态</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach items="${resultSet}" var="userRequest">
         <tr>
-            <td>${userRequest.num}</td>
+            <td>
+                <c:if test="${userRequest.label eq 'today'}"><div class="ui teal ribbon label">Today</div></c:if>
+                    ${userRequest.num}
+            </td>
             <td><a href="userRequest?userRequestId=${userRequest.id}">${userRequest.requestId}</a></td>
             <td>${userRequest.requestName}</td>
-            <td>${userRequest.requestSatellites}</td>
-            <td>${userRequest.requestType}</td>
-            <td>${userRequest.imagingMode}</td>
-            <td>${userRequest.requestFrom}</td>
-            <td>${userRequest.submitter.displayName}</td>
-            <td><fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+            <td>
+                <c:choose>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL101A')}">光学A星&nbsp;</c:when>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL101B')}">视频01星&nbsp;</c:when>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL102B')}">视频02星&nbsp;</c:when>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL103B')}">视频03星&nbsp;</c:when>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL104B')}">视频04星&nbsp;</c:when>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL105B')}">视频05星&nbsp;</c:when>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL106B')}">视频06星&nbsp;</c:when>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL107B')}">视频07星&nbsp;</c:when>
+                    <c:otherwise>${userRequest.requestSatellites}</c:otherwise>
+                </c:choose>
+            <td>
+                <div class="ui label" name="moredetail"><i class="list icon"></i>More</div>
+                <div class="ui flowing popup top left transition hidden">
+                    <div class="ui divided selection list">
+                        <div class="item">
+                            <div class="ui teal horizontal icon label">
+                                <i class="in cart icon"></i>需求来源</div>
+                                ${userRequest.requestFrom}
+                        </div>
+                        <div class="item">
+                            <div class="ui teal horizontal icon label">
+                                <i class="user icon"></i>&nbsp;提交用户</div>
+                                ${userRequest.submitter.displayName}
+                        </div>
+                        <div class="item">
+                            <div class="ui teal horizontal icon label">
+                                <i class="calendar icon"></i>提交日期</div>
+                            <fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        </div>
+                        <div class="item">
+                            <div class="ui teal horizontal icon label">
+                                <i class="marker icon"></i>&nbsp;&nbsp;需求类型</div>
+                            ${userRequest.requestType}
+                        </div>
+                        <div class="item">
+                            <div class="ui teal horizontal icon label">
+                                <i class="camera retro icon"></i>成型模式</div>
+                                ${userRequest.imagingMode}
+                        </div>
+                    </div>
+                </div>
+
+                <span class="ui label"><i class="marker icon"></i>Map</span>
+            </td>
             <td>${userRequest.status}</td>
         </tr>
     </c:forEach>
     <tfoot>
     <tr>
-        <th colspan="10">
+        <th colspan="8">
             <div class="ui left floated pagination menu">
                 <a class="icon item"  href="javascript:requestResult(${cri.curPageNum - 1})">
                     <i class="left chevron icon"></i>

@@ -6,11 +6,13 @@ import com.charmingglobe.gr.dao.UserRequestDao;
 import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.geo.GeometryTools;
+import com.charmingglobe.gr.utils.TimeUtils;
 import com.vividsolutions.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +21,8 @@ import java.util.List;
  */
 @Service
 public class UserRequestService {
+
+    final int MAX_RESULT = 50;
 
     @Autowired
     private UserRequestDao userRequestDao;
@@ -97,8 +101,8 @@ public class UserRequestService {
     }
 
     public List<UserRequest> getUserRequestList(UserRequestCri cri) {
-        int maxResult = 50;
-        cri.setMaxResult(50);
+
+        cri.setMaxResult(MAX_RESULT);
 
         int pageNum = cri.getCurPageNum();
         if (pageNum < 0) {
@@ -107,7 +111,7 @@ public class UserRequestService {
         }
 
         int resultCount = new Long(userRequestDao.countUserRequest(cri)).intValue();
-        int totalPageNum = resultCount % maxResult == 0 ? resultCount / maxResult : resultCount / maxResult + 1;
+        int totalPageNum = resultCount % MAX_RESULT == 0 ? resultCount / MAX_RESULT : resultCount / MAX_RESULT + 1;
         if (pageNum > totalPageNum) {
             pageNum = totalPageNum;
             cri.setCurPageNum(totalPageNum);
@@ -116,13 +120,21 @@ public class UserRequestService {
         cri.setTotalPageNum(totalPageNum);
         cri.setResultCount(resultCount);
 
-        List<UserRequest> resultList =  userRequestDao.selectUserRequest(cri);
+        List<UserRequest> userRequestList =  userRequestDao.selectUserRequest(cri);
 
+        return beautifyUserRequestList(userRequestList, pageNum);
+    }
+
+    private List<UserRequest> beautifyUserRequestList(List<UserRequest> userRequestList, int pageNum) {
         int num = 1;
-        for (UserRequest userRequest : resultList) {
-            userRequest.setNum(pageNum * maxResult + num++);
+        Date zeroOfToday = TimeUtils.getZeroOfToday();
+        for (UserRequest userRequest : userRequestList) {
+            userRequest.setNum(pageNum * MAX_RESULT + num++);
+            Date submitTime = userRequest.getSubmitTime();
+            if (submitTime != null && submitTime.getTime() > zeroOfToday.getTime()) {
+                userRequest.setLabel("today");
+            }
         }
-
-        return resultList;
+        return userRequestList;
     }
 }
