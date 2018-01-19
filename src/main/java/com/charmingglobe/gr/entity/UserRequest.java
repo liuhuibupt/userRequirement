@@ -40,6 +40,9 @@ public class UserRequest {
     @Column(name = "submit_time")
     private Date submitTime;
 
+    @Column(name = "is_sensitive")
+    private boolean isSensitive;
+
     @Column(name = "request_type")
     private String requestType;
 
@@ -139,6 +142,14 @@ public class UserRequest {
 
     public void setSubmitTime(Date submitTime) {
         this.submitTime = submitTime;
+    }
+
+    public boolean isSensitive() {
+        return isSensitive;
+    }
+
+    public void setSensitive(boolean sensitive) {
+        isSensitive = sensitive;
     }
 
     public String getRequestType() {

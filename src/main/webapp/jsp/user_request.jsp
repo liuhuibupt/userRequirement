@@ -76,12 +76,21 @@
                         }
                     ]
                 },
-                imagingType: {
-                    identifier: 'imagingType',
+                imagingMode: {
+                    identifier: 'imagingMode',
                     rules: [
                         {
                             type: 'empty',
-                            prompt: 'Please select [Imaging Type]'
+                            prompt: 'Please select [Imaging Mode]'
+                        }
+                    ]
+                },
+                imagingWkt: {
+                    identifier: 'imagingWkt',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Please entry [Imaging WKT]'
                         }
                     ]
                 }
@@ -230,118 +239,129 @@
 
 <form class="ui form" action="submitUserRequest" method="post" style="margin-top: 0.5rem">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    <input type="hidden" id="requestId" name="requestId" placeholder="Request ID" value="${userRequest.requestId}">
+    <input type="hidden" id="requestFrom" name="requestFrom" placeholder="Request From" value="${userRequest.requestFrom}">
+    <input type="hidden" name="submitterId" value="${submitter.id}" >
+    <input type="hidden" id="submitTime" name="submitTime" placeholder="Submit Time" value="<fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly>
     <div class="ui error message">
     </div>
-    <div class="two fields">
+    <div class="sixteen fields">
         <div class="field">
-            <div class="ui mini blue message">需求状态: ${userRequest.status}</div>
+            <a class="ui tag label">
+                Request ID<dev class="detail">${userRequest.requestId}</dev>
+            </a>
+            <a class="ui tag label">
+                Request Status<dev class="detail">${userRequest.status}</dev>
+            </a>
+            <a class="ui tag label">
+                Request From<dev class="detail">市场部</dev>
+            </a>
+            <a class="ui tag label">
+                Submitter<dev class="detail">${submitter.displayName}</dev>
+            </a>
+            <a class="ui tag label">
+                Submit Date<dev class="detail"><fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/></dev>
+            </a>
         </div>
     </div>
     <div class="four fields">
-        <div class="field">
-            <label>Request ID</label>
-            <input type="text" id="requestId" name="requestId" placeholder="Request ID" value="${userRequest.requestId}" readonly>
-        </div>
         <div class="eight wide field">
             <label>Request Name</label>
             <input type="text" id="requestName" name="requestName" placeholder="Request Name" value="${userRequest.requestName}">
         </div>
+        <div class="field">
+            <label>敏感需求${userRequest.sensitive}</label>
+            <div class="ui fluid dropdown selection" tabindex="0">
+                <select id="isSensitive" name="isSensitive">
+                    <option value="false" <c:if test="${userRequest.sensitive}">selected</c:if>>非敏感</option>
+                    <option value="true" <c:if test="${userRequest.sensitive}">selected</c:if>>敏感</option>
+                </select><i class="dropdown icon"></i>
+                <div class="default text">非敏感</div>
+                <div class="menu transition hidden" tabindex="-1">
+                    <div class="item" data-value="false">非敏感</div>
+                    <div class="item" data-value="true">敏感</div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="four fields">
         <div class="field">
-            <label>Request From</label>
-            <input class="read-only" id="requestFrom" name="requestFrom" placeholder="Request From" value="${userRequest.requestFrom}" readonly>
+            <label>Request Type</label>
+            <div class="ui fluid dropdown selection" tabindex="0">
+                <select id="requestType" name="requestType">
+                    <option value=""></option>
+                    <option value="POINT" <c:if test="${userRequest.requestType == 'POINT'}">selected</c:if>>点目标</option>
+                    <option value="AREA" <c:if test="${userRequest.requestType == 'AREA'}">selected</c:if>>大区域</option>
+                    <option value="REPEATED-POINT" <c:if test="${userRequest.requestType == 'REPEATED-POINT'}">selected</c:if>>单点多次</option>
+                    <option value="IN-SPACE" <c:if test="${userRequest.requestType == 'IN-SPACE'}">selected</c:if>>惯性空间</option>
+                </select><i class="dropdown icon"></i>
+                <div class="default text">Request Type</div>
+                <div class="menu transition hidden" tabindex="-1">
+                    <div class="item" data-value="POINT">点目标</div>
+                    <div class="item" data-value="AREA">大区域</div>
+                    <div class="item" data-value="REPEATED-POINT">单点多次</div>
+                    <div class="item" data-value="IN-SPACE">惯性空间</div>
+                </div>
+            </div>
         </div>
         <div class="field">
-            <label>Request Submitter</label>
-            <input type="hidden" name="submitterId" value="${submitter.id}" >
-            <input class="read-only" placeholder="Request Submitter"  value="${submitter.displayName}" readonly>
+            <label>Request Satellites</label>
+            <div class="ui fluid dropdown selection multiple" tabindex="0">
+                <select id="requestSatellites" name="requestSatellites" multiple="">
+                    <option value="JL101A" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101A')}">selected</c:if>>光学A星</option>
+                    <option value="JL101B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101B')}">selected</c:if>>视频01星</option>
+                    <option value="JL102B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL102B')}">selected</c:if>>视频02星</option>
+                    <option value="JL103B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL103B')}">selected</c:if>>视频03星</option>
+                    <option value="JL104B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL104B')}">selected</c:if>>视频04星</option>
+                    <option value="JL105B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL105B')}">selected</c:if>>视频05星</option>
+                    <option value="JL106B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL106B')}">selected</c:if>>视频06星</option>
+                    <option value="JL107B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL107B')}">selected</c:if>>视频07星</option>
+                    <option value="JL108B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL108B')}">selected</c:if>>视频08星</option>
+                </select><i class="dropdown icon"></i>
+                <div class="default text">All Satellites</div>
+                <div class="menu transition hidden" tabindex="-1">
+                    <div class="item" data-value="JL101A">光学A星</div>
+                    <div class="item" data-value="JL101B">视频01星</div>
+                    <div class="item" data-value="JL102B">视频02星</div>
+                    <div class="item" data-value="JL103B">视频03星</div>
+                    <div class="item" data-value="JL104B">视频04星</div>
+                    <div class="item" data-value="JL105B">视频05星</div>
+                    <div class="item" data-value="JL106B">视频06星</div>
+                    <div class="item" data-value="JL107B">视频07星</div>
+                    <div class="item" data-value="JL108B">视频08星</div>
+                </div>
+            </div>
         </div>
         <div class="field">
-            <label>Submit Time</label>
-            <input class="read-only" id="submitTime" name="submitTime" placeholder="Submit Time" value="<fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly>
+            <label>Imaging Mode</label>
+            <div class="ui fluid dropdown selection" tabindex="0">
+                <select id="imagingMode" name="imagingMode">
+                    <option value=""></option>
+                    <option value="常规推扫" <c:if test="${userRequest.imagingMode == '常规推扫'}">selected</c:if>>常规推扫</option>
+                    <option value="反向推扫" <c:if test="${userRequest.imagingMode == '反向推扫'}">selected</c:if>>反向推扫</option>
+                    <option value="凝视视频" <c:if test="${userRequest.imagingMode == '凝视视频'}">selected</c:if>>凝视视频</option>
+                </select><i class="dropdown icon"></i>
+                <div class="default text">Imaging Mode</div>
+                <div class="menu transition hidden" tabindex="-1">
+                    <div class="item" data-value="常规推扫">常规推扫</div>
+                    <div class="item" data-value="反向推扫">反向推扫</div>
+                    <div class="item" data-value="凝视视频">凝视视频</div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="four fields">
-            <div class="field">
-                <label>Request Type</label>
-                <div class="ui fluid dropdown selection" tabindex="0">
-                    <select id="requestType" name="requestType">
-                        <option value=""></option>
-                        <option value="POINT" <c:if test="${userRequest.requestType == 'POINT'}">selected</c:if>>点目标</option>
-                        <option value="AREA" <c:if test="${userRequest.requestType == 'AREA'}">selected</c:if>>大区域</option>
-                        <option value="REPEATED-POINT" <c:if test="${userRequest.requestType == 'REPEATED-POINT'}">selected</c:if>>单点多次</option>
-                        <option value="IN-SPACE" <c:if test="${userRequest.requestType == 'IN-SPACE'}">selected</c:if>>惯性空间</option>
-                    </select><i class="dropdown icon"></i>
-                    <div class="default text">Request Type</div>
-                    <div class="menu transition hidden" tabindex="-1">
-                        <div class="item" data-value="POINT">点目标</div>
-                        <div class="item" data-value="AREA">大区域</div>
-                        <div class="item" data-value="REPEATED-POINT">单点多次</div>
-                        <div class="item" data-value="IN-SPACE">惯性空间</div>
-                    </div>
-                </div>
-            </div>
-            <div class="field">
-                <label>Request Satellites</label>
-                <div class="ui fluid dropdown selection multiple" tabindex="0">
-                    <select id="requestSatellites" name="requestSatellites" multiple="">
-                        <option value="JL101A" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101A')}">selected</c:if>>光学A星</option>
-                        <option value="JL101B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL101B')}">selected</c:if>>视频01星</option>
-                        <option value="JL102B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL102B')}">selected</c:if>>视频02星</option>
-                        <option value="JL103B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL103B')}">selected</c:if>>视频03星</option>
-                        <option value="JL104B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL104B')}">selected</c:if>>视频04星</option>
-                        <option value="JL105B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL105B')}">selected</c:if>>视频05星</option>
-                        <option value="JL106B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL106B')}">selected</c:if>>视频06星</option>
-                        <option value="JL107B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL107B')}">selected</c:if>>视频07星</option>
-                        <option value="JL108B" <c:if test="${fn:contains(userRequest.requestSatellites, 'JL108B')}">selected</c:if>>视频08星</option>
-                    </select><i class="dropdown icon"></i>
-                    <div class="default text">All Satellites</div>
-                    <div class="menu transition hidden" tabindex="-1">
-                        <div class="item" data-value="JL101A">光学A星</div>
-                        <div class="item" data-value="JL101B">视频01星</div>
-                        <div class="item" data-value="JL102B">视频02星</div>
-                        <div class="item" data-value="JL103B">视频03星</div>
-                        <div class="item" data-value="JL104B">视频04星</div>
-                        <div class="item" data-value="JL105B">视频05星</div>
-                        <div class="item" data-value="JL106B">视频06星</div>
-                        <div class="item" data-value="JL107B">视频07星</div>
-                        <div class="item" data-value="JL108B">视频08星</div>
-                    </div>
-                </div>
-            </div>
-            <div class="field">
-                <label>Imaging Type</label>
-                <div class="ui fluid dropdown selection" tabindex="0">
-                    <select id="imagingMode" name="imagingMode">
-                        <option value=""></option>
-                        <option value="常规推扫" <c:if test="${userRequest.imagingMode == '常规推扫'}">selected</c:if>>常规推扫</option>
-                        <option value="反向推扫" <c:if test="${userRequest.imagingMode == '反向推扫'}">selected</c:if>>反向推扫</option>
-                        <option value="凝视视频" <c:if test="${userRequest.imagingMode == '凝视视频'}">selected</c:if>>凝视视频</option>
-                    </select><i class="dropdown icon"></i>
-                    <div class="default text">Imaging Mode</div>
-                    <div class="menu transition hidden" tabindex="-1">
-                        <div class="item" data-value="常规推扫">常规推扫</div>
-                        <div class="item" data-value="反向推扫">反向推扫</div>
-                        <div class="item" data-value="凝视视频">凝视视频</div>
-                    </div>
-                </div>
-            </div>
+    <div class="four fields" id="requestType_point">
+        <div class="field">
+            <label>经度 Longitude</label>
+            <input type="text" id="longitude" name="longitude" placeholder="Longitude">
         </div>
+        <div class="field">
+            <label>纬度 Latitude</label>
+            <input type="text" id="latitude" name="latitude" placeholder="Latitude">
+        </div>
+    </div>
     <div id="cesiumContainer" style="margin-bottom: 0.75rem">
         <div class="loggingMessage"></div>
-    </div>
-    <div id="requestType_point" class="field" >
-        <div class="four fields">
-            <div class="field">
-                <label>经度 Longitude</label>
-                <input type="text" id="longitude" name="longitude" placeholder="Longitude">
-            </div>
-            <div class="field">
-                <label>纬度 Latitude</label>
-                <input type="text" id="latitude" name="latitude" placeholder="Latitude">
-            </div>
-        </div>
     </div>
     <div class="field">
         <div class="four fields">

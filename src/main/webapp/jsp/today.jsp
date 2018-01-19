@@ -67,7 +67,7 @@ $(document).ready(function() {
     </tr>
     <tr>
         <td>
-            <div class="ui ribbon label">First</div>Cell</td>
+            <div class="ui ribbon label"><span class="teal">First</span></div>Cell</td>
         <td>Cell</td>
         <td>Cell</td>
     </tr>

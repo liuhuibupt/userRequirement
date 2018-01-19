@@ -217,6 +217,7 @@ function requestResult(pageNum) {
                     <c:when test="${fn:contains(userRequest.requestSatellites, 'JL105B')}">视频05星&nbsp;</c:when>
                     <c:when test="${fn:contains(userRequest.requestSatellites, 'JL106B')}">视频06星&nbsp;</c:when>
                     <c:when test="${fn:contains(userRequest.requestSatellites, 'JL107B')}">视频07星&nbsp;</c:when>
+                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL108B')}">视频08星&nbsp;</c:when>
                     <c:otherwise>${userRequest.requestSatellites}</c:otherwise>
                 </c:choose>
             <td>
