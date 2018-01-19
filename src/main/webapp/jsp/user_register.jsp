@@ -68,49 +68,9 @@
     <script>
         $(document).ready(function () {
             $('.ui.selection.dropdown').dropdown();
-            $('.ui.menu .ui.dropdown').dropdown({
-                on: 'hover'
-            });
 
-            $('#userNameHint').hide();
-            $('#displayNameHint').hide();
-            $('#passwordHint').hide();
-            $('#passwordConfirmHint').hide();
-            $('#cellNumHint').hide();
-
-            $('#userName').focus(function() {
-                $('#userNameHint').show();
-            });
-            $('#userName').blur(function() {
-                $('#userNameHint').hide();
-            });
-
-            $('#displayName').focus(function() {
-                $('#displayNameHint').show();
-            });
-            $('#displayName').blur(function() {
-                $('#displayNameHint').hide();
-            });
-
-            $('#password').focus(function() {
-                $('#passwordHint').show();
-            });
-            $('#password').blur(function() {
-                $('#passwordHint').hide();
-            });
-
-            $('#passwordConfirm').focus(function() {
-                $('#passwordConfirmHint').show();
-            });
-            $('#passwordConfirm').blur(function() {
-                $('#passwordConfirmHint').hide();
-            });
-
-            $('#cellNum').focus(function() {
-                $('#cellNumHint').show();
-            });
-            $('#cellNum').blur(function() {
-                $('#cellNumHint').hide();
+            $('.input').popup({
+                on: 'focus'
             });
 
             $('.ui.form')
@@ -205,7 +165,7 @@
                     </div>
                 </c:if>
                 <c:if test="${success == true}">
-                    <div class="ui mini teal message">
+                    <div class="ui mini blue message">
                         <div class="header">注册成功，请联系数据中心二室管理员激活账号。</div>
                     </div>
                 </c:if>
@@ -214,35 +174,23 @@
                         <div class="header">${errorMessage}</div>
                     </div>
                 </c:if>
-                <div class="field">
+                <div class="field" data-tooltip="[User Name]应该是您的中文名字的拼音全拼字母，中间无空格并且全小写，[User Name]也将是您的登录名称。" data-inverted="" data-position="top left">
                     <label>User Name</label>
                     <input type="text" id="userName" name="userName" placeholder="User Name" value="${user.userName}">
                 </div>
-                <div class="ui mini teal message" id="userNameHint">
-                    <div class="header">[User Name]应该是您的中文名字的拼音全拼字母，中间无空格并且全小写，[User Name]也将是您的登录名称。</div>
-                </div>
-                <div class="field">
+                <div class="field" data-tooltip="[Display Name]应该是您的中文姓名。" data-inverted="" data-position="top left">
                     <label>Display Name</label>
                     <input type="text" id="displayName" name="displayName" placeholder="Display Name" value="${user.displayName}">
                 </div>
-                <div class="ui mini teal message" id="displayNameHint">
-                    <div class="header">[Display Name]应该是您的中文姓名。</div>
-                </div>
-                <div class="field">
+                <div class="field" data-tooltip="[Password]是您登录系统的密码，请尽量不要使用太简单的密码并且不要让他人知道您的密码，我们对您的每次操作都会有相应的记录，防止他人提您操作。" data-inverted="" data-position="top left">
                     <label>Password</label>
                     <input type="password" id="password" name="password" placeholder="Password" value="${user.password}">
                 </div>
-                <div class="ui mini teal message" id="passwordHint">
-                    <div class="header">[Password]是您登录系统的密码，请尽量不要使用太简单的密码并且不要让他人知道您的密码，我们对您的每次操作都会有相应的记录，防止他人提您操作。</div>
-                </div>
-                <div class="field">
+                <div class="field" data-tooltip="请确认密码。" data-inverted="" data-position="top left">
                     <label>Password Confirm</label>
                     <input type="password" id="passwordConfirm" placeholder="Password Confirm" value="${user.password}">
                 </div>
-                <div class="ui mini teal message" id="passwordConfirmHint">
-                    <div class="header">请确认密码</div>
-                </div>
-                <div class="field">
+                <div class="field" data-tooltip="请选择您所在的部门，之后将不能修改。" data-inverted="" data-position="top left">
                     <label>Department Name</label>
                     <div class="ui fluid dropdown selection" tabindex="0" id="departmentNameDiv">
                         <select id="departmentName" name="departmentName">
@@ -263,35 +211,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui mini teal message" id="departmentNameHint">
-                    <div class="header">请选择您所在的部门，之后将不能修改</div>
-                </div>
-                <div class="disabled field">
-                    <label>User Role</label>
-                    <div class="ui fluid dropdown selection" tabindex="0"  id="roleDiv">
-                        <select id="role" name="role">
-                            <option value=""></option>
-                            <option value="ROLE_USER"selected>ROLE_USER</option>
-                            <option value="ROLE_DEV">ROLE_DEV</option>
-                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
-                        </select><i class="dropdown icon"></i>
-                        <div class="default text">User Role</div>
-                        <div class="menu transition hidden" tabindex="-1">
-                            <div class="item" data-value="ROLE_USER">ROLE_USER</div>
-                            <div class="item" data-value="ROLE_DEV">ROLE_DEV</div>
-                            <div class="item" data-value="ROLE_ADMIN">ROLE_ADMIN</div>
+                <div class="field" data-tooltip="您的默认用户权限是[ROLE_USER]，如果需要提升权限，请联系管理员。" data-inverted="" data-position="top left">
+                    <div class="disabled field" >
+                        <label>User Role</label>
+                        <div class="ui fluid dropdown selection" tabindex="0"  id="roleDiv">
+                            <select id="role" name="role">
+                                <option value=""></option>
+                                <option value="ROLE_USER"selected>ROLE_USER</option>
+                                <option value="ROLE_DEV">ROLE_DEV</option>
+                                <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                            </select><i class="dropdown icon"></i>
+                            <div class="default text">User Role</div>
+                            <div class="menu transition hidden" tabindex="-1">
+                                <div class="item" data-value="ROLE_USER">ROLE_USER</div>
+                                <div class="item" data-value="ROLE_DEV">ROLE_DEV</div>
+                                <div class="item" data-value="ROLE_ADMIN">ROLE_ADMIN</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="ui mini teal message" id="roleHint">
-                    <div class="header">您的默认用户权限是[ROLE_USER]，如果需要提升权限，请联系管理员。</div>
-                </div>
-                <div class="field">
+
+                <div class="field" data-tooltip="请填写您的手机号码。" data-inverted="" data-position="top left">
                     <label>Cell Number</label>
                     <input type="text" id="cellNum" name="cellNum" placeholder="Cell Number" value="${user.cellNum}">
-                </div>
-                <div class="ui mini teal message" id="cellNumHint">
-                    <div class="header">请填写您的手机号码。</div>
                 </div>
                 <div class="three fields" style="margin-top: 2.5rem">
                     <div class="field">

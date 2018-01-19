@@ -7,7 +7,7 @@
 <c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
-<title>提交需求</title>
+<title>观测需求</title>
 
 <link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
 
@@ -56,6 +56,14 @@
         $('.ui.selection.dropdown').dropdown();
         $('.ui.dropdown').dropdown();
 
+        $('#testPopup').popup({
+            hoverable: true,
+            delay: {
+                show: 100,
+                hide: 100
+            }
+        });
+
         $('.ui.form').form({
             fields: {
                 requestName: {
@@ -99,6 +107,7 @@
 
         $('#requestType').change(function () {
             $('#requestType_point').hide();
+            $('#requestType_inSpace').hide();
             $('#imagingWkt').attr("readonly", "readonly");
             $('#imagingWkt').val("");
 
@@ -115,7 +124,7 @@
                 drawPoint(loggingMark);
             }
             if (val == 'IN-SPACE') {
-                $('#imagingWkt').removeAttr('readonly');
+                $('#requestType_inSpace').show();
             }
         });
 
@@ -132,8 +141,6 @@
                 $("#imagingWkt").val(wkt);
             }
         }
-
-        $('#requestType_point').hide();
 
         $('#requestStartDiv').calendar({
             type: 'datetime'
@@ -234,7 +241,7 @@
 </style>
 </head>
 <body>
-<h2 class="ui header">提交需求</h2>
+<h2 class="ui header">观测需求</h2>
 <div class="ui divider"></div>
 
 <form class="ui form" action="submitUserRequest" method="post" style="margin-top: 0.5rem">
@@ -245,23 +252,165 @@
     <input type="hidden" id="submitTime" name="submitTime" placeholder="Submit Time" value="<fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly>
     <div class="ui error message">
     </div>
+    <div class="field">
+        <div class="field">
+            <a class="ui blue label" id="testPopup">
+                <i class="rocket icon"></i>Timeline</a>
+            <div class="ui flowing popup top left transition hidden">
+                <div class="ui large feed">
+                    <div class="event">
+                        <div class="label">
+                            <i class="check circle icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                <a class="user">
+                                    Elliot Fu
+                                </a> added you as a friend
+                                <div class="date">
+                                    1 Hour Ago
+                                </div>
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 4 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event">
+                        <div class="label">
+                            <i class="pencil icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                You submitted a new post to the page
+                                <div class="date">
+                                    3 days ago
+                                </div>
+                            </div>
+                            <div class="extra text">
+                                I'm having a BBQ this weekend. Come by around 4pm if you can.
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 11 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event">
+                        <div class="label">
+                            <i class="check circle icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                <a class="user">
+                                    Elliot Fu
+                                </a> added you as a friend
+                                <div class="date">
+                                    1 Hour Ago
+                                </div>
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 4 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event">
+                        <div class="label">
+                            <i class="pencil icon"></i>
+                        </div>
+                        <div class="content">
+                            <div class="summary">
+                                You submitted a new post to the page
+                                <div class="date">
+                                    3 days ago
+                                </div>
+                            </div>
+                            <div class="extra text">
+                                I'm having a BBQ this weekend. Come by around 4pm if you can.
+                            </div>
+                            <div class="meta">
+                                <a class="like">
+                                    <i class="like icon"></i> 11 Likes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="field">
+        <div class="field">
+            <div class="ui mini steps">
+                <div class="step">
+                    <i class="add to cart icon"></i>
+                    <div class="content">
+                        <div class="title">Submited</div>
+                        <div class="description">2018-01-19 19:19;19</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="world icon"></i>
+                    <div class="content">
+                        <div class="title">任务规划</div>
+                        <div class="description">2018-01-19 19:19;19</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="lightning icon"></i>
+                    <div class="content">
+                        <div class="title">数传成功</div>
+                        <div class="description">2018-01-19 19:19;19</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="desktop icon"></i>
+                    <div class="content">
+                        <div class="title">生产完成</div>
+                        <div class="description">2018-01-19 19:19;19</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="truck icon"></i>
+                    <div class="content">
+                        <div class="title">产品交付</div>
+                        <div class="description">2018-01-19 19:19;19</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <i class="checkmark green icon"></i>
+                    <div class="content">
+                        <div class="title">Request Closed</div>
+                        <div class="description">2018-01-19 19:19;19</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="sixteen fields">
         <div class="field">
-            <a class="ui tag label">
-                Request ID<dev class="detail">${userRequest.requestId}</dev>
-            </a>
-            <a class="ui tag label">
-                Request Status<dev class="detail">${userRequest.status}</dev>
-            </a>
-            <a class="ui tag label">
-                Request From<dev class="detail">市场部</dev>
-            </a>
+            <c:if test="${userRequest != null}"><a class="ui tag label">
+                    Request ID<dev class="detail">${userRequest.requestId}</dev>
+            </a></c:if>
+            <c:if test="${userRequest != null}"><a class="ui tag label">
+                    Request Status<dev class="detail">${userRequest.status}</dev>
+            </a></c:if>
+            <c:if test="${userRequest != null}"> <a class="ui tag label">
+                    Request From<dev class="detail">${userRequest.requestFrom}</dev>
+            </a> </c:if>
             <a class="ui tag label">
                 Submitter<dev class="detail">${submitter.displayName}</dev>
             </a>
-            <a class="ui tag label">
+            <c:if test="${userRequest != null}"><a class="ui tag label">
                 Submit Date<dev class="detail"><fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/></dev>
-            </a>
+            </a></c:if>
         </div>
     </div>
     <div class="four fields">
@@ -270,13 +419,13 @@
             <input type="text" id="requestName" name="requestName" placeholder="Request Name" value="${userRequest.requestName}">
         </div>
         <div class="field">
-            <label>敏感需求${userRequest.sensitive}</label>
+            <label>敏感需求</label>
             <div class="ui fluid dropdown selection" tabindex="0">
-                <select id="isSensitive" name="isSensitive">
-                    <option value="false" <c:if test="${userRequest.sensitive}">selected</c:if>>非敏感</option>
-                    <option value="true" <c:if test="${userRequest.sensitive}">selected</c:if>>敏感</option>
+                <select id="sensitive" name="sensitive">
+                    <option value="false" <c:if test="${userRequest.sensitive eq false}">selected</c:if>>非敏感</option>
+                    <option value="true" <c:if test="${userRequest.sensitive eq true}">selected</c:if>>敏感</option>
                 </select><i class="dropdown icon"></i>
-                <div class="default text">非敏感</div>
+                <div class="default text">Select Sensitive</div>
                 <div class="menu transition hidden" tabindex="-1">
                     <div class="item" data-value="false">非敏感</div>
                     <div class="item" data-value="true">敏感</div>
@@ -350,7 +499,7 @@
             </div>
         </div>
     </div>
-    <div class="four fields" id="requestType_point">
+    <div class="four fields" id="requestType_point" style="display: none">
         <div class="field">
             <label>经度 Longitude</label>
             <input type="text" id="longitude" name="longitude" placeholder="Longitude">
@@ -358,6 +507,28 @@
         <div class="field">
             <label>纬度 Latitude</label>
             <input type="text" id="latitude" name="latitude" placeholder="Latitude">
+        </div>
+        <div class="field">
+            <label>地层高</label>
+            <input type="text">
+        </div>
+    </div>
+    <div class="eight fields" id="requestType_inSpace" style="display: none">
+        <div class="field">
+            <label>Q1</label>
+            <input type="text" >
+        </div>
+        <div class="field">
+            <label>Q2</label>
+            <input type="text">
+        </div>
+        <div class="field">
+            <label>成像时刻</label>
+            <input type="text">
+        </div>
+        <div class="field">
+            <label>成像时长</label>
+            <input type="text" id="123">
         </div>
     </div>
     <div id="cesiumContainer" style="margin-bottom: 0.75rem">
