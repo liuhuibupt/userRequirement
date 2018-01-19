@@ -119,6 +119,8 @@
             var lat = $("#latitude").val();
             if (lon != "" && lat != "") {
                 setPointPosition(lon, lat);
+                var wkt = "POINT(" + lon + " " + lat + ")";
+                $("#imagingWkt").val(wkt);
             }
         }
 
