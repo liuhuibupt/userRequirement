@@ -39,16 +39,16 @@
         }
 
         .app_left_menu {
-            width: 17rem;
+            width: 21rem;
             display: inline;
         }
 
         .app_content{
-            width: calc(100% - 18rem);
+            width: calc(100% - 22rem);
         }
 
         .ui.vertical.menu {
-            width: 15rem;
+            width: 19rem;
             margin-left: 1.0rem;
             margin-right: 1.0rem;
         }
@@ -69,7 +69,7 @@
         <a href="#" class="item">遥测计划</a>
         <a href="user-list" class="item">用户列表</a>
         <div class="ui simple dropdown item">
-            <i class="user icon"></i><sec:authentication property="principal.displayName"/>
+            <i class="user icon"></i>萨瓦迪卡，<sec:authentication property="principal.displayName"/>
             <i class="dropdown icon"></i>
             <div class="menu">
                 <a class="item" href="user?userId=<sec:authentication property="principal.id"/>">账号信息</a>
@@ -85,35 +85,49 @@
                 <div class="item">
                     <div class="header">User Requirements</div>
                     <div class="menu">
-                        <a class="item" href="userRequest-list" >需求检索</a>
-                        <a class="item" href="userRequest-submit">新建需求</a>
+                        <a class="item" href="userRequest-list" >需求检索<div class="ui mini left pointing teal label">可以用了</div></a>
+                        <a class="item" href="userRequest-submit">新建需求<div class="ui mini left pointing teal label">可以用了</div></a>
                     </div>
                 </div>
                 <div class="item">
                     <div class="header">Imaging Tasks</div>
                     <div class="menu">
-                        <a class="item">拍摄任务</a>
+                        <a class="item">拍摄任务<div class="ui mini left pointing blue label">开发中</div></a>
                         <a class="item">More</a>
                     </div>
                 </div>
                 <div class="item">
                     <div class="header">Receiving Plan</div>
                     <div class="menu">
-                        <a class="item">跟踪接收计划</a>
+                        <a class="item">跟踪接收计划<div class="ui mini left pointing label">还没开始开发呢</div></a>
+                        <a class="item">More</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="header">Production Schedule</div>
+                    <div class="menu">
+                        <a class="item">生产计划<div class="ui mini left pointing label">还没开始开发呢</div></a>
+                        <a class="item">More</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="header">Product Management</div>
+                    <div class="menu">
+                        <a class="item">产品管理<div class="ui mini left pointing label">还没开始开发呢</div></a>
                         <a class="item">More</a>
                     </div>
                 </div>
                 <div class="item">
                     <div class="header">Telemetry Plan</div>
                     <div class="menu">
-                        <a class="item">遥测计划</a>
+                        <a class="item">遥测计划<div class="ui mini left pointing label">还没开始开发呢</div></a>
                         <a class="item">More</a>
                     </div>
                 </div>
                 <div class="item">
                     <div class="header">User List</div>
                     <div class="menu">
-                        <a class="item" href="user-list">用户列表</a>
+                        <a class="item" href="user-list">用户列表<div class="ui mini left pointing teal label">可以用了</div></a>
                         <a class="item">More</a>
                     </div>
                 </div>
