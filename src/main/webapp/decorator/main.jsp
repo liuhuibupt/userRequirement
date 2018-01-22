@@ -18,7 +18,7 @@
 
     <script src="./js/jquery-3.2.1.min.js" ></script>
     <script src="./js/semantic.js" ></script>
-    <script src="./js/docs.js" ></script>
+    <script src="./js/grc.js" ></script>
 
     <style type="text/css">
         body {
@@ -85,7 +85,7 @@
                 <div class="item">
                     <div class="header">User Requirements</div>
                     <div class="menu">
-                        <a class="item" href="userRequest-list" >全部需求</a>
+                        <a class="item" href="userRequest-list" >需求检索</a>
                         <a class="item" href="userRequest-submit">新建需求</a>
                     </div>
                 </div>

@@ -254,7 +254,7 @@
     </div>
     <div class="field">
         <div class="field">
-            <a class="ui blue label" id="testPopup">
+            <a class="ui teal label" id="testPopup">
                 <i class="rocket icon"></i>Timeline</a>
             <div class="ui flowing popup top left transition hidden">
                 <div class="ui large feed">
@@ -433,6 +433,68 @@
             </div>
         </div>
     </div>
+    <div class="field">
+        <div class="four fields">
+            <div class="field">
+                <label>需求开始时间</label>
+                <div class="ui calendar" id="requestStartDiv">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input type="text" id="requestStart" name="requestStart" placeholder="Request Start" value="${userRequest.requestStart}">
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>需求结束时间</label>
+                <div class="ui calendar" id="requestEndDiv">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input type="text" id="requestEnd" name="requestEnd" placeholder="Request End" value="${userRequest.requestEnd}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <div class="four fields">
+            <div class="field">
+                <a class="mini ui teal labeled icon button" href="javascript:setRequestDate('start', 1)">
+                    <i class="checked calendar icon"></i>
+                    Enter Tomorrow
+                </a>
+                <div class="mini ui floating teal labeled icon dropdown button">
+                    <i class="right arrow icon"></i>
+                    <span>More Selection</span>
+                    <div class="left menu">
+                        <div class="item" onclick="javascript:setRequestDate('start', 2)">2 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 3)">3 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 4)">4 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 5)">5 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 6)">6 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('start', 7)">7 days later</div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <a class="mini ui teal labeled icon button" href="javascript:setRequestDate('end', 1)">
+                    <i class="checked calendar icon"></i>
+                    Enter Tomorrow
+                </a>
+                <div class="mini ui floating teal labeled icon dropdown button">
+                    <i class="right arrow icon"></i>
+                    <span>More Selection</span>
+                    <div class="left menu">
+                        <div class="item" onclick="javascript:setRequestDate('end', 2)">2 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 3)">3 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 4)">4 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 5)">5 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 6)">6 days later</div>
+                        <div class="item" onclick="javascript:setRequestDate('end', 7)">7 days later</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="four fields">
         <div class="field">
             <label>Request Type</label>
@@ -533,68 +595,6 @@
     </div>
     <div id="cesiumContainer" style="margin-bottom: 0.75rem">
         <div class="loggingMessage"></div>
-    </div>
-    <div class="field">
-        <div class="four fields">
-            <div class="field">
-                <label>需求开始时间</label>
-                <div class="ui calendar" id="requestStartDiv">
-                    <div class="ui input left icon">
-                        <i class="calendar icon"></i>
-                        <input type="text" id="requestStart" name="requestStart" placeholder="Request Start" value="${userRequest.requestStart}">
-                    </div>
-                </div>
-            </div>
-            <div class="field">
-                <label>需求结束时间</label>
-                <div class="ui calendar" id="requestEndDiv">
-                    <div class="ui input left icon">
-                        <i class="calendar icon"></i>
-                        <input type="text" id="requestEnd" name="requestEnd" placeholder="Request End" value="${userRequest.requestEnd}">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="field">
-        <div class="four fields">
-            <div class="field">
-                <a class="mini ui labeled icon button" href="javascript:setRequestDate('start', 1)">
-                    <i class="checked calendar icon"></i>
-                    Enter Tomorrow
-                </a>
-                <div class="mini ui floating labeled icon dropdown button">
-                    <i class="right arrow icon"></i>
-                    <span>More Selection</span>
-                    <div class="left menu">
-                        <div class="item" onclick="javascript:setRequestDate('start', 2)">2 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('start', 3)">3 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('start', 4)">4 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('start', 5)">5 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('start', 6)">6 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('start', 7)">7 days later</div>
-                    </div>
-                </div>
-            </div>
-            <div class="field">
-                <a class="mini ui labeled icon button" href="javascript:setRequestDate('end', 1)">
-                    <i class="checked calendar icon"></i>
-                    Enter Tomorrow
-                </a>
-                <div class="mini ui floating labeled icon dropdown button">
-                    <i class="right arrow icon"></i>
-                    <span>More Selection</span>
-                    <div class="left menu">
-                        <div class="item" onclick="javascript:setRequestDate('end', 2)">2 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('end', 3)">3 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('end', 4)">4 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('end', 5)">5 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('end', 6)">6 days later</div>
-                        <div class="item" onclick="javascript:setRequestDate('end', 7)">7 days later</div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="field">
         <div class="two fields">
