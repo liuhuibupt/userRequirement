@@ -99,7 +99,7 @@
                 <div class="item">
                     <div class="header">Receiving Plan</div>
                     <div class="menu">
-                        <a class="item">跟踪接收计划<div class="ui mini left pointing label">还没开始开发呢</div></a>
+                        <a class="item">跟踪接收计划<div class="ui mini left pointing label">等昊哥呢</div></a>
                         <a class="item">More</a>
                     </div>
                 </div>
