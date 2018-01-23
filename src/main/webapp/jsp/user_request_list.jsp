@@ -284,7 +284,7 @@ function setOrderby(orderby) {
         </div>
     </div>
     <div class="two wide right floated column">
-        <a class="ui teal labeled icon button" href="javascript:requestResult(0)"> <i class="search icon"></i>Search</a>
+        <a class="ui right floated teal labeled icon button" href="javascript:requestResult(0)"> <i class="search icon"></i>Search</a>
     </div>
 </div>
 <div class="ui pagination menu">
@@ -360,7 +360,7 @@ function setOrderby(orderby) {
         <th width="15%">需求代码</th>
         <th>需求名称</th>
         <th width="15%">Satellite</th>
-        <th width="10%">More Detail</th>
+        <th width="15%">More Detail</th>
         <th width="10%">状态</th>
     </tr>
     </thead>
