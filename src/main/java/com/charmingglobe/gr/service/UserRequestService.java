@@ -52,12 +52,16 @@ public class UserRequestService {
         if (null == requestSatellites || "".equals(requestSatellites)) {
             userRequest.setRequestSatellites("ALL-SATELLITES");
         }
-        Date timenow = new Date();
-        userRequest.setCreateDate(timenow);
-        userRequest.setUpdateDate(timenow);
         userRequestDao.saveUserRequest(userRequest);
     }
 
+    public List<UserRequest> getUserRequestByDate(int day) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, day);
+        Date date = c.getTime();
+        return userRequestDao.selectUserRequestByDate(date);
+
+    }
     public void cancelUserRequest(int userRequestId) {
         userRequestDao.saveUserRequest(userRequestId, "Cancelled");
     }

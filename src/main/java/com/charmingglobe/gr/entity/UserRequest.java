@@ -71,12 +71,6 @@ public class UserRequest {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "create_date")
-    private Date createDate;
-
-    @Column(name = "update_date")
-    private Date updateDate;
-
     @Transient
     private String label;
 
@@ -222,22 +216,6 @@ public class UserRequest {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
     }
 
     public String getLabel() {

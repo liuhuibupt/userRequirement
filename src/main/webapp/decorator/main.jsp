@@ -58,22 +58,31 @@
 <body>
 <div class="ui fixed inverted menu">
     <div class="ui container">
-        <a href="#" class="header item">
+        <a href="#" class="item">
             <img class="logo" src="./images/CG_logo_120.png">
             长光卫星 - 地面资源中心
         </a>
-        <a href="today" class="item">今日计划</a>
-        <a href="userRequest-list" class="item">用户需求</a>
-        <a href="#" class="item">观测任务</a>
-        <a href="#" class="item">数传计划</a>
-        <a href="#" class="item">遥测计划</a>
-        <a href="user-list" class="item">用户列表</a>
-        <div class="ui simple dropdown item">
-            <i class="user icon"></i>萨瓦迪卡，<sec:authentication property="principal.displayName"/>
-            <i class="dropdown icon"></i>
-            <div class="menu">
-                <a class="item" href="user?userId=<sec:authentication property="principal.id"/>">账号信息</a>
-                <a class="item" href="grc_logout">Logout</a>
+        <div class="right menu">
+            <div class="ui simple dropdown item">
+                <i class="user icon"></i>萨瓦迪卡，<sec:authentication property="principal.displayName"/>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="user?userId=<sec:authentication property="principal.id"/>">账号信息</a>
+                    <a class="item" href="grc_logout">Logout</a>
+                </div>
+            </div>
+            <div class="ui simple dropdown item">
+                <i class="configure icon"></i>开发工具
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="webservice">Webservice</a>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui mini action input">
+                    <input type="text" placeholder="很强大，但是还没做">
+                    <button class="ui teal button">Search</button>
+                </div>
             </div>
         </div>
     </div>

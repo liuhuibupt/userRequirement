@@ -13,4 +13,10 @@
             <bean class="com.charmingglobe.gr.webservice.UserRequestWebService"/>
         </jaxws:serviceBean>
     </jaxws:server>
+
+    <jaxws:server address="/missionPlan" name="missionPlan">
+        <jaxws:serviceBean>
+            <bean class="com.charmingglobe.gr.webservice.MissionPlanWebService"/>
+        </jaxws:serviceBean>
+    </jaxws:server>
 </beans>

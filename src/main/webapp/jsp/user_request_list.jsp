@@ -359,7 +359,8 @@ function setOrderby(orderby) {
         <th width="10%">No.</th>
         <th width="15%">需求代码</th>
         <th>需求名称</th>
-        <th width="15%">Satellite</th>
+        <th width="10%">Satellite</th>
+        <th width="10%">Submitter</th>
         <th width="15%">More Detail</th>
         <th width="10%">状态</th>
     </tr>
@@ -386,6 +387,8 @@ function setOrderby(orderby) {
                     <c:when test="${fn:contains(userRequest.requestSatellites, 'JL108B')}">视频08星&nbsp;</c:when>
                     <c:otherwise>${userRequest.requestSatellites}</c:otherwise>
                 </c:choose>
+            </td>
+            <td>${userRequest.submitter.displayName}</td>
             <td>
                 <div class="ui label" name="moredetail"><i class="list icon"></i>More</div>
                 <div class="ui flowing popup top left transition hidden">
@@ -425,7 +428,7 @@ function setOrderby(orderby) {
     </c:forEach>
     <tfoot>
     <tr>
-        <th colspan="6">
+        <th colspan="7">
             <div class="ui left floated pagination menu">
                 <a class="icon item"  href="javascript:requestResult(${cri.curPageNum - 1})">
                     <i class="left chevron icon"></i>

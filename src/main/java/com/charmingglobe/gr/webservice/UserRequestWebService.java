@@ -33,7 +33,5 @@ public class UserRequestWebService {
         return "SUCCESS";
     }
 
-    public List<UserRequestResult> getUserRequestList(int dayOffset) {
-        return null;
-    }
+
 }
