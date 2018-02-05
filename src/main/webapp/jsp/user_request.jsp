@@ -93,23 +93,29 @@
                         }
                     ]
                 },
-                imagingWkt: {
-                    identifier: 'imagingWkt',
+                imagingPara: {
+                    identifier: 'imagingPara',
                     rules: [
                         {
                             type: 'empty',
-                            prompt: 'Please entry [Imaging WKT]'
+                            prompt: 'Please enter [Imaging Parameter]'
                         }
                     ]
                 }
             }
         });
 
+        $('#requestType').ready(function () {
+            var val = $('#requestType').val();
+            if (val == 'IN-SPACE') {
+                $('#cesiumContainer').hide();
+            }
+        });
+
         $('#requestType').change(function () {
             $('#requestType_point').hide();
-            $('#requestType_inSpace').hide();
-            $('#imagingWkt').attr("readonly", "readonly");
-            $('#imagingWkt').val("");
+            $('#cesiumContainer').show();
+            $('#imagingPara').val("");
 
             var val = $(this).val();
             if (val == 'POINT') {
@@ -124,7 +130,14 @@
                 drawPoint(loggingMark);
             }
             if (val == 'IN-SPACE') {
-                $('#requestType_inSpace').show();
+                $('#cesiumContainer').hide();
+            }
+        });
+
+        $('#elevation').change(function () {
+            var imagingPara = $('#imagingPara').val();
+            if ('' != imagingPara) {
+                updateImagingParameter();
             }
         });
 
@@ -139,6 +152,7 @@
                 setPointPosition(lon, lat);
                 var wkt = "POINT(" + lon + " " + lat + ")";
                 $("#imagingWkt").val(wkt);
+                updateImagingParameter();
             }
         }
 
@@ -169,6 +183,7 @@
         }
         wkt = wkt.substring(0, wkt.length - 1) + "))";
         $("#imagingWkt").val(wkt);
+        updateImagingParameter();
     }
 
     var loggingMark = function(lon, lat) {
@@ -176,6 +191,7 @@
         $("#latitude").val(lat);
         var wkt = "POINT(" + lon + " " + lat + ")";
         $("#imagingWkt").val(wkt);
+        updateImagingParameter();
     };
 
     var loggingMessage = function(message) {
@@ -211,6 +227,27 @@
             $('#requestEnd').val(year + '-' + month + '-' + date + ' 23:59:59');
         }
     }
+
+    function updateImagingParameter() {
+        var imagingPara = '';
+        var requestType = $('#requestType').val();
+
+        if ('POINT' == requestType || 'AREA' == requestType) {
+            var imagingWkt = $('#imagingWkt').val();
+            if (imagingWkt != '') {
+                imagingPara += "imagingWkt=" + imagingWkt;
+            }
+
+            var elevation = $('#elevation').val();
+            if (elevation != '') {
+                if ('' != imagingPara) {
+                    imagingPara += "\n";
+                }
+                imagingPara += "elevation=" + elevation;
+            }
+        }
+        $('#imagingPara').val(imagingPara);
+    }
 </script>
 <style>
     @import url(${serverUrl}/Cesium/Widgets/widgets.css);
@@ -243,7 +280,6 @@
 <body>
 <h2 class="ui header">观测需求</h2>
 <div class="ui divider"></div>
-
 <form class="ui form" action="submitUserRequest" method="post" style="margin-top: 0.5rem">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <input type="hidden" id="requestId" name="requestId" placeholder="Request ID" value="${userRequest.requestId}">
@@ -344,7 +380,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="field">
         <div class="field">
@@ -572,54 +607,29 @@
         </div>
         <div class="field">
             <label>地层高</label>
-            <input type="text">
-        </div>
-    </div>
-    <div class="eight fields" id="requestType_inSpace" style="display: none">
-        <div class="field">
-            <label>Q1</label>
-            <input type="text" >
-        </div>
-        <div class="field">
-            <label>Q2</label>
-            <input type="text">
-        </div>
-        <div class="field">
-            <label>成像时刻</label>
-            <input type="text">
-        </div>
-        <div class="field">
-            <label>成像时长</label>
-            <input type="text" id="123">
+            <input type="text" id="elevation" name="elevation" placeholder="Elevation">
         </div>
     </div>
     <div id="cesiumContainer" style="margin-bottom: 0.75rem">
         <div class="loggingMessage"></div>
     </div>
-    <div class="field">
-        <div class="two fields">
-            <div class="field">
-                <label>成像代码 Imaging WKT</label>
-                <textarea class="ready-only" id="imagingWkt" name="imagingWkt" readonly>${userRequest.imagingWkt}</textarea>
-            </div>
+    <div class="two fields">
+        <div class="field">
+            <label>成像参数 Imaging Parameter</label>
+            <input type="hidden" id="imagingWkt" name="imagingWkt" >
+            <textarea class="ready-only" id="imagingPara" name="imagingParaTxt">${userRequest.imagingParaTxt}</textarea>
         </div>
     </div>
-    <div class="field">
-        <div class="two fields">
-            <div class="field">
-                <label>关键字 Keyword</label>
-                <input type="text" id="keyword" name="keyword" placeholder="Keyword" value="${userRequest.keyword}">
-            </div>
+    <div class="two fields">
+        <div class="field">
+            <label>关键字 Keyword</label>
+            <input type="text" id="keyword" name="keyword" placeholder="Keyword" value="${userRequest.keyword}">
         </div>
     </div>
-    <div class="field">
-        <div class="two fields">
-            <div class="field">
-                <label>备注 Comments</label>
-                <textarea id="comments" name="comments">${userRequest.comments}</textarea>
-            </div>
-            <div class="field">
-            </div>
+    <div class="two fields">
+        <div class="field">
+            <label>备注 Comments</label>
+            <textarea id="comments" name="comments">${userRequest.comments}</textarea>
         </div>
     </div>
     <div class="field">

@@ -41,7 +41,7 @@ public class UserRequestResult {
         requestStart = userRequest.getRequestStart();
         requestEnd = userRequest.getRequestEnd();
         imagingMode = userRequest.getImagingMode();
-        imagingWkt = userRequest.getImagingWkt();
+        imagingWkt = "";
         status = userRequest.getStatus();
     }
 

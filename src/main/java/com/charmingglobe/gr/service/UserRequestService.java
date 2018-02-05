@@ -6,6 +6,7 @@ import com.charmingglobe.gr.dao.UserRequestDao;
 import com.charmingglobe.gr.entity.User0;
 import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.geo.GeometryTools;
+import com.charmingglobe.gr.utils.ImagingParaConverter;
 import com.charmingglobe.gr.utils.TimeUtils;
 import com.vividsolutions.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by PANZHENG on 2017/12/4.
@@ -35,9 +37,9 @@ public class UserRequestService {
 
     public void uploadUserRequest(UserRequest userRequest) {
 
-        String imagingWkt = userRequest.getImagingWkt();
-        Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
-        userRequest.setImagingGeometry(imagingGeometry);
+        //String imagingWkt = userRequest.getImagingWkt();
+        //Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
+        //userRequest.setImagingGeometry(imagingGeometry);
 
         User0 submitter = userDao.getUser(1);
         userRequest.setSubmitter(submitter);
@@ -72,9 +74,12 @@ public class UserRequestService {
         String requestId = getNextRequestId();
         userRequest.setRequestId(requestId);
 
-        String imagingWkt = userRequest.getImagingWkt();
-        String requestType = userRequest.getRequestType();
-        if (!"IN-SPACE".equals(requestType)) {
+        String imagingParaTxt= userRequest.getImagingParaTxt();
+        Map<String, String> imagingPara = ImagingParaConverter.toMap(imagingParaTxt);
+        userRequest.setImagingPara(imagingPara);
+
+        if (imagingPara != null && imagingPara.containsKey("imagingWkt")) {
+            String imagingWkt = imagingPara.get("imagingWkt");
             Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
             userRequest.setImagingGeometry(imagingGeometry);
         }
@@ -101,7 +106,11 @@ public class UserRequestService {
     }
 
     public UserRequest getUserRequest(int userRequestId) {
-        return userRequestDao.getUserRequest(userRequestId);
+        UserRequest userRequest = userRequestDao.getUserRequest(userRequestId);
+        Map<String, String> para = userRequest.getImagingPara();
+        String paraTxt = ImagingParaConverter.toSring(para);
+        userRequest.setImagingParaTxt(paraTxt);
+        return userRequest;
     }
 
     public List<UserRequest> getUserRequestList(UserRequestCri cri) {

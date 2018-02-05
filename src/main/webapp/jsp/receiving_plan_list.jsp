@@ -52,7 +52,7 @@ $(document).ready(function() {
     <c:forEach items="${resultSet}" var="imagingTask">
         <tr>
             <td>${imagingTask.id}</td>
-            <td><a href="imagingTask?imagingTaskId=${imagingTask.id}">${imagingTask.taskId}</a></td>
+            <td>${imagingTask.taskId}</td>
             <td>${imagingTask.taskName}</td>
             <td>123</td>
             <td>123</td>

@@ -1,16 +1,20 @@
 package com.charmingglobe.gr.entity;
 
+import com.charmingglobe.gr.hibernate.JSONBUserType;
 import com.vividsolutions.jts.geom.Geometry;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by PANZHENG on 2017/11/17.
  */
 @Entity
 @Table(name = "gr_user_request")
+@TypeDef(name = "jsonb", typeClass = JSONBUserType.class)
 public class UserRequest {
 
     @Id
@@ -55,8 +59,12 @@ public class UserRequest {
     @Column(name = "imaging_mode")
     private String imagingMode;
 
-    @Column(name = "imaging_wkt")
-    private String imagingWkt;
+    @Type(type = "jsonb")
+    @Column(name = "imaging_para")
+    private Map imagingPara;
+
+    @Transient
+    private String imagingParaTxt;
 
     @Type(type="com.vividsolutions.jts.geom.Geometry")
     @Column(name = "imaging_geometry")
@@ -178,12 +186,20 @@ public class UserRequest {
         this.imagingMode = imagingMode;
     }
 
-    public String getImagingWkt() {
-        return imagingWkt;
+    public Map getImagingPara() {
+        return imagingPara;
     }
 
-    public void setImagingWkt(String imagingWkt) {
-        this.imagingWkt = imagingWkt;
+    public void setImagingPara(Map imagingPara) {
+        this.imagingPara = imagingPara;
+    }
+
+    public String getImagingParaTxt() {
+        return imagingParaTxt;
+    }
+
+    public void setImagingParaTxt(String imagingParaTxt) {
+        this.imagingParaTxt = imagingParaTxt;
     }
 
     public Geometry getImagingGeometry() {

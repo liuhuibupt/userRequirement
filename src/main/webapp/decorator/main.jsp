@@ -79,9 +79,9 @@
                 </div>
             </div>
             <div class="item">
-                <div class="ui mini action input">
+                <div class="ui mini icon input">
                     <input type="text" placeholder="很强大，但是还没做">
-                    <button class="ui teal button">Search</button>
+                    <i class="search icon"></i>
                 </div>
             </div>
         </div>
@@ -99,9 +99,16 @@
                     </div>
                 </div>
                 <div class="item">
+                    <div class="header">Imaging Plan</div>
+                    <div class="menu">
+                        <a class="item" href="#">拍摄计划检索<div class="ui mini left pointing blue label">新想出来的</div></a>
+                        <a class="item">More</a>
+                    </div>
+                </div>
+                <div class="item">
                     <div class="header">Imaging Tasks</div>
                     <div class="menu">
-                        <a class="item">拍摄任务<div class="ui mini left pointing blue label">开发中</div></a>
+                        <a class="item" href="imagingTask-list">拍摄任务检索<div class="ui mini left pointing blue label">开发中</div></a>
                         <a class="item">More</a>
                     </div>
                 </div>
@@ -133,13 +140,14 @@
                         <a class="item">More</a>
                     </div>
                 </div>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <div class="item">
                     <div class="header">User List</div>
                     <div class="menu">
                         <a class="item" href="user-list">用户列表<div class="ui mini left pointing teal label">可以用了</div></a>
                         <a class="item">More</a>
                     </div>
-                </div>
+                </div></sec:authorize>
             </div>
         </div>
         <div class="app_content">

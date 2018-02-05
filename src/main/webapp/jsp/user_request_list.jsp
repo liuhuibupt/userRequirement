@@ -328,7 +328,7 @@ function setOrderby(orderby) {
 <table class="ui celled striped table">
     <thead>
     <tr>
-        <th colspan="6">
+        <th colspan="7">
             <div class="ui grid">
                 <div class="six column row">
                     <div class="left floated column">
@@ -357,7 +357,7 @@ function setOrderby(orderby) {
     </tr>
     <tr>
         <th width="10%">No.</th>
-        <th width="15%">需求代码</th>
+        <th width="15%">需求ID</th>
         <th>需求名称</th>
         <th width="10%">Satellite</th>
         <th width="10%">Submitter</th>

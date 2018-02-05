@@ -13,4 +13,10 @@ public class MyController {
         return "today";
     }
 
+    @RequestMapping("/sticky")
+    public String sticky(Model model) {
+
+        return "sticky";
+    }
+
 }
