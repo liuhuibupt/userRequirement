@@ -26,6 +26,8 @@
         }
         .ui.menu .item img.logo {
             margin-right: 1.5em;
+            height: auto;
+            width: auto;
         }
         .main.container {
             margin-top: 7em;
@@ -59,8 +61,8 @@
 <div class="ui fixed inverted menu">
     <div class="ui container">
         <a href="#" class="item">
-            <img class="logo" src="./images/CG_logo_120.png">
-            长光卫星 - 地面资源中心
+            <img class="logo" src="./images/CG_logo_teal.png">
+            <!--长光卫星 - 地面资源中心-->
         </a>
         <div class="right menu">
             <div class="ui simple dropdown item">
