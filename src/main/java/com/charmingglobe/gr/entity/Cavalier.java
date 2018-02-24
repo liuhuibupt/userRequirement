@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "gr_user")
-public class User0 implements UserDetails {
+public class Cavalier implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +55,7 @@ public class User0 implements UserDetails {
     @Transient
     private List<GrantedAuthority> grantedAuthorities;
 
-    public User0() {
+    public Cavalier() {
         grantedAuthorities = new ArrayList<GrantedAuthority>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
     }

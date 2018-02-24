@@ -1,7 +1,7 @@
 package com.charmingglobe.gr.dao;
 
 import com.charmingglobe.gr.cri.UserRequestCri;
-import com.charmingglobe.gr.entity.User0;
+import com.charmingglobe.gr.entity.Cavalier;
 import com.charmingglobe.gr.entity.UserRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +9,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -54,7 +53,7 @@ public class UserRequestDao {
         SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
         SimpleDateFormat f2 = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
         Session session = sessionFactoryForReading.getCurrentSession();
-        Query query = session.createQuery("select count(*) from UserRequest where submitTime >= '" + f1.format(date) + " 'and submitTime <= '" + f2.format(date) + "' order by id asc");
+        Query query = session.createQuery("from UserRequest where submitTime >= '" + f1.format(date) + " 'and submitTime <= '" + f2.format(date) + "' order by id asc");
         List<UserRequest> resultList = query.list();
 
         return resultList;
@@ -135,7 +134,7 @@ public class UserRequestDao {
 
         boolean onlyme = cri.isOnlyme();
         if (onlyme) {
-            User0 me = (User0) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+            Cavalier me = (Cavalier) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
             where += " and submitter.id = " + me.getId();
         }
 

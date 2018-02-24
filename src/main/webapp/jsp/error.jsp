@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Error Page</title>
 </head>
 <body>
-
+<h2 class="ui header">Error Page</h2>
+<div class="ui divider"></div>
+Error=${error}
 </body>
 </html>

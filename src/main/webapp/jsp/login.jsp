@@ -67,8 +67,7 @@
     </style>
     <script>
         $(document).ready(function () {
-            $('.ui.form')
-                .form({
+            $('.ui.form').form({
                     fields: {
                         username: {
                             identifier: 'username',
@@ -93,8 +92,9 @@
                             ]
                         }
                     }
-                })
-            ;
+                });
+
+            $('#username').focus();
         });
     </script>
 </head>
@@ -112,7 +112,7 @@
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="text" name="username" placeholder="Username">
+                        <input type="text" id="username" name="username" placeholder="Username">
                     </div>
                 </div>
                 <div class="field">

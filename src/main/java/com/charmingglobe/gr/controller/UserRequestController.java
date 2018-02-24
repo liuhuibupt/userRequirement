@@ -1,7 +1,7 @@
 package com.charmingglobe.gr.controller;
 
 import com.charmingglobe.gr.cri.UserRequestCri;
-import com.charmingglobe.gr.entity.User0;
+import com.charmingglobe.gr.entity.Cavalier;
 import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.geo.GeometryTools;
 import com.charmingglobe.gr.service.UserRequestService;
@@ -50,11 +50,11 @@ public class UserRequestController {
         return "user_request_list";
     }
 
-    @RequestMapping("/userRequest-submit")
-    public String viewUserRequestSubmit(Model model) {
+    @RequestMapping("/userRequest-add")
+    public String addUserRequest(Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-        if (userDetails instanceof User0) {
-            User0 submitter = (User0) userDetails;
+        if (userDetails instanceof Cavalier) {
+            Cavalier submitter = (Cavalier) userDetails;
             model.addAttribute("submitter", submitter);
         }
         return "user_request";
@@ -80,7 +80,7 @@ public class UserRequestController {
     public String viewUserRequest(int userRequestId, Model model) {
         UserRequest userRequest = userRequestService.getUserRequest(userRequestId);
 
-        User0 submitter = userRequest.getSubmitter();
+        Cavalier submitter = userRequest.getSubmitter();
         model.addAttribute("submitter", submitter);
 
         Geometry imagingGeometry = userRequest.getImagingGeometry();

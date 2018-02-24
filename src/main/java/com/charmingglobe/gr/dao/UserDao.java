@@ -1,6 +1,6 @@
 package com.charmingglobe.gr.dao;
 
-import com.charmingglobe.gr.entity.User0;
+import com.charmingglobe.gr.entity.Cavalier;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -24,26 +24,26 @@ public class UserDao {
     @Qualifier("sessionFactoryForReading")
     private SessionFactory sessionFactoryForReading;
 
-    public List<User0> selectUser() {
+    public List<Cavalier> selectUser() {
         Session session = sessionFactoryForReading.getCurrentSession();
-        Query query = session.createQuery("from User0 where 1=1 order by id asc");
-        List<User0> list = query.list();
+        Query query = session.createQuery("from Cavalier where 1=1 order by id asc");
+        List<Cavalier> list = query.list();
         return list;
     }
 
-    public List<User0> getUser(String username) {
+    public List<Cavalier> getUser(String username) {
         Session session = sessionFactoryForReading.getCurrentSession();
-        Query query = session.createQuery("from User0 where upper(userName)=upper('" + username + "') order by id asc");
-        List<User0> list = query.list();
+        Query query = session.createQuery("from Cavalier where upper(userName)=upper('" + username + "') order by id asc");
+        List<Cavalier> list = query.list();
         return list;
     }
-    public User0 getUser(int id) {
+    public Cavalier getUser(int id) {
         Session session = sessionFactoryForReading.getCurrentSession();
-        User0 entity = session.get(User0.class, id);
+        Cavalier entity = session.get(Cavalier.class, id);
         return entity;
     }
 
-    public void saveUser(User0 user) {
+    public void saveUser(Cavalier user) {
         Session session = sessionFactoryForWriting.getCurrentSession();
         session.saveOrUpdate(user);
     }

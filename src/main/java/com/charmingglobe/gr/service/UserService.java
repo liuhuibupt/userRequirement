@@ -1,7 +1,7 @@
 package com.charmingglobe.gr.service;
 
 import com.charmingglobe.gr.dao.UserDao;
-import com.charmingglobe.gr.entity.User0;
+import com.charmingglobe.gr.entity.Cavalier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +16,17 @@ public class UserService {
     @Autowired
     UserDao userDao;
 
-    public List<User0> getAllUsers() {
+    public List<Cavalier> getAllUsers() {
         return userDao.selectUser();
     }
 
-    public User0 getUser(int userId) {
+    public Cavalier getUser(int userId) {
         return userDao.getUser(userId);
     }
 
-    public void registerUser(User0 user) throws Exception {
+    public void registerUser(Cavalier user) throws Exception {
         String userName = user.getUserName();
-        List<User0> existList = userDao.getUser(userName);
+        List<Cavalier> existList = userDao.getUser(userName);
         if (existList.size() > 0) {
             throw new Exception("用户名[" + userName + "]已存在");
         } else {
@@ -34,12 +34,12 @@ public class UserService {
         }
     }
 
-    public void saveUser(User0 user) {
+    public void saveUser(Cavalier user) {
         userDao.saveUser(user);
     }
 
     public void setEnable(int userId, boolean enable) {
-        User0 user = userDao.getUser(userId);
+        Cavalier user = userDao.getUser(userId);
         if (user != null) {
             user.setEnable(enable);
             userDao.saveUser(user);

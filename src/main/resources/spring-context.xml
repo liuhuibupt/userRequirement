@@ -5,6 +5,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:task="http://www.springframework.org/schema/task"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
@@ -12,15 +13,18 @@
 		http://www.springframework.org/schema/task
 		http://www.springframework.org/schema/task/spring-task.xsd
 		http://www.springframework.org/schema/security
-        http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+        http://www.springframework.org/schema/security/spring-security-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <task:annotation-driven scheduler="myScheduler"/>
     <task:scheduler id="myScheduler" pool-size="10"/>
 
+    <context:component-scan base-package="com.charmingglobe.gr.aspect"/>
     <context:component-scan base-package="com.charmingglobe.gr.dao"/>
     <context:component-scan base-package="com.charmingglobe.gr.service"/>
     <context:component-scan base-package="com.charmingglobe.gr.geo"/>
     <context:component-scan base-package="com.charmingglobe.gr.webservice"/>
+
+    <aop:aspectj-autoproxy />
 
     <context:property-placeholder location="classpath:conf.properties" file-encoding="utf-8"/>
 
@@ -53,4 +57,5 @@
         <property name="userDetailsService" ref="myUserDetailService"/>
         <property name="hideUserNotFoundExceptions" value="false" />
     </bean>
+
 </beans>

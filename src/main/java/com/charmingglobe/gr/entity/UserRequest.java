@@ -7,6 +7,7 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +40,7 @@ public class UserRequest {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "submitter_id")
-    private User0 submitter;
+    private Cavalier submitter;
 
     @Column(name = "submit_time")
     private Date submitTime;
@@ -81,6 +82,9 @@ public class UserRequest {
 
     @Transient
     private String label;
+
+    @Transient
+    private List<UserRequestStep> stepList;
 
     public int getId() {
         return id;
@@ -130,11 +134,11 @@ public class UserRequest {
         this.requestFrom = requestFrom;
     }
 
-    public User0 getSubmitter() {
+    public Cavalier getSubmitter() {
         return submitter;
     }
 
-    public void setSubmitter(User0 submitter) {
+    public void setSubmitter(Cavalier submitter) {
         this.submitter = submitter;
     }
 
@@ -240,5 +244,13 @@ public class UserRequest {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public List<UserRequestStep> getStepList() {
+        return stepList;
+    }
+
+    public void setStepList(List<UserRequestStep> stepList) {
+        this.stepList = stepList;
     }
 }

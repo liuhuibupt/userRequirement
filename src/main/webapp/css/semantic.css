@@ -8169,7 +8169,7 @@ i.icon.window.close.outline:before {
   content: "\f2d4";
 }
 
-/* User0 Actions */
+/* Cavalier Actions */
 
 i.icon.wait:before {
   content: "\f017";
@@ -14883,7 +14883,7 @@ ol.ui.horizontal.list li:before,
 *******************************/
 
 /*******************************
-    User0 Variable Overrides
+    Cavalier Variable Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Loader
@@ -25220,7 +25220,7 @@ Floated Menu / Item
 *******************************/
 
 /*******************************
-    User0 Variable Overrides
+    Cavalier Variable Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Item
@@ -26294,7 +26294,7 @@ a.ui.card:hover,
 *******************************/
 
 /*******************************
-    User0 Variable Overrides
+    Cavalier Variable Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Comment
@@ -26453,7 +26453,7 @@ a.ui.card:hover,
 }
 
 /*--------------------
-     User0 Actions
+     Cavalier Actions
 ---------------------*/
 
 .ui.comments .comment .actions {
@@ -26579,7 +26579,7 @@ a.ui.card:hover,
 *******************************/
 
 /*******************************
-    User0 Variable Overrides
+    Cavalier Variable Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Feed
@@ -26737,7 +26737,7 @@ a.ui.card:hover,
 }
 
 /*--------------
-      User0
+      Cavalier
 ---------------*/
 
 .ui.feed > .event > .content .user {
@@ -26893,7 +26893,7 @@ a.ui.card:hover,
 *******************************/
 
 /*******************************
-    User0 Variable Overrides
+    Cavalier Variable Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Item
@@ -27413,7 +27413,7 @@ a.ui.card:hover,
 *******************************/
 
 /*******************************
-    User0 Variable Overrides
+    Cavalier Variable Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Statistic
@@ -28049,7 +28049,7 @@ a.ui.card:hover,
 *******************************/
 
 /*******************************
-    User0 Variable Overrides
+    Cavalier Variable Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Accordion
@@ -28311,7 +28311,7 @@ a.ui.card:hover,
 }
 
 /*******************************
-        User0 Overrides
+        Cavalier Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Checkbox
@@ -29205,7 +29205,7 @@ body.dimmable > .dimmer {
 *******************************/
 
 /*******************************
-        User0 Overrides
+        Cavalier Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Dropdown
@@ -29685,7 +29685,7 @@ select.ui.dropdown {
   word-wrap: normal;
 }
 
-/* User0 Item */
+/* Cavalier Item */
 
 .ui.selection.dropdown .menu > .hidden.addition.item {
   display: none;
@@ -30819,7 +30819,7 @@ select.ui.dropdown {
 */
 
 /*******************************
-        User0 Overrides
+        Cavalier Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Video
@@ -31779,7 +31779,7 @@ a.ui.nag {
 *******************************/
 
 /*******************************
-        User0 Overrides
+        Cavalier Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Popup
@@ -32590,7 +32590,7 @@ a.ui.nag {
 *******************************/
 
 /*******************************
-        User0 Overrides
+        Cavalier Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Progress Bar
@@ -33322,7 +33322,7 @@ a.ui.nag {
 }
 
 /*-------------------
-   User0 Interactive
+   Cavalier Interactive
 --------------------*/
 
 /* Selected Rating */
@@ -34041,7 +34041,7 @@ a.ui.nag {
 *******************************/
 
 /*******************************
-        User0 Overrides
+        Cavalier Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Sidebar
@@ -34885,7 +34885,7 @@ body.pushable > .pusher {
 *******************************/
 
 /*******************************
-        User0 Overrides
+        Cavalier Overrides
 *******************************/
 /*!
  * # Semantic UI 2.2.12 - Transition

@@ -381,7 +381,7 @@
             </div>
         </div>
     </div>
-    <div class="field">
+    <div class="field" style="display: none">
         <div class="field">
             <div class="ui mini steps">
                 <div class="step">
@@ -428,7 +428,20 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><c:if test="${userRequest != null}">
+    <div class="field">
+        <div class="field">
+            <div class="ui mini steps"><c:forEach items="${userRequest.stepList}" var="step">
+                <div class="step">
+                    <i class="${step.icon} icon"></i>
+                    <div class="content">
+                        <div class="title"><a href="${step.jumpLink}">${step.stepName}</a></div>
+                        <div class="description"><fmt:formatDate value="${step.occurrenceTime}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+                    </div>
+                </div></c:forEach>
+            </div>
+        </div>
+    </div></c:if>
     <div class="sixteen fields">
         <div class="field">
             <c:if test="${userRequest != null}"><a class="ui tag label">

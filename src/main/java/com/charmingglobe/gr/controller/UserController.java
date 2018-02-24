@@ -1,6 +1,9 @@
 package com.charmingglobe.gr.controller;
 
-import com.charmingglobe.gr.entity.User0;
+import com.charmingglobe.gr.entity.Cavalier;
+import com.charmingglobe.gr.entity.ImagingPlan;
+import com.charmingglobe.gr.entity.UserAction;
+import com.charmingglobe.gr.service.UserActionService;
 import com.charmingglobe.gr.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -26,6 +29,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserActionService userActionService;
+
     @InitBinder
     public void InitBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -34,16 +40,23 @@ public class UserController {
                 dateFormat, true));
     }
 
+    @RequestMapping("/userAction-list")
+    public String getUserActionList(Model model) {
+        List<UserAction> userActionList = userActionService.getUserActionList();
+        model.addAttribute("resultSet", userActionList);
+        return "user_action_list";
+    }
+
     @RequestMapping("/user-list")
     public String listUsers(Model model) {
-        List<User0> userList = userService.getAllUsers();
+        List<Cavalier> userList = userService.getAllUsers();
         model.addAttribute("userList", userList);
         return "user_list";
     }
 
     @RequestMapping("/user")
     public String viewUser(int userId, Model model) {
-        User0 user = userService.getUser(userId);
+        Cavalier user = userService.getUser(userId);
         model.addAttribute("user", user);
 
         UserDetails author = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
@@ -57,7 +70,7 @@ public class UserController {
     }
 
     @RequestMapping("/registerUser")
-    public String registerUser(User0 user, Model model) {
+    public String registerUser(Cavalier user, Model model) {
         model.addAttribute("user", user);
         try {
             userService.registerUser(user);
@@ -76,7 +89,7 @@ public class UserController {
     }
 
     @RequestMapping("/saveUser")
-    public String saveUser(User0 user) {
+    public String saveUser(Cavalier user) {
         userService.saveUser(user);
         int userId = user.getId();
         return "redirect:user?userId=" + userId;

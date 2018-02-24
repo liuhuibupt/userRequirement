@@ -96,14 +96,14 @@
                 <div class="item">
                     <div class="header">User Requirements</div>
                     <div class="menu">
-                        <a class="item" href="userRequest-list" >需求检索<div class="ui mini left pointing teal label">可以用了</div></a>
-                        <a class="item" href="userRequest-submit">新建需求<div class="ui mini left pointing teal label">可以用了</div></a>
+                        <a class="item" href="userRequest-list">用户需求<div class="ui mini left pointing teal label">可以用了</div></a>
+                        <a class="item" href="userRequest-add">新建需求<div class="ui mini left pointing teal label">可以用了</div></a>
                     </div>
                 </div>
                 <div class="item">
                     <div class="header">Imaging Plan</div>
                     <div class="menu">
-                        <a class="item" href="#">拍摄计划检索<div class="ui mini left pointing blue label">新想出来的</div></a>
+                        <a class="item" href="imagingPlan-list">拍摄计划检索<div class="ui mini left pointing blue label">新想出来的</div></a>
                         <a class="item">More</a>
                     </div>
                 </div>
@@ -117,7 +117,15 @@
                 <div class="item">
                     <div class="header">Receiving Plan</div>
                     <div class="menu">
-                        <a class="item">跟踪接收计划<div class="ui mini left pointing label">等昊哥呢</div></a>
+                        <a class="item" href="receivingPlan-list">跟踪接收计划<div class="ui mini left pointing label">等昊哥呢</div></a>
+                        <a class="item" href="receivingPlan-add">测试录入</a>
+                        <a class="item">More</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="header">Telemetry Plan</div>
+                    <div class="menu">
+                        <a class="item">遥测计划<div class="ui mini left pointing label">还没开始开发呢</div></a>
                         <a class="item">More</a>
                     </div>
                 </div>
@@ -135,18 +143,13 @@
                         <a class="item">More</a>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="header">Telemetry Plan</div>
-                    <div class="menu">
-                        <a class="item">遥测计划<div class="ui mini left pointing label">还没开始开发呢</div></a>
-                        <a class="item">More</a>
-                    </div>
-                </div>
+
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <div class="item">
                     <div class="header">User List</div>
                     <div class="menu">
                         <a class="item" href="user-list">用户列表<div class="ui mini left pointing teal label">可以用了</div></a>
+                        <a class="item" href="userAction-list">用户操作<div class="ui mini left pointing teal label">可以用了</div></a>
                         <a class="item">More</a>
                     </div>
                 </div></sec:authorize>

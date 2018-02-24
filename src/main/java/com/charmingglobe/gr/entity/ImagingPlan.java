@@ -27,17 +27,23 @@ public class ImagingPlan {
     @Column(name = "request_name")
     private String requestName;
 
-    @Column(name = "satellite_id")
-    private String satelliteId;
+    @Column(name = "plan_id")
+    private String planId;
+
+    @Column(name = "request_satellites")
+    private String requestSatellites;
 
     @Column(name = "request_type")
     private String requestType;
 
-    @Column(name = "imaging_start_time")
-    private Date imagingStartTime;
+    @Column(name = "plan_start_time")
+    private Date planStartTime;
 
-    @Column(name = "imaging_end_time")
-    private Date imagingEndTime;
+    @Column(name = "plan_end_time")
+    private Date planEndTime;
+
+    @Column(name = "status")
+    private String status;
 
     public int getId() {
         return id;
@@ -79,12 +85,20 @@ public class ImagingPlan {
         this.requestName = requestName;
     }
 
-    public String getSatelliteId() {
-        return satelliteId;
+    public String getPlanId() {
+        return planId;
     }
 
-    public void setSatelliteId(String satelliteId) {
-        this.satelliteId = satelliteId;
+    public void setPlanId(String planId) {
+        this.planId = planId;
+    }
+
+    public String getRequestSatellites() {
+        return requestSatellites;
+    }
+
+    public void setRequestSatellites(String requestSatellites) {
+        this.requestSatellites = requestSatellites;
     }
 
     public String getRequestType() {
@@ -95,19 +109,27 @@ public class ImagingPlan {
         this.requestType = requestType;
     }
 
-    public Date getImagingStartTime() {
-        return imagingStartTime;
+    public Date getPlanStartTime() {
+        return planStartTime;
     }
 
-    public void setImagingStartTime(Date imagingStartTime) {
-        this.imagingStartTime = imagingStartTime;
+    public void setPlanStartTime(Date planStartTime) {
+        this.planStartTime = planStartTime;
     }
 
-    public Date getImagingEndTime() {
-        return imagingEndTime;
+    public Date getPlanEndTime() {
+        return planEndTime;
     }
 
-    public void setImagingEndTime(Date imagingEndTime) {
-        this.imagingEndTime = imagingEndTime;
+    public void setPlanEndTime(Date planEndTime) {
+        this.planEndTime = planEndTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
