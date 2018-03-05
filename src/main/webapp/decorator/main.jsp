@@ -118,7 +118,7 @@
                 <div class="item">
                     <div class="header">Receiving Plan</div>
                     <div class="menu">
-                        <a class="item" href="receivingPlan-list">跟踪接收计划<div class="ui mini left pointing label">等昊哥呢</div></a>
+                        <a class="item" href="receivingPlan-list">跟踪接收计划<div class="ui mini left pointing blue label">开发中</div></a>
                         <a class="item" href="receivingPlan-add">手动录入Receiving Plan</a>
                         <a class="item">More</a>
                     </div>
