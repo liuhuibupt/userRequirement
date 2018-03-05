@@ -28,6 +28,17 @@ public class ImagingPlanService {
         return imagingPlanDao.getImagingPlan(imagingPlanId);
     }
 
+    public int inputImagingPlans(List<ImagingPlan> imagingPlans) {
+        int count = 0;
+        if (null!= imagingPlans) {
+            for (ImagingPlan imagingPlan: imagingPlans) {
+                imagingPlanDao.saveImagingPlan(imagingPlan);
+                count++;
+            }
+        }
+        return count;
+    }
+
     public void saveImagingPlan(ImagingPlan imagingPlan) {
         imagingPlanDao.saveImagingPlan(imagingPlan);
     }

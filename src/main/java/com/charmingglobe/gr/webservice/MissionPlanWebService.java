@@ -25,6 +25,7 @@ import java.util.List;
 @WebService
 public class MissionPlanWebService {
 
+    private final String SUCCESS = "SUCCESS";
     @Autowired
     UserRequestService userRequestService;
 
@@ -46,16 +47,19 @@ public class MissionPlanWebService {
 
     @WebMethod
     public String inputImagingPlans(String json) {
-
+        String result = SUCCESS;
         System.out.println(json);
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
             List<ImagingPlan> imagingPlans = gson.fromJson(json, new TypeToken<List<ImagingPlan>>(){}.getType());
+            int count = imagingPlanService.inputImagingPlans(imagingPlans);
+            result += "[count=" + count + "]";
         } catch (Exception e) {
-
+            e.printStackTrace();
+            result = "ERROR[" + e.getMessage() + "]";
         }
 
-        return "";
+        return result;
     }
 
     @WebMethod
