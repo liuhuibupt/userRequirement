@@ -50,8 +50,11 @@ public class MissionPlanWebService {
         String result = SUCCESS;
         System.out.println(json);
         try {
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .setDateFormat("yyyy-MM-dd hh:mm:ss").create();
             List<ImagingPlan> imagingPlans = gson.fromJson(json, new TypeToken<List<ImagingPlan>>(){}.getType());
+            System.out.println(gson.toString());
             int count = imagingPlanService.inputImagingPlans(imagingPlans);
             result += "[count=" + count + "]";
         } catch (Exception e) {
