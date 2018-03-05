@@ -37,9 +37,6 @@ public class UserRequestService {
     private GeometryTools geometryTools;
 
     @Autowired
-    private RequestAnalysisService requestAnalysisService;
-
-    @Autowired
     private UserActionService userActionService;
 
     public void uploadUserRequest(UserRequest userRequest) {
@@ -104,8 +101,6 @@ public class UserRequestService {
         }
 
         userRequestDao.saveUserRequest(userRequest);
-
-        requestAnalysisService.submitRequest(userRequest);
 
         userActionService.addUserAction(userRequest);
     }
