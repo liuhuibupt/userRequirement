@@ -1,15 +1,11 @@
 package com.charmingglobe.gr.service;
 
-import com.charmingglobe.gr.builder.UserRequestStepBuilder;
 import com.charmingglobe.gr.constants.RequestStatus;
-import com.charmingglobe.gr.constants.RequestStep;
 import com.charmingglobe.gr.cri.UserRequestCri;
 import com.charmingglobe.gr.dao.UserDao;
 import com.charmingglobe.gr.dao.UserRequestDao;
-import com.charmingglobe.gr.dao.UserRequestStepDao;
 import com.charmingglobe.gr.entity.Cavalier;
 import com.charmingglobe.gr.entity.UserRequest;
-import com.charmingglobe.gr.entity.UserRequestStep;
 import com.charmingglobe.gr.geo.GeometryTools;
 import com.charmingglobe.gr.utils.ImagingParaConverter;
 import com.charmingglobe.gr.utils.TimeUtils;
@@ -33,9 +29,6 @@ public class UserRequestService {
 
     @Autowired
     private UserRequestDao userRequestDao;
-
-    @Autowired
-    private UserRequestStepDao userRequestStepDao;
 
     @Autowired
     private UserDao userDao;
@@ -114,10 +107,6 @@ public class UserRequestService {
 
         requestAnalysisService.submitRequest(userRequest);
 
-        int userRequestId = userRequest.getId();
-        UserRequestStep step = UserRequestStepBuilder.submit(userRequestId);
-        userRequestStepDao.save(step);
-
         userActionService.addUserAction(userRequest);
     }
 
@@ -133,9 +122,6 @@ public class UserRequestService {
         Map<String, String> para = userRequest.getImagingPara();
         String paraTxt = ImagingParaConverter.toSring(para);
         userRequest.setImagingParaTxt(paraTxt);
-
-        List<UserRequestStep> stepList = userRequestStepDao.selectUserRequestStep(userRequestId);
-        userRequest.setStepList(stepList);
 
         return userRequest;
     }

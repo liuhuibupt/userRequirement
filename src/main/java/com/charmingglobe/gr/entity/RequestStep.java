@@ -1,42 +1,21 @@
 package com.charmingglobe.gr.entity;
 
-import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by PANZHENG on 2018/2/23.
  */
-@Entity
-@Table(name = "gr_user_request_step")
-public class UserRequestStep {
+public class RequestStep {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private int id;
-
-    @Column(name = "user_request_id")
     private int userRequestId;
 
-    @Column(name = "step_name")
     private String stepName;
 
-    @Column(name = "occurrence_time")
     private Date occurrenceTime;
 
-    @Column(name = "jump_link")
     private String jumpLink;
 
-    @Column(name = "icon")
     private String icon;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getUserRequestId() {
         return userRequestId;

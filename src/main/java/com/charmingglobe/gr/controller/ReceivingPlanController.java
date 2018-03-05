@@ -2,8 +2,10 @@ package com.charmingglobe.gr.controller;
 
 import com.charmingglobe.gr.cri.ReceivingPlanCri;
 import com.charmingglobe.gr.cri.UserRequestCri;
+import com.charmingglobe.gr.entity.ImagingTask;
 import com.charmingglobe.gr.entity.ReceivingPlan;
 import com.charmingglobe.gr.entity.UserRequest;
+import com.charmingglobe.gr.service.ImagingTaskService;
 import com.charmingglobe.gr.service.ReceivingPlanService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,7 +23,10 @@ import java.util.List;
 public class ReceivingPlanController {
 
     @Autowired
-    private ReceivingPlanService receivingPlanService;
+    ReceivingPlanService receivingPlanService;
+
+    @Autowired
+    ImagingTaskService imagingTaskService;
 
     @RequestMapping("/receivingPlan-add")
     public String addReceivingPlan() {
@@ -47,6 +52,9 @@ public class ReceivingPlanController {
     public String getReceivingPlan(int receivingPlanId, Model model) {
         ReceivingPlan receivingPlan = receivingPlanService.getReceivingPlan(receivingPlanId);
         model.addAttribute("receivingPlan", receivingPlan);
+
+        List<ImagingTask> imagingTaskList= imagingTaskService.getImagingTaskListByReceivingPlan(receivingPlanId);
+        model.addAttribute("imagingTaskList", imagingTaskList);
         return "receiving_plan";
     }
 

@@ -19,13 +19,12 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<h2 class="ui header">拍摄任务检索</h2>
+<h2 class="ui header">拍摄任务</h2>
 <div class="ui divider"></div>
-<a class="ui button" href="add-imagingTask">Add Imaging Task</a>
 <table class="ui celled striped table">
     <thead>
     <tr>
-        <th colspan="6">
+        <th colspan="7">
             <div class="ui grid">
                 <div class="six column row">
                     <div class="left floated column">
@@ -41,27 +40,27 @@ $(document).ready(function() {
     </tr>
     <tr>
         <th width="10%">No.</th>
-        <th width="15%">拍摄任务ID</th>
-        <th>拍摄任务名称</th>
-        <th width="15%">Satellite</th>
+        <th width="15%">TASK ID</th>
+        <th>需求名称</th>
+        <th width="15%">SATELLITE</th>
+        <th width="15%">START TIME</th>
         <th width="10%">More Detail</th>
         <th width="10%">状态</th>
     </tr>
     </thead>
-    <tbody>
-    <c:forEach items="${resultSet}" var="imagingTask">
+    <tbody><c:forEach items="${resultSet}" var="imagingTask">
         <tr>
             <td>${imagingTask.id}</td>
-            <td><a href="imagingTask?imagingTaskId=${imagingTask.id}">${imagingTask.taskId}</a></td>
-            <td>${imagingTask.taskName}</td>
-            <td>123</td>
-            <td>123</td>
-            <td>123</td>
-        </tr>
-    </c:forEach>
+            <td><a href="imagingTask?imagingTaskId=${imagingTask.id}">${imagingTask.otTaskId}</a></td>
+            <td>${imagingTask.requestName}</td>
+            <td>${imagingTask.satelliteId}</td>
+            <td>${imagingTask.imagingStart}</td>
+            <td>MORE</td>
+            <td>${imagingTask.status}</td>
+        </tr></c:forEach>
     <tfoot>
     <tr>
-        <th colspan="6">
+        <th colspan="7">
             <div class="ui left floated pagination menu">
                 <a class="icon item"  href="javascript:requestResult(${cri.curPageNum - 1})">
                     <i class="left chevron icon"></i>

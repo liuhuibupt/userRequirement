@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by PANZHENG on 2018/2/7.
  */
 @Entity
-@Table(name = "gr_user_action")
+@Table(name = "grc_user_action")
 public class UserAction {
 
     @Id

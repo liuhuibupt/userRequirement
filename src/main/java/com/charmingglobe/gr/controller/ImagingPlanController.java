@@ -1,5 +1,6 @@
 package com.charmingglobe.gr.controller;
 
+import com.charmingglobe.gr.cri.ImagingPlanCri;
 import com.charmingglobe.gr.entity.ImagingPlan;
 import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.service.ImagingPlanService;
@@ -37,9 +38,10 @@ public class ImagingPlanController {
     }
 
     @RequestMapping("/imagingPlan-list")
-    public String getImagingPlanList(Model model) {
-        List<ImagingPlan> imagingTaskList = imagingPlanService.getImagingPlanList();
+    public String getImagingPlanList(ImagingPlanCri cri, Model model) {
+        List<ImagingPlan> imagingTaskList = imagingPlanService.getImagingPlanList(cri);
         model.addAttribute("resultSet", imagingTaskList);
+        model.addAttribute("cri", cri);
         return "imaging_plan_list";
     }
 }

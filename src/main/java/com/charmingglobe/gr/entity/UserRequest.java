@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by PANZHENG on 2017/11/17.
  */
 @Entity
-@Table(name = "gr_user_request")
+@Table(name = "grc_user_request")
 @TypeDef(name = "jsonb", typeClass = JSONBUserType.class)
 public class UserRequest {
 
@@ -84,7 +84,7 @@ public class UserRequest {
     private String label;
 
     @Transient
-    private List<UserRequestStep> stepList;
+    private List<RequestStep> stepList;
 
     public int getId() {
         return id;
@@ -246,11 +246,11 @@ public class UserRequest {
         this.label = label;
     }
 
-    public List<UserRequestStep> getStepList() {
+    public List<RequestStep> getStepList() {
         return stepList;
     }
 
-    public void setStepList(List<UserRequestStep> stepList) {
+    public void setStepList(List<RequestStep> stepList) {
         this.stepList = stepList;
     }
 }

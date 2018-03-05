@@ -8,4 +8,6 @@ public class RequestStep {
     public static final String SUBMITTED = "SUBMITTED";
 
     public static final String PLANNING = "PLANNING";
+
+    public static final String IMAGING = "IMAGING";
 }

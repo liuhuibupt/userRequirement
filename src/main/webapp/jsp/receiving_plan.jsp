@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>跟踪接收计划</title>
@@ -65,43 +67,25 @@
         <table class="ui selectable blue celled table">
             <thead>
             <tr>
-                <th width="5%">No.</th>
-                <th width="10%">任务ID</th>
-                <th width="10%">任务名称</th>
-                <th width="15%">成像时间</th>
-                <th width="10%">任务状态</th>
+                <th width="7%">No.</th>
+                <th width="10%">TASK ID</th>
+                <th>需求名称</th>
+                <th width="10%">SATELLITE</th>
+                <th width="18%">START TIME</th>
+                <th width="10%">More Detail</th>
+                <th width="7%">状态</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody><c:forEach items="${imagingTaskList}" var="imagingTask">
             <tr>
-                <td>1</td>
-                <td><a href="#">IMG_TASK_2018_01_12_0001</a></td>
-                <td>任务名称</td>
-                <td>2018-01-24 10:10:10</td>
-                <td>等待数传</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#">IMG_TASK_2018_01_12_0001</a></td>
-                <td>任务名称</td>
-                <td>2018-01-24 10:10:10</td>
-                <td>等待数传</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#">IMG_TASK_2018_01_12_0001</a></td>
-                <td>任务名称</td>
-                <td>2018-01-24 10:10:10</td>
-                <td>等待数传</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><a href="#">IMG_TASK_2018_01_12_0001</a></td>
-                <td>任务名称</td>
-                <td>2018-01-24 10:10:10</td>
-                <td>等待数传</td>
-            </tr>
-            </tbody>
+                <td>${imagingTask.id}</td>
+                <td><a href="imagingTask?imagingTaskId=${imagingTask.id}">${imagingTask.otTaskId}</a></td>
+                <td>${imagingTask.requestName}</td>
+                <td>${imagingTask.satelliteId}</td>
+                <td>${imagingTask.imagingStart}</td>
+                <td>MORE</td>
+                <td>${imagingTask.status}</td>
+            </tr></c:forEach>
         </table>
     </div>
 

@@ -2,12 +2,13 @@ package com.charmingglobe.gr.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by PANZHENG on 2018/1/24.
  */
 @Entity
-@Table(name = "gr_receiving_plan")
+@Table(name = "grc_receiving_plan")
 public class ReceivingPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +63,9 @@ public class ReceivingPlan {
 
     @Column(name = "update_time")
     private Date updateTime;
+
+    @Transient
+    private List<String> otTaskIds;
 
     public int getId() {
         return id;
@@ -189,5 +193,13 @@ public class ReceivingPlan {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<String> getOtTaskIds() {
+        return otTaskIds;
+    }
+
+    public void setOtTaskIds(List<String> otTaskIds) {
+        this.otTaskIds = otTaskIds;
     }
 }

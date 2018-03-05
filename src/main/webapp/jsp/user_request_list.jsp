@@ -207,7 +207,6 @@ function setOrderby(orderby) {
 <body>
 <h2 class="ui header">需求检索</h2>
 <div class="ui divider"></div>
-<div class="ui pointing below teal label">可以用鼠标滑过[Select Criteria]标签，选择检索条件</div>
 <div class="ui tiny grid segment">
     <div class="twelve wide column" id="searchCriteria">
         <a class="ui large right pointing label" ><i class="grid layout icon"></i>Select Criteria</a>

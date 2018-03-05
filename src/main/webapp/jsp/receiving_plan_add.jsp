@@ -11,7 +11,7 @@
     <title>Receiving Plan</title>
 </head>
 <body>
-<h2 class="ui header">Add Receiving Plan Testing</h2>
+<h2 class="ui header">Test Adding Receiving Plan </h2>
 <div class="ui divider"></div>
 <form class="ui form" method="post" action="submitReceivingPlan" style="margin-top: 0.5rem">
     <div class="ui error message">
@@ -32,7 +32,8 @@
     receiveStopTime:"2018-02-22 12:12:12",
     satelliteCaptureStartTime:"2018-02-22 12:12:12",
     satelliteCaptureStopTime:"2018-02-22 12:12:12",
-    taskNames:"taskNames"
+    taskNames:"taskNames",
+    otTaskIds:["taskId1", "taskId2"]
 }
             </textarea>
         </div>

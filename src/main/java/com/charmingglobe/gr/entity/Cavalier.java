@@ -14,7 +14,7 @@ import java.util.List;
  * Created by PANZHENG on 2017/11/17.
  */
 @Entity
-@Table(name = "gr_user")
+@Table(name = "grc_user")
 public class Cavalier implements UserDetails {
 
     @Id

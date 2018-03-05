@@ -1,13 +1,9 @@
 package com.charmingglobe.gr.service;
 
-import com.charmingglobe.gr.builder.UserRequestStepBuilder;
-import com.charmingglobe.gr.constants.RequestStep;
 import com.charmingglobe.gr.constants.RequestType;
-import com.charmingglobe.gr.dao.UserRequestStepDao;
 import com.charmingglobe.gr.entity.ImagingPlan;
 import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.builder.ImagingPlanBuilder;
-import com.charmingglobe.gr.entity.UserRequestStep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -27,9 +23,6 @@ public class RequestAnalysisService{
 
     @Autowired
     private ImagingPlanService imagingPlanService;
-
-    @Autowired
-    private UserRequestStepDao userRequestStepDao;
 
     public void submitRequest(UserRequest userRequest) {
         userRequestForAnalysisList.add(userRequest);
@@ -57,11 +50,6 @@ public class RequestAnalysisService{
         if (RequestType.REQUEST_TYPE_POINT.equals(requestType)) {
             ImagingPlan imagingPlan = ImagingPlanBuilder.create(userRequest);
             imagingPlanService.saveImagingPlan(imagingPlan);
-
-            int imagingPlanId = imagingPlan.getId();
-            int userRequestId = userRequest.getId();
-            UserRequestStep step = UserRequestStepBuilder.planning(userRequestId, imagingPlanId);
-            userRequestStepDao.save(step);
         }
     }
 }

@@ -3,7 +3,7 @@ package com.charmingglobe.gr.cri;
 /**
  * Created by PANZHENG on 2018/1/24.
  */
-public class ImagingTaskCri {
+public class ImagingPlanCri {
     private int curPageNum;
 
     private int totalPageNum;
@@ -12,7 +12,7 @@ public class ImagingTaskCri {
 
     private int resultCount;
 
-    private String trPLanId;
+    private String satelliteId;
 
     public int getCurPageNum() {
         return curPageNum;
@@ -44,5 +44,13 @@ public class ImagingTaskCri {
 
     public void setResultCount(int resultCount) {
         this.resultCount = resultCount;
+    }
+
+    public String getSatelliteId() {
+        return satelliteId;
+    }
+
+    public void setSatelliteId(String satelliteId) {
+        this.satelliteId = satelliteId;
     }
 }

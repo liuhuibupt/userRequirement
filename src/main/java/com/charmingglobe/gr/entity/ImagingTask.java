@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by PANZHENG on 2018/1/22.
  */
 @Entity
-@Table(name = "gr_imaging_task")
+@Table(name = "grc_imaging_task")
 @TypeDef(name = "jsonb", typeClass = JSONBUserType.class)
 public class ImagingTask {
 
@@ -22,11 +22,20 @@ public class ImagingTask {
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
-    @Column(name = "task_id")
-    private String taskId;
+    @Column(name = "ot_task_id")
+    private String otTaskId;
 
-    @Column(name = "task_name")
-    private String taskName;
+    @Column(name = "request_id")
+    private String requestId;
+
+    @Column(name = "user_request_id")
+    private int userRequestId;
+
+    @Column(name = "plan_id")
+    private String planId;
+
+    @Column(name = "request_name")
+    private String requestName;
 
     @Column(name = "satellite_id")
     private String satelliteId;
@@ -51,6 +60,12 @@ public class ImagingTask {
     @Column(name = "meta_json")
     private Map<String, String> attributes;
 
+    @Column(name = "create_time")
+    private Date createTime;
+
+    @Column(name = "status")
+    private String status;
+
     public int getId() {
         return id;
     }
@@ -59,20 +74,44 @@ public class ImagingTask {
         this.id = id;
     }
 
-    public String getTaskId() {
-        return taskId;
+    public String getOtTaskId() {
+        return otTaskId;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+    public void setOtTaskId(String otTaskId) {
+        this.otTaskId = otTaskId;
     }
 
-    public String getTaskName() {
-        return taskName;
+    public String getRequestId() {
+        return requestId;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public int getUserRequestId() {
+        return userRequestId;
+    }
+
+    public void setUserRequestId(int userRequestId) {
+        this.userRequestId = userRequestId;
+    }
+
+    public String getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(String planId) {
+        this.planId = planId;
+    }
+
+    public String getRequestName() {
+        return requestName;
+    }
+
+    public void setRequestName(String requestName) {
+        this.requestName = requestName;
     }
 
     public String getSatelliteId() {
@@ -129,5 +168,21 @@ public class ImagingTask {
 
     public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -1,7 +1,6 @@
 package com.charmingglobe.gr.builder;
 
-import com.charmingglobe.gr.constants.RequestStep;
-import com.charmingglobe.gr.entity.UserRequestStep;
+import com.charmingglobe.gr.entity.RequestStep;
 
 import java.util.Date;
 
@@ -10,12 +9,12 @@ import java.util.Date;
  */
 public class UserRequestStepBuilder {
 
-    public static UserRequestStep submit(int userRequestId) {
+    public static RequestStep submit(int userRequestId) {
 
-        UserRequestStep step = new UserRequestStep();
+        RequestStep step = new RequestStep();
 
         step.setUserRequestId(userRequestId);
-        step.setStepName(RequestStep.SUBMITTED);
+        step.setStepName(com.charmingglobe.gr.constants.RequestStep.SUBMITTED);
         step.setOccurrenceTime(new Date());
         step.setJumpLink("#");
         step.setIcon("add to cart");
@@ -23,15 +22,28 @@ public class UserRequestStepBuilder {
         return step;
     }
 
-    public static UserRequestStep planning(int userRequestId, int imagingPlanId) {
+    public static RequestStep planning(int userRequestId, int imagingPlanId) {
 
-        UserRequestStep step = new UserRequestStep();
+        RequestStep step = new RequestStep();
 
         step.setUserRequestId(userRequestId);
-        step.setStepName(RequestStep.PLANNING);
+        step.setStepName(com.charmingglobe.gr.constants.RequestStep.PLANNING);
         step.setOccurrenceTime(new Date());
         step.setJumpLink("imagingPlan?imagingPlanId=" + imagingPlanId);
         step.setIcon("world");
+
+        return step;
+    }
+
+    public static RequestStep imaging(int userRequestId, int imagingTaskId) {
+
+        RequestStep step = new RequestStep();
+
+        step.setUserRequestId(userRequestId);
+        step.setStepName(com.charmingglobe.gr.constants.RequestStep.IMAGING);
+        step.setOccurrenceTime(new Date());
+        step.setJumpLink("imagingTask?imagingTaskId=" + imagingTaskId);
+        step.setIcon("photo");
 
         return step;
     }

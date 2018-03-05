@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by PANZHENG on 2018/2/3.
  */
 @Entity
-@Table(name = "gr_imaging_plan")
+@Table(name = "grc_imaging_plan")
 public class ImagingPlan {
 
     @Id

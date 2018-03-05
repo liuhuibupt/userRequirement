@@ -8,31 +8,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Receiving Plan</title>
+    <title>Imaging Task</title>
 </head>
 <body>
-<h2 class="ui header">Add Receiving Plan Testing</h2>
+<h2 class="ui header">Test Adding Imaging Task</h2>
 <div class="ui divider"></div>
-<form class="ui form" method="post" action="submitReceivingPlan" style="margin-top: 0.5rem">
+<form class="ui form" method="post" action="submitImagingTask" style="margin-top: 0.5rem">
     <div class="ui error message">
     </div>
     <div class="two fields">
         <div class="field">
-            <label>Input Receiving Plan JSON</label>
+            <label>Input Imaging Task JSON</label>
             <textarea id="json" name="json" rows="20">{
-    trPlanId:"trPlanId",
+    taskId:"taskId",
+    planId:"planId",
+    requestName:"requestName",
     satelliteId:"JL101A",
     satelliteName:"吉林一号",
-    stationId:"CC",
-    stationName:"长春站",
     orbitId:123,
-    downlinkChannel:"0",
-    receptionType:"stationId",
-    receiveStartTime:"2018-02-22 12:12:12",
-    receiveStopTime:"2018-02-22 12:12:12",
-    satelliteCaptureStartTime:"2018-02-22 12:12:12",
-    satelliteCaptureStopTime:"2018-02-22 12:12:12",
-    taskNames:"taskNames"
+    imagingMode:"PB",
+    imagingStart:"2018-02-22 12:12:12",
+    imagingEnd:"2018-02-22 12:12:12",
+    imagingWkt:"WKT"
 }
             </textarea>
         </div>
