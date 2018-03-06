@@ -37,9 +37,9 @@ public class MissionPlanWebService {
 
     @WebMethod
     public List<UserRequestResult> getUserRequestList(int day) {
-        List<UserRequest> userRequestList =  userRequestService.getUserRequestByDate(day);
+        List<UserRequest> userRequestList = userRequestService.getUserRequestByDate(day);
         List<UserRequestResult> resultList = new ArrayList<UserRequestResult>();
-        for (UserRequest userRequest:userRequestList) {
+        for (UserRequest userRequest : userRequestList) {
             resultList.add(new UserRequestResult(userRequest));
         }
         return resultList;
@@ -53,8 +53,7 @@ public class MissionPlanWebService {
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
                     .setDateFormat("yyyy-MM-ddThh:mm:ss").create();
-            List<ImagingPlan> imagingPlans = gson.fromJson(json, new TypeToken<List<ImagingPlan>>(){}.getType());
-            System.out.println(gson.toString());
+            List<ImagingPlan> imagingPlans = gson.fromJson(json, new TypeToken<List<ImagingPlan>>() {}.getType());
             int count = imagingPlanService.inputImagingPlans(imagingPlans);
             result += "[count=" + count + "]";
         } catch (Exception e) {
@@ -67,15 +66,20 @@ public class MissionPlanWebService {
 
     @WebMethod
     public List<ImagingPlanResult> getImagingPlanList(int day) {
-
-        return null;
+        List<ImagingPlan> imagingPlanList = imagingPlanService.getImagingPlanByDate(day);
+        List<ImagingPlanResult> resultList = new ArrayList<ImagingPlanResult>();
+        for (ImagingPlan imagingPlan : imagingPlanList) {
+            resultList.add(new ImagingPlanResult(imagingPlan));
+        }
+        return resultList;
     }
 
     @WebMethod
     public String inputImaingTasks(String json) {
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-ddThh:mm:ss").create();
-            List<ImagingTask> imagingTasks = gson.fromJson(json, new TypeToken<List<ImagingTask>>(){}.getType());
+            List<ImagingTask> imagingTasks = gson.fromJson(json, new TypeToken<List<ImagingTask>>() {
+            }.getType());
             //int id = imagingTaskService.submitImagingTask(imagingTask);
         } catch (Exception e) {
             e.printStackTrace();

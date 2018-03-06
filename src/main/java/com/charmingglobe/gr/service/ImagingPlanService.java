@@ -1,15 +1,18 @@
 package com.charmingglobe.gr.service;
 
+import com.charmingglobe.gr.constants.ImagingPlanStatus;
 import com.charmingglobe.gr.cri.ImagingPlanCri;
 import com.charmingglobe.gr.cri.UserRequestCri;
 import com.charmingglobe.gr.dao.ImagingPlanDao;
 import com.charmingglobe.gr.entity.Cavalier;
 import com.charmingglobe.gr.entity.ImagingPlan;
+import com.charmingglobe.gr.entity.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,10 +31,18 @@ public class ImagingPlanService {
         return imagingPlanDao.getImagingPlan(imagingPlanId);
     }
 
+    public List<ImagingPlan> getImagingPlanByDate(int day) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, day);
+        Date date = c.getTime();
+        return imagingPlanDao.selectImagingPlanByDate(date);
+    }
+
     public int inputImagingPlans(List<ImagingPlan> imagingPlans) {
         int count = 0;
         if (null!= imagingPlans) {
             for (ImagingPlan imagingPlan: imagingPlans) {
+                imagingPlan.setStatus(ImagingPlanStatus.PENDING);
                 imagingPlanDao.saveImagingPlan(imagingPlan);
                 count++;
             }

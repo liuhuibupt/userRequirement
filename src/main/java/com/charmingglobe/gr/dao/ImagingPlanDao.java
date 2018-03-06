@@ -2,6 +2,7 @@ package com.charmingglobe.gr.dao;
 
 import com.charmingglobe.gr.cri.ImagingPlanCri;
 import com.charmingglobe.gr.entity.ImagingPlan;
+import com.charmingglobe.gr.entity.UserRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,6 +41,16 @@ public class ImagingPlanDao {
     public List<ImagingPlan> selectImagingPlan(int userRequestId) {
         Session session = sessionFactoryForReading.getCurrentSession();
         Query query = session.createQuery("from ImagingPlan where userRequestId=" + userRequestId + " order by id asc");
+        List<ImagingPlan> resultList = query.list();
+
+        return resultList;
+    }
+
+    public  List<ImagingPlan> selectImagingPlanByDate(Date date) {
+        SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
+        SimpleDateFormat f2 = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+        Session session = sessionFactoryForReading.getCurrentSession();
+        Query query = session.createQuery("from ImagingPlan where planStartTime >= '" + f1.format(date) + " 'and planStartTime <= '" + f2.format(date) + "' order by id asc");
         List<ImagingPlan> resultList = query.list();
 
         return resultList;
