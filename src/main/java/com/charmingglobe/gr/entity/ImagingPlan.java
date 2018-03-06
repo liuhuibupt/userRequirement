@@ -30,8 +30,8 @@ public class ImagingPlan {
     @Column(name = "plan_id")
     private String planId;
 
-    @Column(name = "request_satellites")
-    private String requestSatellites;
+    @Column(name = "satellite_id")
+    private String satelliteId;
 
     @Column(name = "request_type")
     private String requestType;
@@ -93,12 +93,12 @@ public class ImagingPlan {
         this.planId = planId;
     }
 
-    public String getRequestSatellites() {
-        return requestSatellites;
+    public String getSatelliteId() {
+        return satelliteId;
     }
 
-    public void setRequestSatellites(String requestSatellites) {
-        this.requestSatellites = requestSatellites;
+    public void setSatelliteId(String satelliteId) {
+        this.satelliteId = satelliteId;
     }
 
     public String getRequestType() {
