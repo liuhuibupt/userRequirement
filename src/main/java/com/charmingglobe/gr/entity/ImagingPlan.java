@@ -1,5 +1,8 @@
 package com.charmingglobe.gr.entity;
 
+import com.vividsolutions.jts.geom.Geometry;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -42,8 +45,18 @@ public class ImagingPlan {
     @Column(name = "plan_end_time")
     private Date planEndTime;
 
+    @Column(name = "create_time")
+    private Date createTime;
+
     @Column(name = "status")
     private String status;
+
+    @Type(type="com.vividsolutions.jts.geom.Geometry")
+    @Column(name = "imaging_geometry")
+    private Geometry imagingGeometry;
+
+    @Transient
+    private String imagingWkt;
 
     public int getId() {
         return id;
@@ -125,11 +138,35 @@ public class ImagingPlan {
         this.planEndTime = planEndTime;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Geometry getImagingGeometry() {
+        return imagingGeometry;
+    }
+
+    public void setImagingGeometry(Geometry imagingGeometry) {
+        this.imagingGeometry = imagingGeometry;
+    }
+
+    public String getImagingWkt() {
+        return imagingWkt;
+    }
+
+    public void setImagingWkt(String imagingWkt) {
+        this.imagingWkt = imagingWkt;
     }
 }

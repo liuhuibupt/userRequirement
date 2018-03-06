@@ -12,18 +12,23 @@
 <c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
-    <title>拍摄计划</title>
-    <link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
-    <script src="${serverUrl}/js/calendar.js"></script>
+<title>拍摄计划</title>
+<link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
+<script src="${serverUrl}/js/calendar.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('.ui.selection.dropdown').dropdown();
-            $('.ui.dropdown').dropdown();
-            $('.ui.menu.dropdown').dropdown();
-            $('.ui.checkbox').checkbox();
-        });
-    </script>
+<script>
+$(document).ready(function() {
+    $('.ui.selection.dropdown').dropdown();
+    $('.ui.dropdown').dropdown();
+    $('.ui.menu.dropdown').dropdown();
+    $('.ui.checkbox').checkbox();
+});
+
+function requestResult(pageNum) {
+    var locationHref = "imagingPlan-list?&curPageNum=" + pageNum;
+    window.location.href = locationHref;
+}
+</script>
 </head>
 <body>
 <h2 class="ui header">拍摄计划</h2>

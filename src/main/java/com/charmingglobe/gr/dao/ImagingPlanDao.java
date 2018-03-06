@@ -64,6 +64,15 @@ public class ImagingPlanDao {
         return resultList;
     }
 
+    public int countImagingPlanByDate(Date date) {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
+        Session session = sessionFactoryForReading.getCurrentSession();
+        Query query = session.createQuery("select count(*) from ImagingPlan where createTime >= '" + f.format(date) + "'");
+        int count = ((Long) query.uniqueResult()).intValue();
+
+        return count;
+    }
+
     public int countImagingPlan(ImagingPlanCri cri) {
         Session session = sessionFactoryForReading.getCurrentSession();
         String where = getSqlWhere(cri);
@@ -93,7 +102,7 @@ public class ImagingPlanDao {
 
         String satelliteId = cri.getSatelliteId();
         if (null != satelliteId && !"".equals(satelliteId)) {
-            where += " and requestSatellites like '%" + satelliteId + "%' ";
+            where += " and satelliteId like '%" + satelliteId + "%' ";
         }
         return where;
     }

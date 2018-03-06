@@ -2,13 +2,11 @@ package com.charmingglobe.gr.service;
 
 import com.charmingglobe.gr.constants.ImagingPlanStatus;
 import com.charmingglobe.gr.cri.ImagingPlanCri;
-import com.charmingglobe.gr.cri.UserRequestCri;
 import com.charmingglobe.gr.dao.ImagingPlanDao;
-import com.charmingglobe.gr.entity.Cavalier;
 import com.charmingglobe.gr.entity.ImagingPlan;
-import com.charmingglobe.gr.entity.UserRequest;
+import com.charmingglobe.gr.geo.GeometryTools;
+import com.vividsolutions.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +25,9 @@ public class ImagingPlanService {
     @Autowired
     private ImagingPlanDao imagingPlanDao;
 
+    @Autowired
+    private GeometryTools geometryTools;
+
     public ImagingPlan getImagingPlan(int imagingPlanId) {
         return imagingPlanDao.getImagingPlan(imagingPlanId);
     }
@@ -38,16 +39,40 @@ public class ImagingPlanService {
         return imagingPlanDao.selectImagingPlanByDate(date);
     }
 
-    public int inputImagingPlans(List<ImagingPlan> imagingPlans) {
+    public String inputImagingPlans(List<ImagingPlan> imagingPlans) {
+        String result = "[\n";
         int count = 0;
         if (null!= imagingPlans) {
             for (ImagingPlan imagingPlan: imagingPlans) {
+                String requestId = imagingPlan.getRequestId();
+                String imagingWkt = imagingPlan.getImagingWkt();
+                if (imagingWkt == null || "".equals(imagingWkt)) {
+                    result += "requestId=" + requestId + ", error=[imagingWkt=null]\n";
+                    continue;
+                }
+                Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
+                if (null == imagingGeometry) {
+                    result += "requestId=" + requestId + ", error=[error in parsing imagingGeometry]\n";
+                    continue;
+                }
+                imagingPlan.setImagingGeometry(imagingGeometry);
+                String planId = getNextPlanId();
+                imagingPlan.setPlanId(planId);
                 imagingPlan.setStatus(ImagingPlanStatus.PENDING);
+                imagingPlan.setCreateTime(new Date());
                 imagingPlanDao.saveImagingPlan(imagingPlan);
-                count++;
+                result += "requestId=" + requestId + ", success\n";
             }
         }
-        return count;
+        result += "]";
+        return result;
+    }
+
+    private String getNextPlanId() {
+        int count = imagingPlanDao.countImagingPlanByDate(new Date());
+        SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+        String timestamp = f.format(new Date());
+        return "IMG_PLAN_" + timestamp + "_" + (new String(10001 + count + "").substring(1, 5));
     }
 
     public void saveImagingPlan(ImagingPlan imagingPlan) {
