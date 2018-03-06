@@ -20,7 +20,7 @@ public class ImagingPlanBuilder {
         imagingPlan.setPlanId(requestId.replace("REQ_IMG_", "PLAN_") + "_1");
         imagingPlan.setPlanStartTime(userRequest.getRequestStart());
         imagingPlan.setPlanEndTime(userRequest.getRequestEnd());
-        imagingPlan.setRequestSatellites(userRequest.getRequestSatellites());
+        //imagingPlan.setRequestSatellites(userRequest.getRequestSatellites());
         imagingPlan.setStatus(ImagingPlanStatus.PENDING);
 
         return imagingPlan;

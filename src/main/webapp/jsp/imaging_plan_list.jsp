@@ -99,7 +99,7 @@
         <td><a href="userRequest?userRequestId=${imagingPlan.userRequestId}">${imagingPlan.requestId}</a></td>
         <td><a href="imagingPlan?imagingPlanId=${imagingPlan.id}">${imagingPlan.planId}</a></td>
         <td>${imagingPlan.requestName}</td>
-        <td>${imagingPlan.requestSatellites}</td>
+        <td>${imagingPlan.satelliteId}</td>
         <td>${imagingPlan.planStartTime}</td>
         <td>${imagingPlan.status}</td>
     </tr></c:forEach>

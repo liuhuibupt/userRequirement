@@ -52,7 +52,7 @@ public class MissionPlanWebService {
         try {
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
-                    .setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+                    .setDateFormat("yyyy-MM-ddThh:mm:ss").create();
             List<ImagingPlan> imagingPlans = gson.fromJson(json, new TypeToken<List<ImagingPlan>>(){}.getType());
             System.out.println(gson.toString());
             int count = imagingPlanService.inputImagingPlans(imagingPlans);
@@ -74,7 +74,7 @@ public class MissionPlanWebService {
     @WebMethod
     public String inputImaingTasks(String json) {
         try {
-            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-ddThh:mm:ss").create();
             List<ImagingTask> imagingTasks = gson.fromJson(json, new TypeToken<List<ImagingTask>>(){}.getType());
             //int id = imagingTaskService.submitImagingTask(imagingTask);
         } catch (Exception e) {
