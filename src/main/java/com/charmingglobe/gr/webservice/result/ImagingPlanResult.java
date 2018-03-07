@@ -26,6 +26,8 @@ public class ImagingPlanResult {
 
     private String status;
 
+    private String imagingWkt;
+
     public ImagingPlanResult(ImagingPlan imagingPlan) {
         this.requestId = imagingPlan.getRequestId();
         this.requestName = imagingPlan.getRequestName();
@@ -35,6 +37,7 @@ public class ImagingPlanResult {
         this.planStartTime = imagingPlan.getPlanStartTime();
         this.planEndTime = imagingPlan.getPlanEndTime();
         this.status = imagingPlan.getStatus();
+        this.imagingWkt = imagingPlan.getImagingWkt();
     }
 
     public String getRequestId() {
@@ -99,5 +102,13 @@ public class ImagingPlanResult {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getImagingWkt() {
+        return imagingWkt;
+    }
+
+    public void setImagingWkt(String imagingWkt) {
+        this.imagingWkt = imagingWkt;
     }
 }
