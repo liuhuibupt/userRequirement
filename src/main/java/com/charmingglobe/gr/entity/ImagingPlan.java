@@ -55,7 +55,7 @@ public class ImagingPlan {
     @Column(name = "imaging_geometry")
     private Geometry imagingGeometry;
 
-    @Transient
+    @Column(name = "imaging_wkt")
     private String imagingWkt;
 
     public int getId() {
