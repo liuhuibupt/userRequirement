@@ -53,7 +53,7 @@ public class UserRequestDao {
         SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
         SimpleDateFormat f2 = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
         Session session = sessionFactoryForReading.getCurrentSession();
-        Query query = session.createQuery("from UserRequest where submitTime >= '" + f1.format(date) + " 'and submitTime <= '" + f2.format(date) + "' order by id asc");
+        Query query = session.createQuery("from UserRequest where submitTime >= '" + f1.format(date) + "' and submitTime <= '" + f2.format(date) + "' order by id asc");
         List<UserRequest> resultList = query.list();
 
         return resultList;
