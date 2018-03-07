@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -77,6 +78,13 @@ public class ImagingTaskService {
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
         String timestamp = f.format(new Date());
         return "IMG_TASK_" + timestamp + "_" + (new String(10001 + count + "").substring(1, 5));
+    }
+
+    public List<ImagingTask> getImagingTaskByDate(int day) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, day);
+        Date date = c.getTime();
+        return imagingTaskDao.selectImagingTask();
     }
 
     public ImagingTask getImagingTask(int imagingTaskId) {

@@ -90,7 +90,11 @@ public class MissionPlanWebService {
 
     @WebMethod
     public List<ImagingTaskResult> getImagingTaskList(int day) {
-
-        return null;
+        List<ImagingTask> imagingPlanList = imagingTaskService.getImagingTaskByDate(day);
+        List<ImagingTaskResult> resultList = new ArrayList<ImagingTaskResult>();
+        for (ImagingTask imagingTask : imagingPlanList) {
+            resultList.add(new ImagingTaskResult(imagingTask));
+        }
+        return resultList;
     }
 }
