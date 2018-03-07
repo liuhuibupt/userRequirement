@@ -47,15 +47,14 @@ public class MissionPlanWebService {
 
     @WebMethod
     public String inputImagingPlans(String json) {
-        String result = SUCCESS;
+        String result = null;
         System.out.println(json);
         try {
             Gson gson = new GsonBuilder()
                     .setPrettyPrinting()
                     .setDateFormat("yyyy-MM-dd hh:mm:ss").create();
             List<ImagingPlan> imagingPlans = gson.fromJson(json, new TypeToken<List<ImagingPlan>>() {}.getType());
-            int count = imagingPlanService.inputImagingPlans(imagingPlans);
-            result += "[count=" + count + "]";
+            result = imagingPlanService.inputImagingPlans(imagingPlans);
         } catch (Exception e) {
             e.printStackTrace();
             result = "ERROR[" + e.getMessage() + "]";
