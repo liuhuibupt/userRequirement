@@ -1,5 +1,6 @@
 package com.charmingglobe.gr.webservice.result;
 
+import com.charmingglobe.gr.entity.ImagingPlan;
 import com.charmingglobe.gr.entity.ImagingTask;
 import com.vividsolutions.jts.geom.Geometry;
 import org.hibernate.annotations.Type;
@@ -35,6 +36,19 @@ public class ImagingTaskResult {
 
     private String status;
 
+    public ImagingTaskResult(ImagingTask imagingTask) {
+        this.otTaskId = imagingTask.getOtTaskId();
+        this.planId= imagingTask.getPlanId();
+        this.requestName = imagingTask.getRequestName();
+        this.satelliteId = imagingTask.getSatelliteId();
+        this.imagingMode = imagingTask.getImagingMode();
+        this.imagingStart = imagingTask.getImagingStart();
+        this.imagingEnd = imagingTask.getImagingEnd();
+        this.imagingWkt = imagingTask.getImagingWkt();
+        this.attributes = imagingTask.getAttributes();
+        this.createTime = imagingTask.getCreateTime();
+        this.status = imagingTask.getStatus();
+    }
 
     public String getOtTaskId() {
         return otTaskId;
