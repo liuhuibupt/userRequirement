@@ -62,6 +62,16 @@ public class ImagingTaskService {
         return imagingTaskId;
     }
 
+    public String inputImagingTasks(List<ImagingTask> imagingTasks) {
+
+        for (ImagingTask imagingTask : imagingTasks) {
+            imagingTask.setStatus(ImagingTaskStatus.PLANNED);
+            imagingTask.setCreateTime(new Date());
+            imagingTaskDao.saveImagingTask(imagingTask);
+        }
+        return "";
+    }
+
     private String getNextTaskId() {
         int count = imagingTaskDao.countImagingTaskByDate(new Date());
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");

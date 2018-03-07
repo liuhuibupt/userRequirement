@@ -75,16 +75,17 @@ public class MissionPlanWebService {
 
     @WebMethod
     public String inputImaingTasks(String json) {
+        String result = SUCCESS;
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
             List<ImagingTask> imagingTasks = gson.fromJson(json, new TypeToken<List<ImagingTask>>() {
             }.getType());
-            //int id = imagingTaskService.submitImagingTask(imagingTask);
+            imagingTaskService.inputImagingTasks(imagingTasks);
         } catch (Exception e) {
             e.printStackTrace();
-
+            result = "ERROR=[" + e.getMessage() + "]";
         }
-        return null;
+        return result;
     }
 
     @WebMethod
