@@ -81,6 +81,7 @@ public class MissionPlanWebService {
     @WebMethod
     public String inputImaingTasks(String json) {
         String result = SUCCESS;
+        System.out.println(json);
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
             List<ImagingTask> imagingTasks = gson.fromJson(json, new TypeToken<List<ImagingTask>>() {
@@ -106,6 +107,7 @@ public class MissionPlanWebService {
     @WebMethod
     public String inputReceivingPlan(String json) {
         String result = SUCCESS;
+        System.out.println(json);
         try {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
             ReceivingPlan receivingPlan = gson.fromJson(json, ReceivingPlan.class);
