@@ -54,7 +54,7 @@ public class ReceivingPlanService {
         List<String> otTaskIds = receivingPlan.getOtTaskIds();
         if (null != otTaskIds && !"".equals(otTaskIds)) {
             for (String otTaskId : otTaskIds) {
-               ImagingTask imagingTask =  imagingTaskService.getIamgingTaskByOtTaskId(otTaskId);
+               ImagingTask imagingTask =  imagingTaskService.getImagingTaskByOtTaskId(otTaskId);
                if (null != imagingTask) {
                    ReceivingMap receivingMap = ReceivingMapBuilder.create(receivingPlan, imagingTask);
                    receivingMapDao.save(receivingMap);

@@ -108,7 +108,7 @@ public class ImagingTaskService {
         return resultSet;
     }
 
-    public ImagingTask getIamgingTaskByOtTaskId(String otTaskId) {
+    public ImagingTask getImagingTaskByOtTaskId(String otTaskId) {
         ImagingTask imagingTask = imagingTaskDao.selectImagingTaskByOtTaskId(otTaskId);
         return imagingTask;
     }

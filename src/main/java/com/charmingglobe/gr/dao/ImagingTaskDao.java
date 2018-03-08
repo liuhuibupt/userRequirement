@@ -39,7 +39,7 @@ public class ImagingTaskDao {
 
     public List<ImagingTask> selectImagingTask() {
         Session session = sessionFactoryForReading.getCurrentSession();
-        Query query = session.createQuery("from ImagingTask where 1=1 order by id asc");
+        Query query = session.createQuery("from ImagingTask where 1=1 order by id desc");
         List<ImagingTask> resultList = query.list();
 
         return resultList;
