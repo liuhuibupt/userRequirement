@@ -27,12 +27,10 @@
     stationName:"长春站",
     orbitId:123,
     downlinkChannel:"0",
-    receptionType:"stationId",
     receiveStartTime:"2018-02-22 12:12:12",
     receiveStopTime:"2018-02-22 12:12:12",
     satelliteCaptureStartTime:"2018-02-22 12:12:12",
     satelliteCaptureStopTime:"2018-02-22 12:12:12",
-    taskNames:"taskNames",
     otTaskIds:["taskId1", "taskId2"]
 }
             </textarea>
