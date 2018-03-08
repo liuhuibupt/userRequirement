@@ -64,13 +64,18 @@ public class ImagingTaskService {
     }
 
     public String inputImagingTasks(List<ImagingTask> imagingTasks) {
-
+        String result = "[\n";
         for (ImagingTask imagingTask : imagingTasks) {
-            imagingTask.setStatus(ImagingTaskStatus.PLANNED);
-            imagingTask.setCreateTime(new Date());
-            imagingTaskDao.saveImagingTask(imagingTask);
+            String requestName = imagingTask.getRequestName();
+            try {
+                submitImagingTask(imagingTask);
+                result += "\tinput imagingTask[RequestName=" + requestName + "]=success\n";
+            } catch (Exception e) {
+                result += "\tinput imagingTask[RequestName=" + requestName + "]=error, error=[" + e.getMessage() + "]\n";
+            }
         }
-        return "";
+        result += "]";
+        return result;
     }
 
     private String getNextTaskId() {
@@ -84,7 +89,7 @@ public class ImagingTaskService {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, day);
         Date date = c.getTime();
-        return imagingTaskDao.selectImagingTask();
+        return imagingTaskDao.selectImagingTaskByDate(date);
     }
 
     public ImagingTask getImagingTask(int imagingTaskId) {

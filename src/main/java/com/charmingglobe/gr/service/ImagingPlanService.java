@@ -3,7 +3,9 @@ package com.charmingglobe.gr.service;
 import com.charmingglobe.gr.constants.ImagingPlanStatus;
 import com.charmingglobe.gr.cri.ImagingPlanCri;
 import com.charmingglobe.gr.dao.ImagingPlanDao;
+import com.charmingglobe.gr.dao.UserRequestDao;
 import com.charmingglobe.gr.entity.ImagingPlan;
+import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.geo.GeometryTools;
 import com.vividsolutions.jts.geom.Geometry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,13 @@ public class ImagingPlanService {
     final int MAX_RESULT = 50;
 
     @Autowired
-    private ImagingPlanDao imagingPlanDao;
+    ImagingPlanDao imagingPlanDao;
 
     @Autowired
-    private GeometryTools geometryTools;
+    UserRequestDao userRequestDao;
+
+    @Autowired
+    GeometryTools geometryTools;
 
     public ImagingPlan getImagingPlan(int imagingPlanId) {
         return imagingPlanDao.getImagingPlan(imagingPlanId);
@@ -39,29 +44,42 @@ public class ImagingPlanService {
         return imagingPlanDao.selectImagingPlanByDate(date);
     }
 
+    private void submitImagingPlan(ImagingPlan imagingPlan) throws Exception {
+        String requestId = imagingPlan.getRequestId();
+        List<UserRequest> userRequests = userRequestDao.selectUserRequestByRequestId(requestId);
+        if (userRequests.size() == 0) {
+            throw new Exception("cannot find requestId[" + requestId +"]");
+        }
+        imagingPlan.setUserRequestId(userRequests.get(0).getId());
+        imagingPlan.setRequestId(userRequests.get(0).getRequestId());
+
+        String imagingWkt = imagingPlan.getImagingWkt();
+        if (imagingWkt == null || "".equals(imagingWkt)) {
+            throw new Exception("imagingWkt=null");
+        }
+        Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
+        if (null == imagingGeometry) {
+            throw new Exception("error in parsing imagingGeometry");
+        }
+        imagingPlan.setImagingGeometry(imagingGeometry);
+        String planId = getNextPlanId();
+        imagingPlan.setPlanId(planId);
+        imagingPlan.setStatus(ImagingPlanStatus.PENDING);
+        imagingPlan.setCreateTime(new Date());
+        imagingPlanDao.saveImagingPlan(imagingPlan);
+    }
+
     public String inputImagingPlans(List<ImagingPlan> imagingPlans) {
         String result = "[\n";
-        int count = 0;
-        if (null!= imagingPlans) {
-            for (ImagingPlan imagingPlan: imagingPlans) {
+        if (null != imagingPlans) {
+            for (ImagingPlan imagingPlan : imagingPlans) {
                 String requestId = imagingPlan.getRequestId();
-                String imagingWkt = imagingPlan.getImagingWkt();
-                if (imagingWkt == null || "".equals(imagingWkt)) {
-                    result += "requestId=" + requestId + ", error=[imagingWkt=null]\n";
-                    continue;
+                try {
+                    submitImagingPlan(imagingPlan);
+                    result += "\tinput imagingPlan[requestId=" + requestId + "]=success\n";
+                } catch (Exception e) {
+                    result += "\tinput imagingPlan[requestId=" + requestId + "]=error, error=[" + e.getMessage() + "]\n";
                 }
-                Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
-                if (null == imagingGeometry) {
-                    result += "requestId=" + requestId + ", error=[error in parsing imagingGeometry]\n";
-                    continue;
-                }
-                imagingPlan.setImagingGeometry(imagingGeometry);
-                String planId = getNextPlanId();
-                imagingPlan.setPlanId(planId);
-                imagingPlan.setStatus(ImagingPlanStatus.PENDING);
-                imagingPlan.setCreateTime(new Date());
-                imagingPlanDao.saveImagingPlan(imagingPlan);
-                result += "requestId=" + requestId + ", success\n";
             }
         }
         result += "]";

@@ -1,7 +1,6 @@
 package com.charmingglobe.gr.dao;
 
 import com.charmingglobe.gr.entity.ImagingTask;
-import com.charmingglobe.gr.entity.UserRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -75,6 +74,16 @@ public class ImagingTaskDao {
             result = resultList.get(0);
         }
         return result;
+    }
+
+    public  List<ImagingTask> selectImagingTaskByDate(Date date) {
+        SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
+        SimpleDateFormat f2 = new SimpleDateFormat("yyyy-MM-dd 23:59:59");
+        Session session = sessionFactoryForReading.getCurrentSession();
+        Query query = session.createQuery("from ImagingTask where createTime >= '" + f1.format(date) + " 'and createTime <= '" + f2.format(date) + "' order by id asc");
+        List<ImagingTask> resultList = query.list();
+
+        return resultList;
     }
 
     public int countImagingTaskByDate(Date date) {

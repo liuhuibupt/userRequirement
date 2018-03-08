@@ -59,6 +59,14 @@ public class UserRequestDao {
         return resultList;
     }
 
+    public  List<UserRequest> selectUserRequestByRequestId(String requestId) {
+        Session session = sessionFactoryForReading.getCurrentSession();
+        Query query = session.createQuery("from UserRequest where requestId='" + requestId + "'");
+        List<UserRequest> resultList = query.list();
+
+        return resultList;
+    }
+
     public int countUserRequestByDate(Date date) {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd 00:00:01");
         Session session = sessionFactoryForReading.getCurrentSession();
