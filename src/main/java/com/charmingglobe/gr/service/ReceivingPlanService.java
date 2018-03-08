@@ -33,21 +33,25 @@ public class ReceivingPlanService {
     @Autowired
     ImagingTaskService imagingTaskService;
 
-    public int submitReceivingPlan(ReceivingPlan receivingPlan) {
-        Date nowtime = new Date();
+    public String submitReceivingPlan(ReceivingPlan receivingPlan) throws Exception{
+        Date rightnow = new Date();
 
         String trPlanId = getTestTrPlanId();
+
+        if (trPlanId == null || "".equals(trPlanId)) {
+            throw new Exception("error[trPlanId=" + trPlanId + "]");
+        }
+
         receivingPlan.setTrPlanId(trPlanId);
-        receivingPlan.setCreateTime(nowtime);
-        receivingPlan.setUpdateTime(nowtime);
+        receivingPlan.setCreateTime(rightnow);
+        receivingPlan.setUpdateTime(rightnow);
 
         receivingPlan.setStatus(ReceivingPlanStatus.WAITING);
         receivingPlanDao.saveReceivingPlan(receivingPlan);
 
         mapImagingTask(receivingPlan);
 
-        int id = receivingPlan.getId();
-        return id;
+        return "SUCCESS";
     }
 
     private void mapImagingTask(ReceivingPlan receivingPlan) {

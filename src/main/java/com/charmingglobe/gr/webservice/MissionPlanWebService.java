@@ -2,9 +2,11 @@ package com.charmingglobe.gr.webservice;
 
 import com.charmingglobe.gr.entity.ImagingPlan;
 import com.charmingglobe.gr.entity.ImagingTask;
+import com.charmingglobe.gr.entity.ReceivingPlan;
 import com.charmingglobe.gr.entity.UserRequest;
 import com.charmingglobe.gr.service.ImagingPlanService;
 import com.charmingglobe.gr.service.ImagingTaskService;
+import com.charmingglobe.gr.service.ReceivingPlanService;
 import com.charmingglobe.gr.service.UserRequestService;
 import com.charmingglobe.gr.webservice.result.ImagingPlanResult;
 import com.charmingglobe.gr.webservice.result.ImagingTaskResult;
@@ -34,6 +36,9 @@ public class MissionPlanWebService {
 
     @Autowired
     ImagingPlanService imagingPlanService;
+
+    @Autowired
+    ReceivingPlanService receivingPlanService;
 
     @WebMethod
     public List<UserRequestResult> getUserRequestList(int day) {
@@ -96,5 +101,19 @@ public class MissionPlanWebService {
             resultList.add(new ImagingTaskResult(imagingTask));
         }
         return resultList;
+    }
+
+    @WebMethod
+    public String inputReceivingPlan(String json) {
+        String result = SUCCESS;
+        try {
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create();
+            ReceivingPlan receivingPlan = gson.fromJson(json, ReceivingPlan.class);
+            receivingPlanService.submitReceivingPlan(receivingPlan);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = "ERROR=[" + e.getMessage() + "]";
+        }
+        return result;
     }
 }
