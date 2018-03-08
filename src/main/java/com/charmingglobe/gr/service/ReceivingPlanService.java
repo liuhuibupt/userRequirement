@@ -33,7 +33,7 @@ public class ReceivingPlanService {
     @Autowired
     ImagingTaskService imagingTaskService;
 
-    public String submitReceivingPlan(ReceivingPlan receivingPlan) throws Exception{
+    public int submitReceivingPlan(ReceivingPlan receivingPlan) throws Exception{
         Date rightnow = new Date();
 
         String trPlanId = getTestTrPlanId();
@@ -50,8 +50,8 @@ public class ReceivingPlanService {
         receivingPlanDao.saveReceivingPlan(receivingPlan);
 
         mapImagingTask(receivingPlan);
-
-        return "SUCCESS";
+        int id = receivingPlan.getId();
+        return id;
     }
 
     private void mapImagingTask(ReceivingPlan receivingPlan) {
