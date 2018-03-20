@@ -25,7 +25,7 @@ public class UserRequestWebService {
         Gson gson = new GsonBuilder().create();
         UserRequest userRequest = gson.fromJson(json, UserRequest.class);
 
-        userRequestService.uploadUserRequest(userRequest);
+    //    userRequestService.uploadUserRequest(userRequest);
 
         return "SUCCESS";
     }

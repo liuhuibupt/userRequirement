@@ -7,7 +7,7 @@
 <c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
-<title>观测需求</title>
+<title>观测需求123</title>
 
 <link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
 

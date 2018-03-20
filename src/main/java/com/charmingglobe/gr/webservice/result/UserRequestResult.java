@@ -34,13 +34,13 @@ public class UserRequestResult {
     public UserRequestResult(UserRequest userRequest) {
         requestId = userRequest.getRequestId();
         requestName = userRequest.getRequestName();
-        requestSatellites = userRequest.getRequestSatellites();
+      //  requestSatellites = userRequest.getRequestSatellites();
         submitTime = userRequest.getSubmitTime();
         isSensitive = userRequest.isSensitive();
         requestType = userRequest.getRequestType();
-        requestStart = userRequest.getRequestStart();
-        requestEnd = userRequest.getRequestEnd();
-        imagingMode = userRequest.getImagingMode();
+      //  requestStart = userRequest.getRequestStart();
+      //  requestEnd = userRequest.getRequestEnd();
+      //  imagingMode = userRequest.getImagingMode();
         imagingWkt = "";
         status = userRequest.getStatus();
     }

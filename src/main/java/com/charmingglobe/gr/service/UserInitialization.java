@@ -23,6 +23,8 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         tryInitAdmin();
         tryInitAlex();
+        tryInitHui();
+        tryInitPan();
     }
 
     private void tryInitAlex() {
@@ -53,6 +55,40 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
             user.setPassword("admin");
 
             user.setDepartmentName("数据中心二室");
+            user.setRole(UserRole.ROLE_ADMIN);
+
+            user.setLastRequestTime(new Date());
+            user.setEnable(true);
+            userDao.saveUser(user);
+        }
+    }
+    private void tryInitHui() {
+        String username = "hui";
+        List<Cavalier> userList = userDao.getUser(username);
+        if (userList == null || userList.size() == 0) {
+            Cavalier user = new Cavalier();
+            user.setUserName(username);
+            user.setDisplayName("Liuhui");
+            user.setPassword("admin");
+
+            user.setDepartmentName("数据中心一室");
+            user.setRole(UserRole.ROLE_ADMIN);
+
+            user.setLastRequestTime(new Date());
+            user.setEnable(true);
+            userDao.saveUser(user);
+        }
+    }
+    private void tryInitPan() {
+        String username = "pan";
+        List<Cavalier> userList = userDao.getUser(username);
+        if (userList == null || userList.size() == 0) {
+            Cavalier user = new Cavalier();
+            user.setUserName(username);
+            user.setDisplayName("PanShengnan");
+            user.setPassword("admin");
+
+            user.setDepartmentName("数据中心一室");
             user.setRole(UserRole.ROLE_ADMIN);
 
             user.setLastRequestTime(new Date());

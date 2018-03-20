@@ -1,7 +1,7 @@
 package com.charmingglobe.gr.controller;
 
 import com.charmingglobe.gr.entity.Cavalier;
-import com.charmingglobe.gr.entity.ImagingPlan;
+
 import com.charmingglobe.gr.entity.UserAction;
 import com.charmingglobe.gr.service.UserActionService;
 import com.charmingglobe.gr.service.UserService;

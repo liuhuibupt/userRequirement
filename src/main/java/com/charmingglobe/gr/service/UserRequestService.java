@@ -39,27 +39,27 @@ public class UserRequestService {
     @Autowired
     private UserActionService userActionService;
 
-    public void uploadUserRequest(UserRequest userRequest) {
-
-        //String imagingWkt = userRequest.getImagingWkt();
-        //Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
-        //userRequest.setImagingGeometry(imagingGeometry);
-
-        Cavalier submitter = userDao.getUser(1);
-        userRequest.setSubmitter(submitter);
-
-        userRequest.setRequestFrom("内部需求");
-        userRequest.setRequestType("POINT");
-        userRequest.setImagingMode("常规推扫");
-        userRequest.setStatus(RequestStatus.HSITORY);
-
-        String requestSatellites = userRequest.getRequestSatellites();
-
-        if (null == requestSatellites || "".equals(requestSatellites)) {
-            userRequest.setRequestSatellites("ALL-SATELLITES");
-        }
-        userRequestDao.saveUserRequest(userRequest);
-    }
+//    public void uploadUserRequest(UserRequest userRequest) {
+//
+//        //String imagingWkt = userRequest.getImagingWkt();
+//        //Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
+//        //userRequest.setImagingGeometry(imagingGeometry);
+//
+//        Cavalier submitter = userDao.getUser(1);
+//        userRequest.setSubmitter(submitter);
+//
+//        userRequest.setRequestFrom("内部需求");
+//        userRequest.setRequestType("POINT");
+//     //   userRequest.setImagingMode("常规推扫");
+//        userRequest.setStatus(RequestStatus.HSITORY);
+//
+////        String requestSatellites = userRequest.getRequestSatellites();
+////
+////        if (null == requestSatellites || "".equals(requestSatellites)) {
+////            userRequest.setRequestSatellites("ALL-SATELLITES");
+////        }
+////        userRequestDao.saveUserRequest(userRequest);
+////    }
 
     public List<UserRequest> getUserRequestByDate(int day) {
         Calendar c = Calendar.getInstance();
@@ -94,11 +94,11 @@ public class UserRequestService {
         userRequest.setRequestFrom("内部需求");
         userRequest.setStatus(RequestStatus.IN_PROCESSING);
 
-        String requestSatellites = userRequest.getRequestSatellites();
+      //  String requestSatellites = userRequest.getRequestSatellites();
 
-        if (null == requestSatellites || "".equals(requestSatellites)) {
-            userRequest.setRequestSatellites("ALL-SATELLITES");
-        }
+//        if (null == requestSatellites || "".equals(requestSatellites)) {
+//            userRequest.setRequestSatellites("ALL-SATELLITES");
+//        }
 
         userRequestDao.saveUserRequest(userRequest);
 
