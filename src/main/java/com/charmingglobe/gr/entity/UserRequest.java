@@ -58,6 +58,9 @@ public class UserRequest {
     @Column(name = "request_user")
     private String requestUser;
 
+    @Column(name = "resolution")
+    private String resolution;
+
     @Column(name = "side_angel")
     private String sideAngel;
 
@@ -190,6 +193,14 @@ public class UserRequest {
 
     public void setRequestUser(String requestUser) {
         this.requestUser = requestUser;
+    }
+
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
     }
 
     public String getSideAngel() {
