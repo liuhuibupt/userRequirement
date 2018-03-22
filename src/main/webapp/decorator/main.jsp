@@ -41,12 +41,12 @@
         }
 
         .app_left_menu {
-            width: 21rem;
+            width: 5rem;
             display: inline;
         }
 
         .app_content{
-            width: calc(100% - 22rem);
+            width: calc(100% - 10rem);
         }
 
         .ui.vertical.menu {
@@ -62,99 +62,29 @@
     <div class="ui container">
         <a href="#" class="item">
             <img class="logo" src="./images/CG_logo_teal.png">
-            <!--长光卫星 - 地面资源中心-->
+            <!--长光卫星 - 地面资源中心的图片，，日后要更换！！！！！！-->
         </a>
+        <a class="item" href="userRequest-list">用户需求</a>
+        <a class="item" href="userRequest-add">新建需求</a>
+
         <div class="right menu">
             <div class="ui simple dropdown item">
-                <i class="user icon"></i>萨瓦迪卡，<sec:authentication property="principal.displayName"/>
+                <i class="user icon"></i>您好，<sec:authentication property="principal.displayName"/>
                 <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="user?userId=<sec:authentication property="principal.id"/>">账号信息</a>
                     <a class="item" href="grc_logout">Logout</a>
                 </div>
             </div>
-            <div class="ui simple dropdown item">
-                <i class="configure icon"></i>开发工具
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="webservice">Webservice</a>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ui mini icon input">
-                    <input type="text" placeholder="很强大，但是还没做">
-                    <i class="search icon"></i>
-                </div>
-            </div>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <a class="item" href="user-list">用户列表</a>
+            <a class="item" href="userAction-list">用户操作</a> </sec:authorize>
         </div>
     </div>
 </div>
-<div class="ui main container" style="min-height: 680px">
+<div class="ui main container" style="min-height: 100px">
     <div class="ui grid">
         <div class="app_left_menu">
-            <div class="ui vertical menu">
-                <div class="item">
-                    <div class="header">User Requirements</div>
-                    <div class="menu">
-                        <a class="item" href="userRequest-list">用户需求<div class="ui mini left pointing teal label">Available</div></a>
-                        <a class="item" href="userRequest-add">新建需求<div class="ui mini left pointing teal label">Available</div></a>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="header">Imaging Plan</div>
-                    <div class="menu">
-                        <a class="item" href="imagingPlan-list">拍摄计划<div class="ui mini left pointing teal label">Available</div></a>
-                        <a class="item">More</a>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="header">Imaging Tasks</div>
-                    <div class="menu">
-                        <a class="item" href="imagingTask-list">拍摄任务<div class="ui mini left pointing blue label">开发中</div></a>
-                        <a class="item" href="imagingTask-add">手动录入Imaging Task</a>
-                        <a class="item">More</a>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="header">Receiving Plan</div>
-                    <div class="menu">
-                        <a class="item" href="receivingPlan-list">跟踪接收计划<div class="ui mini left pointing blue label">开发中</div></a>
-                        <a class="item" href="receivingPlan-add">手动录入Receiving Plan</a>
-                        <a class="item">More</a>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="header">Telemetry Plan</div>
-                    <div class="menu">
-                        <a class="item">遥测计划<div class="ui mini left pointing label">还没开始开发呢</div></a>
-                        <a class="item">More</a>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="header">Production Schedule</div>
-                    <div class="menu">
-                        <a class="item">生产计划<div class="ui mini left pointing label">还没开始开发呢</div></a>
-                        <a class="item">More</a>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="header">Product Management</div>
-                    <div class="menu">
-                        <a class="item">产品管理<div class="ui mini left pointing label">还没开始开发呢</div></a>
-                        <a class="item">More</a>
-                    </div>
-                </div>
-
-                <sec:authorize access="hasRole('ROLE_ADMIN')">
-                <div class="item">
-                    <div class="header">User List</div>
-                    <div class="menu">
-                        <a class="item" href="user-list">用户列表<div class="ui mini left pointing teal label">可以用了</div></a>
-                        <a class="item" href="userAction-list">用户操作<div class="ui mini left pointing teal label">可以用了</div></a>
-                        <a class="item">More</a>
-                    </div>
-                </div></sec:authorize>
-            </div>
         </div>
         <div class="app_content">
             <sitemesh:write property='body'/>

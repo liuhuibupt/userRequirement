@@ -74,7 +74,6 @@ public class UserRequestService {
 
     public void submitUserRequest(UserRequest userRequest, int submitterId) {
         Cavalier submitter = userDao.getUser(submitterId);
-
         String requestId = getNextRequestId();
         userRequest.setRequestId(requestId);
 
@@ -92,7 +91,7 @@ public class UserRequestService {
         userRequest.setSubmitTime(new Date());
 
         userRequest.setRequestFrom("内部需求");
-        userRequest.setStatus(RequestStatus.IN_PROCESSING);
+        userRequest.setStatus(RequestStatus.USER_REQUEST_SUBMITED);
 
       //  String requestSatellites = userRequest.getRequestSatellites();
 

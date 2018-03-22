@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Created by PANZHENG on 2017/11/17.
+ * Edited by Liuhui on 2018/3/22
  */
 @Controller
 public class LoginController {
@@ -22,6 +23,6 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String login(Model model) {
-        return "redirect:today";
+        return "user_request";
     }
 }
