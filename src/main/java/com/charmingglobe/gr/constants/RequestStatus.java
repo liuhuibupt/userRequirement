@@ -16,9 +16,9 @@ public class RequestStatus {
 
     public static final String IMAGEING = "拍摄中";
 
-    public static final String RECEIVING = "数传中";
+    public static final String RECEIV = "数传完成";
 
-    public static final String PRODUCING = "生产中";
+    public static final String PRODUCED = "生产完成";
 
-    public static final String DONE = "需求已完成";
+    public static final String DONE = "产品交付";
 }

@@ -18,7 +18,7 @@ public class LoginController {
 
     @RequestMapping("/gr_login")
     public String gr_login() {
-        return "redirect:today";
+        return "user_request";
     }
 
     @RequestMapping("/login")

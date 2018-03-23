@@ -65,7 +65,7 @@ public class UserRequest {
     private String sideAngel;
 
     @Column(name = "cloud")
-    private int cloud;
+    private String cloud;
 
     @Column(name = "geometry_request")
     private String geometry_request;
@@ -131,7 +131,7 @@ public class UserRequest {
         this.submitTime = submitTime;
     }
 
-    public Date getEditTime() {
+    public Date  getEditTime() {
         return editTime;
     }
 
@@ -211,11 +211,11 @@ public class UserRequest {
         this.sideAngel = sideAngel;
     }
 
-    public int getCloud() {
+    public java.lang.String getCloud() {
         return cloud;
     }
 
-    public void setCloud(int cloud) {
+    public void setCloud(java.lang.String cloud) {
         this.cloud = cloud;
     }
 
