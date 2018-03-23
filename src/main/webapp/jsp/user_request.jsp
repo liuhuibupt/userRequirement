@@ -100,21 +100,30 @@
                             }
                         ]
                     },
-                    longitude: {
-                        identifier: 'longitude',
+                    // longitude: {
+                    //     identifier: 'longitude',
+                    //     rules: [
+                    //         {
+                    //             type: 'empty',
+                    //             prompt: 'Please enter [longitude]'
+                    //         }
+                    //     ]
+                    // },
+                    // latitude: {
+                    //     identifier: 'latitude',
+                    //     rules: [
+                    //         {
+                    //             type: 'empty',
+                    //             prompt: 'Please enter [latitude]'
+                    //         }
+                    //     ]
+                    // }
+                    imagingPara: {
+                        identifier: 'imagingPara',
                         rules: [
                             {
                                 type: 'empty',
-                                prompt: 'Please enter [longitude]'
-                            }
-                        ]
-                    },
-                    latitude: {
-                        identifier: 'latitude',
-                        rules: [
-                            {
-                                type: 'empty',
-                                prompt: 'Please enter [latitude]'
+                                prompt: 'Please enter [Imaging Parameter]'
                             }
                         ]
                     }
@@ -268,6 +277,7 @@
 
         #cesiumContainer {
 
+            height: 650px;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -353,6 +363,7 @@
                     <label>纬度 Latitude</label>
                     <input type="text" id="latitude" name="latitude" placeholder="Latitude">
                 </div>
+                <input type="hidden" id="elevation" name="elevation" placeholder="Elevation">
             </div>
     </div>
 
@@ -501,20 +512,34 @@
     <div id="cesiumContainer" style="margin-bottom: 0.75rem">
         <div class="loggingMessage"></div>
     </div>
+        <input type="hidden" id="imagingWkt" name="imagingWkt" >
+        <textarea  style="display:none" class="ready-only" id="imagingPara" name="imagingParaTxt">${userRequest.imagingParaTxt}</textarea>
     <div class="field">
         <div class="sixteen fields">
-            <c:if test="${userRequest == null}"><div class="field">
-                <input class="ui teal submit button" type="submit" value="Submit Request">
-            </div></c:if>
-            <c:if test="${author.id eq submitter.id}"><div class="field">
-                <a class="ui teal submit button"  href="cancelUserRequest?userRequestId=${userRequest.id}">Cancel Request</a>
-            </div></c:if>
-            <c:if test="${author.id != submitter.id}"><sec:authorize access="hasRole('ROLE_ADMIN')"><div class="field">
-                <a class="ui blue submit button"  href="cancelUserRequest?userRequestId=${userRequest.id}">Cancel Request</a>
-            </div></sec:authorize></c:if>
-            <sec:authorize access="hasRole('ROLE_ADMIN')"><div class="field">
-                <a class="ui red submit button"  href="deleteUserRequest?userRequestId=${userRequest.id}">Delete Request</a>
-            </div></sec:authorize>
+            <c:if test="${userRequest == null}">
+                <div class="field">
+                    <input class="ui teal submit button" type="submit" value="Submit Request">
+                </div>
+            </c:if>
+            <c:if test="${userRequest != null}">
+                <c:if test="${author.id eq submitter.id}">
+                    <div class="field">
+                        <a class="ui teal submit button"  href="cancelUserRequest?userRequestId=${userRequest.id}">Cancel Request</a>
+                     </div>
+                </c:if>
+                <c:if test="${author.id != submitter.id}">
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <div class="field">
+                        <a class="ui blue submit button"  href="cancelUserRequest?userRequestId=${userRequest.id}">Cancel Request</a>
+                        </div>
+                    </sec:authorize>
+                </c:if>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <div class="field">
+                    <a class="ui red submit button"  href="deleteUserRequest?userRequestId=${userRequest.id}">Delete Request</a>
+                    </div>
+                </sec:authorize>
+            </c:if>
         </div>
     </div>
 </form>
