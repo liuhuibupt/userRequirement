@@ -39,6 +39,13 @@
         });
 
     </script>
+    <style>
+        body,html {
+            margin: 0px 20px 0px 20px;
+            padding: 0;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 

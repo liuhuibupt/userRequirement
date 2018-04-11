@@ -7,7 +7,7 @@
 <c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
-    <title>录入拍摄卫星参数</title>
+    <title>录入需求-拍摄要求</title>
     <link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
     <script src="${serverUrl}/Cesium/Cesium.js"></script>
     <script src="${serverUrl}/Cesium/DrawTool.js"></script>
@@ -117,7 +117,7 @@
             position:fixed; bottom:0;
         }
         body,html {
-            margin: 10px 10px 0px 10px;
+            margin: 0px 20px 0px 20px;
             padding: 0;
             height: 100%;
         }

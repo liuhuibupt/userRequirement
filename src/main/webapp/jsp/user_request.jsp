@@ -9,7 +9,7 @@
 <c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
-    <title>录入客户需求</title>
+    <title>录入需求-基本信息</title>
     <link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
     <script src="${serverUrl}/Cesium/Cesium.js"></script>
     <script src="${serverUrl}/Cesium/DrawTool.js"></script>
@@ -290,7 +290,6 @@
         .body-style{
             margin: 0px 20px 0px 20px;
         }
-
     </style>
 
 </head>
