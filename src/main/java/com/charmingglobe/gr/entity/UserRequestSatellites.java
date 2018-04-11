@@ -47,6 +47,12 @@ public class UserRequestSatellites {
     @Column(name = "shoot_num")
     private int shootNum;
 
+    @Column(name = "product_delivery_model")
+    private String productDeliveryModel;
+
+    @Column(name = "product_delivery_url")
+    private String productDeliveryURL;
+
     public int getId() {
         return id;
     }
@@ -117,6 +123,22 @@ public class UserRequestSatellites {
 
     public void setShootNum(int shootNum) {
         this.shootNum = shootNum;
+    }
+
+    public String getProductDeliveryModel() {
+        return productDeliveryModel;
+    }
+
+    public void setProductDeliveryModel(String productDeliveryModel) {
+        this.productDeliveryModel = productDeliveryModel;
+    }
+
+    public String getProductDeliveryURL() {
+        return productDeliveryURL;
+    }
+
+    public void setProductDeliveryURL(String productDeliveryURL) {
+        this.productDeliveryURL = productDeliveryURL;
     }
 }
 

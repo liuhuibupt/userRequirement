@@ -60,7 +60,7 @@ public class ImageRequest {
     private String sideAngel;
 
     @Column(name = "cloud")
-    private int cloud;
+    private String cloud;
 
     @Column(name = "geometry_request")
     private String geometry_request;
@@ -216,11 +216,11 @@ public class ImageRequest {
         this.sideAngel = sideAngel;
     }
 
-    public int getCloud() {
+    public String getCloud() {
         return cloud;
     }
 
-    public void setCloud(int cloud) {
+    public void setCloud(String cloud) {
         this.cloud = cloud;
     }
 

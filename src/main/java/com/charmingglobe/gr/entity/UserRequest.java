@@ -68,10 +68,10 @@ public class UserRequest {
     private String cloud;
 
     @Column(name = "geometry_request")
-    private String geometry_request;
+    private String geometryRequest;
 
     @Column(name = "radiation_request")
-    private String radiation_request;
+    private String radiationRequest;
 
     @Column(name = "request_type")
     private String requestType;
@@ -114,6 +114,7 @@ public class UserRequest {
     public void setNum(int num) {
         this.num = num;
     }
+
 
     public String getStatus() {
         return status;
@@ -219,20 +220,20 @@ public class UserRequest {
         this.cloud = cloud;
     }
 
-    public String getGeometry_request() {
-        return geometry_request;
+    public String getGeometryRequest() {
+        return geometryRequest;
     }
 
-    public void setGeometry_request(String geometry_request) {
-        this.geometry_request = geometry_request;
+    public void setGeometryRequest(String geometryRequest) {
+        this.geometryRequest = geometryRequest;
     }
 
-    public String getRadiation_request() {
-        return radiation_request;
+    public String getRadiationRequest() {
+        return radiationRequest;
     }
 
-    public void setRadiation_request(String radiation_request) {
-        this.radiation_request = radiation_request;
+    public void setRadiationRequest(String radiationRequest) {
+        this.radiationRequest = radiationRequest;
     }
 
     public String getRequestType() {
@@ -298,6 +299,8 @@ public class UserRequest {
     public void setCoverage(String coverage) {
         this.coverage = coverage;
     }
+
+
 }
 
 

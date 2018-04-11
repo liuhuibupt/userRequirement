@@ -30,7 +30,7 @@
             width: auto;
         }
         .main.container {
-            margin-top: 7em;
+            margin-top: 5em;
         }
         .wireframe {
             margin-top: 2em;
@@ -46,7 +46,8 @@
         }
 
         .app_content{
-            width: calc(100% - 10rem);
+            /*width: calc(100% - 10rem);*/
+            width: calc(100%);
         }
 
         .ui.vertical.menu {
@@ -66,6 +67,32 @@
         </a>
         <a class="item" href="userRequest-list">用户需求</a>
         <a class="item" href="userRequest-add">新建需求</a>
+        <div class="menu">
+            <div class="ui simple dropdown item">未完成
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                <a class="item" href=""/>规划列表</a>
+                <a class="item" href=""/>光学A星</a>
+                <a class="item" href="">视频03星</a>
+                <a class="item" href="">视频04星</a>
+                <a class="item" href="">视频05星</a>
+                <a class="item" href="">视频06星</a>
+                <a class="item" href="">视频07星</a>
+                <a class="item" href="">视频08星</a>
+                 </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="ui simple dropdown item">未完成
+                <i class="dropdown icon "></i>
+                <div class="menu">
+                    <a class="item" href=""/>产品交付</a>
+                </div>
+            </div>
+        </div>
+
+        <a class="item" href="test">test</a>
+        <a class="item" href="test2">testbutton</a>
 
         <div class="right menu">
             <div class="ui simple dropdown item">
@@ -84,8 +111,8 @@
 </div>
 <div class="ui main container" style="min-height: 100px">
     <div class="ui grid">
-        <div class="app_left_menu">
-        </div>
+        <%--<div class="app_left_menu">--%>
+        <%--</div>--%>
         <div class="app_content">
             <sitemesh:write property='body'/>
         </div>

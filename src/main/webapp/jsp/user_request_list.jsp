@@ -5,211 +5,219 @@
 <c:set var="serverUrl" value="${pageContext.request.scheme}${'://'}${pageContext.request.serverName}${':'}${pageContext.request.serverPort}${pageContext.request.contextPath}" />
 <html>
 <head>
-<title>需求检索</title>
-<link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
-<script src="${serverUrl}/js/calendar.js"></script>
+    <title>需求检索</title>
+    <link rel="stylesheet" type="text/css" href="${serverUrl}/css/calendar.min.css">
+    <script src="${serverUrl}/js/calendar.js"></script>
 
-<script>
-$(document).ready(function() {
-    $('.ui.selection.dropdown').dropdown();
-    $('.ui.dropdown').dropdown();
-    $('.ui.menu.dropdown').dropdown();
-    $('.ui.checkbox').checkbox();
+    <script>
+        $(document).ready(function() {
+            $('.ui.selection.dropdown').dropdown();
+            $('.ui.dropdown').dropdown();
+            $('.ui.menu.dropdown').dropdown();
+            $('.ui.checkbox').checkbox();
 
-    $(document).ready(function() {
-        $('#searchCriteria').popup({
-            hoverable: true,
-            delay: {
-                show: 100,
-                hide: 100
+            $(document).ready(function() {
+                $('#searchCriteria').popup({
+                    hoverable: true,
+                    delay: {
+                        show: 100,
+                        hide: 100
+                    }
+                });
+            });
+
+            $('#dateStartDiv').calendar({
+                type: 'date'
+            });
+
+            $('#dateEndDiv').calendar({
+                type: 'date'
+            });
+
+            $('div[name="moredetail"]').popup({
+                hoverable: true,
+                delay: {
+                    show: 100,
+                    hide: 100
+                }
+            });
+
+            $('div[name="moredetail2"]').popup({
+                hoverable: true,
+                delay: {
+                    show: 100,
+                    hide: 100
+                }
+            });
+
+            var criList = ['requestSatellite', 'imagingMode', 'requestName', 'keyword', 'dateStart', 'dateEnd', 'onlyme'];
+            for (var i in criList){
+                initCri(criList[i]);
             }
         });
-    });
 
-    $('#dateStartDiv').calendar({
-        type: 'date'
-    });
+        function initCri(criName) {
 
-    $('#dateEndDiv').calendar({
-        type: 'date'
-    });
+            if (criName == 'dateStart' || criName == 'dateEnd') {
+                $('#' + criName).blur(function () {
+                    addCri(criName)
+                });
+            } else if (criName == 'requestSatellite' || criName == 'imagingMode') {
+                $('#' + criName + 'CriList > div > a').each(function() {
+                    $(this).click(function() {
+                        var value = $(this).attr("data-value");
+                        $('#' + criName).val(value);
+                        addCri(criName);
+                    });
+                });
 
-    $('div[name="moredetail"]').popup({
-        hoverable: true,
-        delay: {
-            show: 100,
-            hide: 100
-        }
-    });
+            } else {
+                $('#' + criName).keyup(function() {
+                    addCri(criName)
+                });
+            }
 
-    var criList = ['requestSatellite', 'imagingMode', 'requestName', 'keyword', 'dateStart', 'dateEnd', 'onlyme'];
-    for (var i in criList){
-        initCri(criList[i]);
-    }
-});
-
-function initCri(criName) {
-
-    if (criName == 'dateStart' || criName == 'dateEnd') {
-        $('#' + criName).blur(function () {
-            addCri(criName)
-        });
-    } else if (criName == 'requestSatellite' || criName == 'imagingMode') {
-        $('#' + criName + 'CriList > div > a').each(function() {
-            $(this).click(function() {
-                var value = $(this).attr("data-value");
-                $('#' + criName).val(value);
-                addCri(criName);
+            $('#' + criName).ready(function() {
+                var value = $('#' + criName).val();
+                if (value != '') {
+                    var color = getRandomColor();
+                    $('#cri-' + criName).removeClass();
+                    $('#cri-' + criName).addClass('ui label ' + color);
+                    $('#cri-' + criName).show();
+                    $('#cri-' + criName + '-value').text(value);
+                }
             });
-        });
-
-    } else {
-        $('#' + criName).keyup(function() {
-            addCri(criName)
-        });
-    }
-
-    $('#' + criName).ready(function() {
-        var value = $('#' + criName).val();
-        if (value != '') {
-            var color = getRandomColor();
-            $('#cri-' + criName).removeClass();
-            $('#cri-' + criName).addClass('ui label ' + color);
-            $('#cri-' + criName).show();
-            $('#cri-' + criName + '-value').text(value);
+            $('#cri-' + criName + ' > .delete').click(function() {
+                $('#cri-' + criName).hide();
+                $('#' + criName).val('');
+            });
         }
-    });
-    $('#cri-' + criName + ' > .delete').click(function() {
-        $('#cri-' + criName).hide();
-        $('#' + criName).val('');
-    });
-}
 
-function addCri(criName) {
-    var value = $('#' + criName).val();
-    if (value != '') {
-        var color = getRandomColor();
-        $('#cri-' + criName).removeClass();
-        $('#cri-' + criName).addClass('ui label ' + color);
-        $('#cri-' + criName).show();
-        $('#cri-' + criName + '-value').text(value);
-    } else {
-        clearCri(criName);
-    }
-}
+        function addCri(criName) {
+            var value = $('#' + criName).val();
+            if (value != '') {
+                var color = getRandomColor();
+                $('#cri-' + criName).removeClass();
+                $('#cri-' + criName).addClass('ui label ' + color);
+                $('#cri-' + criName).show();
+                $('#cri-' + criName + '-value').text(value);
+            } else {
+                clearCri(criName);
+            }
+        }
 
-function clearCri(criName) {
-    $('#cri-'+ criName).hide();
-    $('#' + criName).val('');
-}
+        function clearCri(criName) {
+            $('#cri-'+ criName).hide();
+            $('#' + criName).val('');
+        }
 
-function requestResult(pageNum) {
-    var locationHref = "userRequest-list?&curPageNum=" + pageNum;
-    var dateStart = $("#dateStart").val();
-    if ('' != dateStart) {
-        locationHref += "&dateStart=" + dateStart + " 00:00:01";
-    }
-    var dateEnd = $("#dateEnd").val();
-    if ('' != dateEnd) {
-        locationHref += "&dateEnd=" + dateEnd + " 23:59:59";
-    }
+        function requestResult(pageNum) {
+            var locationHref = "userRequest-list?&curPageNum=" + pageNum;
+            var dateStart = $("#dateStart").val();
+            if ('' != dateStart) {
+                locationHref += "&dateStart=" + dateStart + " 00:00:01";
+            }
+            var dateEnd = $("#dateEnd").val();
+            if ('' != dateEnd) {
+                locationHref += "&dateEnd=" + dateEnd + " 23:59:59";
+            }
 
-    var requestSatellite = $("#requestSatellite").val();
-    if ('' != requestSatellite) {
-        locationHref += "&requestSatellite=" + requestSatellite;
-    }
+            var requestSatellite = $("#requestSatellite").val();
+            if ('' != requestSatellite) {
+                locationHref += "&requestSatellite=" + requestSatellite;
+            }
 
-    var imagingMode = $("#imagingMode").val();
-    if ('' != imagingMode) {
-        locationHref += "&imagingMode=" + imagingMode;
-    }
+            var imagingMode = $("#imagingMode").val();
+            if ('' != imagingMode) {
+                locationHref += "&imagingMode=" + imagingMode;
+            }
 
-    var requestName = $("#requestName").val();
-    if ('' != requestName) {
-        locationHref += "&requestName=" + requestName;
-    }
+            var requestName = $("#requestName").val();
+            if ('' != requestName) {
+                locationHref += "&requestName=" + requestName;
+            }
 
-    var keyword = $("#keyword").val();
-    if ('' != keyword) {
-        locationHref += "&keyword=" + keyword;
-    }
+            var keyword = $("#keyword").val();
+            if ('' != keyword) {
+                locationHref += "&keyword=" + keyword;
+            }
 
-    var onlyme = $("#onlyme").val();
-    if  ('' != onlyme) {
-        locationHref += '&onlyme=true';
-    }
+            var onlyme = $("#onlyme").val();
+            if  ('' != onlyme) {
+                locationHref += '&onlyme=true';
+            }
 
-    var orderby = $("#orderby").val();
-    if  ('' != orderby) {
-        locationHref += '&orderby=' + orderby;
-    }
+            var orderby = $("#orderby").val();
+            if  ('' != orderby) {
+                locationHref += '&orderby=' + orderby;
+            }
 
-    window.location.href = locationHref;
-}
+            window.location.href = locationHref;
+        }
 
-function clearAllCri() {
-    var dateStart = $("#dateStart").val('');
-    var dateEnd = $("#dateEnd").val('');
-    var requestSatellite = $("#requestSatellite").val('');
-    var imagingMode = $("#imagingMode").val('');
-    var requestName = $("#requestName").val('');
-    var keyword = $("#keyword").val('');
-    var onlyme = $("#onlyme").val('');
-}
+        function clearAllCri() {
+            var dateStart = $("#dateStart").val('');
+            var dateEnd = $("#dateEnd").val('');
+            var requestSatellite = $("#requestSatellite").val('');
+            var imagingMode = $("#imagingMode").val('');
+            var requestName = $("#requestName").val('');
+            var keyword = $("#keyword").val('');
+            var onlyme = $("#onlyme").val('');
+        }
 
-function setSatelliteCri(satelliteId) {
-    $('#requestSatellite').val(satelliteId);
-    var value = $('#requestSatellite').val();
-}
+        function setSatelliteCri(satelliteId) {
+            $('#requestSatellite').val(satelliteId);
+            var value = $('#requestSatellite').val();
+        }
 
-function searchToday() {
-    clearAllCri();
-    var today = getDate(0);
-    $("#dateStart").val(today);
-    $("#dateEnd").val(today);
-    $("#onlyme").val('');
-    requestResult(0);
-}
+        function searchToday() {
+            clearAllCri();
+            var today = getDate(0);
+            $("#dateStart").val(today);
+            $("#dateEnd").val(today);
+            $("#onlyme").val('');
+            requestResult(0);
+        }
 
-function searchMyToday() {
-    clearAllCri();
-    var today = getDate(0);
-    $("#dateStart").val(today);
-    $("#dateEnd").val(today);
+        function searchMyToday() {
+            clearAllCri();
+            var today = getDate(0);
+            $("#dateStart").val(today);
+            $("#dateEnd").val(today);
 
-    $("#onlyme").val('TRUE');
-    requestResult(0);
-}
+            $("#onlyme").val('TRUE');
+            requestResult(0);
+        }
 
-function searchMyAll() {
-    clearAllCri();
-    $("#dateStart").val('');
-    $("#dateEnd").val('');
-    $("#onlyme").val('TRUE');
-    requestResult(0);
-}
+        function searchMyAll() {
+            clearAllCri();
+            $("#dateStart").val('');
+            $("#dateEnd").val('');
+            $("#onlyme").val('TRUE');
+            requestResult(0);
+        }
 
-function searchYesterday() {
-    clearAllCri();
-    var today = getDate(-1);
-    $("#dateStart").val(today);
-    $("#dateEnd").val(today);
-    $("#onlyme").val('');
-    requestResult(0);
-}
+        function searchYesterday() {
+            clearAllCri();
+            var today = getDate(-1);
+            $("#dateStart").val(today);
+            $("#dateEnd").val(today);
+            $("#onlyme").val('');
+            requestResult(0);
+        }
 
-function setOrderby(orderby) {
-    $("#orderby").val(orderby);
-    requestResult(0);
-}
-</script>
+        function setOrderby(orderby) {
+            $("#orderby").val(orderby);
+            requestResult(0);
+        }
+    </script>
 </head>
 <body>
 <h2 class="ui header">需求检索</h2>
 <div class="ui divider"></div>
 <div class="ui tiny grid segment">
     <div class="twelve wide column" id="searchCriteria">
-        <a class="ui large right pointing label" ><i class="grid layout icon"></i>Select Criteria</a>
+        <a class="ui large right pointing label" ><i class="grid layout icon"></i>按条件选择</a>
         <a class="ui label" id="cri-requestSatellite" style="display: none">Satellite<div class="detail" id="cri-requestSatellite-value"></div> <i class="delete icon" ></i></a>
         <a class="ui label" id="cri-imagingMode" style="display: none">Imaging Mode<div class="detail" id="cri-imagingMode-value"></div> <i class="delete icon" ></i></a>
         <a class="ui label" id="cri-requestName" style="display: none">Request Name<div class="detail" id="cri-requestName-value"></div><i class="delete icon"></i></a>
@@ -355,75 +363,159 @@ function setOrderby(orderby) {
         </th>
     </tr>
     <tr>
-        <th width="10%">No.</th>
-        <th width="15%">需求ID</th>
-        <th>需求名称</th>
-        <th width="10%">Satellite</th>
-        <th width="10%">Submitter</th>
-        <th width="15%">More Detail</th>
-        <th width="10%">状态</th>
+        <%--<th width="10%">No.</th>--%>
+        <%--<th width="15%">需求ID</th>--%>
+        <%--<th>需求名称</th>--%>
+        <%--<th width="10%">Satellite</th>--%>
+        <%--<th width="10%">Submitter</th>--%>
+        <%--<th width="15%">More Detail</th>--%>
+        <%--<th width="10%">状态</th>--%>
+        <th width="10%">序号</th>
+        <th width="10%">需求编号</th>
+        <th width="10%">需求名称</th>
+        <th width="10%">优先级</th>
+        <th width="10%">需求状态</th>
+        <th width="10%">提交日期</th>
+        <th width="10%">实际需求用户</th>
+        <%--<th width="10%">需求来源</th>--%>
+        <%--<th width="10%">需求类型</th>--%>
+        <th width="10%">分辨率</th>
+        <%--<th width="10%">侧摆要求</th>--%>
+        <%--<th width="10%">云量要求</th>--%>
+        <%--<th width="10%">辐射要求</th>--%>
+        <th width="10%">更多</th>
+        <th width="10%"></th>
+
     </tr>
     </thead>
     <tbody>
     <c:forEach items="${resultSet}" var="userRequest">
-        <tr>
-            <td>
-                <c:if test="${userRequest.label eq 'today'}"><div class="ui teal ribbon label">Today</div></c:if>
-                    ${userRequest.num}
-            </td>
-            <td><a href="userRequest?userRequestId=${userRequest.id}">${userRequest.requestId}</a></td>
-            <td>${userRequest.requestName}</td>
-            <td>
-                <c:choose>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL101A')}">光学A星&nbsp;</c:when>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL101B')}">视频01星&nbsp;</c:when>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL102B')}">视频02星&nbsp;</c:when>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL103B')}">视频03星&nbsp;</c:when>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL104B')}">视频04星&nbsp;</c:when>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL105B')}">视频05星&nbsp;</c:when>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL106B')}">视频06星&nbsp;</c:when>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL107B')}">视频07星&nbsp;</c:when>
-                    <c:when test="${fn:contains(userRequest.requestSatellites, 'JL108B')}">视频08星&nbsp;</c:when>
-                    <c:otherwise>${userRequest.requestSatellites}</c:otherwise>
-                </c:choose>
-            </td>
-            <td>${userRequest.submitter.displayName}</td>
-            <td>
-                <div class="ui label" name="moredetail"><i class="list icon"></i>More</div>
-                <div class="ui flowing popup top left transition hidden">
-                    <div class="ui divided selection list">
-                        <div class="item">
-                            <div class="ui teal horizontal icon label">
-                                <i class="in cart icon"></i>需求来源</div>
-                                ${userRequest.requestFrom}
-                        </div>
-                        <div class="item">
-                            <div class="ui teal horizontal icon label">
-                                <i class="user icon"></i>&nbsp;提交用户</div>
-                                ${userRequest.submitter.displayName}
-                        </div>
-                        <div class="item">
-                            <div class="ui teal horizontal icon label">
-                                <i class="calendar icon"></i>提交日期</div>
-                            <fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                        </div>
-                        <div class="item">
-                            <div class="ui teal horizontal icon label">
-                                <i class="marker icon"></i>&nbsp;&nbsp;需求类型</div>
+    <tr>
+        <td>
+            <c:if test="${userRequest.label eq 'today'}"><div class="ui teal ribbon label">Today</div></c:if>
+                ${userRequest.num}
+        </td>
+
+        <td><a href="userRequest?userRequestId=${userRequest.id}">${userRequest.requestId}</a></td>
+        <td>${userRequest.requestName}</td>
+        <td>${userRequest.priority}</td>
+        <td>${userRequest.status}</td>
+        <td><fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+        <td>${userRequest.requestUser}</td>
+        <td>${userRequest.resolution}</td>
+            <%--<td>--%>
+            <%--<c:choose>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL101A')}">光学A星&nbsp;</c:when>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL101B')}">视频01星&nbsp;</c:when>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL102B')}">视频02星&nbsp;</c:when>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL103B')}">视频03星&nbsp;</c:when>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL104B')}">视频04星&nbsp;</c:when>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL105B')}">视频05星&nbsp;</c:when>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL106B')}">视频06星&nbsp;</c:when>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL107B')}">视频07星&nbsp;</c:when>--%>
+            <%--<c:when test="${fn:contains(userRequest.requestSatellites, 'JL108B')}">视频08星&nbsp;</c:when>--%>
+            <%--<c:otherwise>${userRequest.requestSatellites}</c:otherwise>--%>
+            <%--</c:choose>--%>
+            <%--</td>--%>
+
+        <td>
+            <div class="ui label" name="moredetail"><i class="list icon"></i>More</div>
+            <div class="ui flowing popup top left transition hidden">
+                <div class="ui divided selection list">
+                    <div class="item">
+                        <div class="ui teal horizontal icon label">
+                            <i class="in cart icon"></i>需求来源</div>
+                            ${userRequest.requestFrom}
+                    </div>
+                    <div class="item">
+                        <div class="ui teal horizontal icon label">
+                            <i class="user icon"></i>&nbsp;需求类型</div>
                             ${userRequest.requestType}
-                        </div>
-                        <div class="item">
-                            <div class="ui teal horizontal icon label">
-                                <i class="camera retro icon"></i>成型模式</div>
-                                ${userRequest.imagingMode}
-                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ui teal horizontal icon label">
+                            <i class="marker icon"></i>&nbsp;&nbsp;侧摆要求</div>
+                            ${userRequest.sideAngel}
+                    </div>
+                    <div class="item">
+                        <div class="ui teal horizontal icon label">
+                            <i class="camera retro icon"></i>云量要求</div>
+                            ${userRequest.cloud}
+                    </div>
+                    <div class="item">
+                        <div class="ui teal horizontal icon label">
+                            <i class="camera retro icon"></i>辐射要求</div>
+                            ${userRequest.radiationRequest}
+                    </div>
+                    <div class="item">
+                        <div class="ui teal horizontal icon label">
+                            <i class="camera retro icon"></i>覆盖要求</div>
+                            ${userRequest.coverage}
+                    </div>
+                    <div class="item">
+                        <div class="ui teal horizontal icon label">
+                            <i class="camera retro icon"></i>成像坐标</div>
+                            ${userRequest.imagingPara}
                     </div>
                 </div>
+            </div>
 
-                <span class="ui label"><i class="marker icon"></i>Map</span>
-            </td>
-            <td>${userRequest.status}</td>
-        </tr>
+                <%--<span class="ui label"><i class="marker icon"></i>Map</span>--%>
+        </td>
+        <td>
+            <a class="ui teal submit button"  href="user_request_detail?requestNum=${userRequest.id}">detail</a>
+
+                <%--<div class="ui label" name="moredetail2"><i class="list icon"></i>详细</div>--%>
+                <%--<div class="ui flowing popup top left transition hidden">--%>
+                <%----%>
+                <%--<table class="ui celled table">--%>
+                <%--<thead>--%>
+                <%--<tr>--%>
+                <%--<th width="10%">需求卫星</th>--%>
+                <%--<th width="10%">成像模式</th>--%>
+                <%--<th width="10%">拍摄开始时间</th>--%>
+                <%--<th width="10%">拍摄结束时间</th>--%>
+                <%--<th width="10%">拍摄次数</th>--%>
+                <%--<th width="10%">拍摄时长，单位s</th>--%>
+                <%--<th width="10%">是否多宫格</th>--%>
+
+                <%--</tr>--%>
+                <%--</thead>--%>
+                <%--<tbody>--%>
+                <%--<c:forEach items="${userSatelliteList2}" var="userSatellite">--%>
+                <%--<tr>--%>
+
+                <%--<c:if test="${userSatellite.userRequest.id == userRequest.id}">--%>
+                <%--&lt;%&ndash;<script>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;alert("${userSatellite.userRequest.id}"+"${userRequest.id}")&ndash;%&gt;--%>
+                <%--&lt;%&ndash;</script>&ndash;%&gt;--%>
+                <%----%>
+                <%--&lt;%&ndash;<td>${userSatellite.requestSatellites}</td>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<td>${userSatellite.imagingMode}</td>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<td><fmt:formatDate value="${userSatellite.requestStart}" pattern="yyyy-MM-dd HH:mm:ss"/></td>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<td><fmt:formatDate value="${userSatellite.requestEnd}" pattern="yyyy-MM-dd HH:mm:ss"/></td>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<td>${userSatellite.shootNum}</td>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<td>${userSatellite.imagingDuration}</td>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;<td>${userSatellite.multiGrid}</td>&ndash;%&gt;--%>
+                <%--</c:if>--%>
+                <%--</tr>--%>
+                <%--</c:forEach>--%>
+                <%--</tbody>--%>
+                <%--</table>--%>
+                <%--</div>--%>
+
+                <%--<span class="ui label"><i class="marker icon"></i>Map</span>--%>
+        </td>
+
+        <td>
+            <a class="ui teal submit button"  href="userRequest?userRequestId=${userRequest.id}">modify</a>
+        </td>
+
+        <td>
+            <a class="ui teal submit button"  href="cancelRequestInList?userRequestId=${userRequest.id}">cancel</a>
+        </td>
+
+    </tr>
     </c:forEach>
     <tfoot>
     <tr>
@@ -442,14 +534,14 @@ function setOrderby(orderby) {
                     <span class="item">...</span>
                 </c:if>
                 <c:if test="${cri.totalPageNum > 1}">
-                <c:forEach begin="${(cri.curPageNum - 4)  < 1 ? 1 : cri.curPageNum - 4}" end="${cri.curPageNum < cri.totalPageNum - 5 ? cri.curPageNum + 4 : cri.totalPageNum - 2}" var="i">
-                    <c:if test="${cri.curPageNum == i}">
-                        <span class="item active blue">${i + 1}</span>
-                    </c:if>
-                    <c:if test="${cri.curPageNum != i}">
-                        <a class="item" href="javascript:requestResult(${i})">${i + 1}</a>
-                    </c:if>
-                </c:forEach>
+                    <c:forEach begin="${(cri.curPageNum - 4)  < 1 ? 1 : cri.curPageNum - 4}" end="${cri.curPageNum < cri.totalPageNum - 5 ? cri.curPageNum + 4 : cri.totalPageNum - 2}" var="i">
+                        <c:if test="${cri.curPageNum == i}">
+                            <span class="item active blue">${i + 1}</span>
+                        </c:if>
+                        <c:if test="${cri.curPageNum != i}">
+                            <a class="item" href="javascript:requestResult(${i})">${i + 1}</a>
+                        </c:if>
+                    </c:forEach>
                 </c:if>
                 <c:if test="${cri.curPageNum < cri.totalPageNum - 6}">
                     <span class="item">...</span>

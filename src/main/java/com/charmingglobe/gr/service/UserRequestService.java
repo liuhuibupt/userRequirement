@@ -6,6 +6,7 @@ import com.charmingglobe.gr.dao.UserDao;
 import com.charmingglobe.gr.dao.UserRequestDao;
 import com.charmingglobe.gr.entity.Cavalier;
 import com.charmingglobe.gr.entity.UserRequest;
+import com.charmingglobe.gr.entity.UserRequestSatellites;
 import com.charmingglobe.gr.geo.GeometryTools;
 import com.charmingglobe.gr.utils.ImagingParaConverter;
 import com.charmingglobe.gr.utils.TimeUtils;
@@ -39,39 +40,6 @@ public class UserRequestService {
     @Autowired
     private UserActionService userActionService;
 
-//    public void uploadUserRequest(UserRequest userRequest) {
-//
-//        //String imagingWkt = userRequest.getImagingWkt();
-//        //Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
-//        //userRequest.setImagingGeometry(imagingGeometry);
-//
-//        Cavalier submitter = userDao.getUser(1);
-//        userRequest.setSubmitter(submitter);
-//
-//        userRequest.setRequestFrom("内部需求");
-//        userRequest.setRequestType("POINT");
-//     //   userRequest.setImagingMode("常规推扫");
-//        userRequest.setStatus(RequestStatus.HSITORY);
-//
-////        String requestSatellites = userRequest.getRequestSatellites();
-////
-////        if (null == requestSatellites || "".equals(requestSatellites)) {
-////            userRequest.setRequestSatellites("ALL-SATELLITES");
-////        }
-////        userRequestDao.saveUserRequest(userRequest);
-////    }
-
-    public List<UserRequest> getUserRequestByDate(int day) {
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, day);
-        Date date = c.getTime();
-        return userRequestDao.selectUserRequestByDate(date);
-    }
-
-    public void cancelUserRequest(int userRequestId) {
-        userRequestDao.saveUserRequest(userRequestId, "Cancelled");
-    }
-
     public void submitUserRequest(UserRequest userRequest, int submitterId) {
         Cavalier submitter = userDao.getUser(submitterId);
         String requestId = getNextRequestId();
@@ -86,22 +54,80 @@ public class UserRequestService {
             Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
             userRequest.setImagingGeometry(imagingGeometry);
         }
-
         userRequest.setSubmitter(submitter);
         userRequest.setSubmitTime(new Date());
-
+        userRequest.setEditTime(new Date());
         userRequest.setRequestFrom("内部需求");
-        userRequest.setStatus(RequestStatus.USER_REQUEST_SUBMITED);
-
-      //  String requestSatellites = userRequest.getRequestSatellites();
-
-//        if (null == requestSatellites || "".equals(requestSatellites)) {
-//            userRequest.setRequestSatellites("ALL-SATELLITES");
-//        }
-
+        userRequest.setStatus(RequestStatus.INCOMPLETENESS_REQUEST);
         userRequestDao.saveUserRequest(userRequest);
-
         userActionService.addUserAction(userRequest);
+    }
+
+    public void addUserRequestSatellites(UserRequestSatellites userRequestSatellites,int requestNum,String imagingMode ) {
+        UserRequest userRequest = userRequestDao.getUserRequestForWriting(requestNum);
+        userRequestSatellites.setImagingMode(imagingMode);
+        userRequestSatellites.setUserRequest(userRequest);
+
+        if(userRequestSatellites.getImagingDuration() == ""){
+            userRequestSatellites.setImagingDuration("30");
+        }
+        Date date=new Date();
+        if(userRequestSatellites.getRequestStart()== null){
+            userRequestSatellites.setRequestStart(date);
+        }
+        userRequestDao.saveUserRequestSatellites(userRequestSatellites);
+        userActionService.addUserAction(userRequest);
+    }
+
+    public void deleteUserRequest(int userRequestId){
+        userRequestDao.deleteUserRequest(userRequestId);
+    }
+
+    public void deleteUserRequestSatellite(int userRequestSatelliteId){
+        userRequestDao.deleteUserRequestSatellite(userRequestSatelliteId);
+    }
+
+    public void cancelUserRequest(int userRequestId) {
+        userRequestDao.saveUserRequest(userRequestId, "Cancelled");
+    }
+
+    public void cancelAndSubmit(int userRequestId){
+        userRequestDao.saveUserRequest(userRequestId,"已提交需求");
+    }
+
+    public void setUserRequestStatus(int requestId,String status){
+        userRequestDao.saveUserRequest(requestId,status);
+    }
+
+    public void  editUserRequest(int userRequestId,UserRequest userRequestInfo){
+        UserRequest userRequest=userRequestDao.getUserRequestForWriting(userRequestId);
+        Date date=new Date();
+        userRequest.setEditTime(date);
+        if(userRequestInfo.getRequestName()!= userRequest.getRequestName()){
+            userRequest.setRequestName(userRequestInfo.getRequestName());
+        }
+        userRequest.setSensitive(userRequestInfo.isSensitive());
+        userRequest.setPriority(userRequestInfo.getPriority());
+        userRequest.setRequestUser(userRequestInfo.getRequestUser());
+        userRequest.setResolution(userRequestInfo.getResolution());
+        userRequest.setSideAngel(userRequestInfo.getSideAngel());
+        userRequest.setCloud(userRequestInfo.getCloud());
+        userRequest.setGeometryRequest(userRequestInfo.getGeometryRequest());
+        userRequest.setRadiationRequest(userRequestInfo.getRadiationRequest());
+        userRequest.setCoverage(userRequestInfo.getCoverage());
+
+        String imagingParaTxt= userRequestInfo.getImagingParaTxt();
+        Map<String, String> imagingPara = ImagingParaConverter.toMap(imagingParaTxt);
+        if (imagingPara != null && imagingPara.containsKey("imagingWkt")) {
+            String imagingWkt = imagingPara.get("imagingWkt");
+            Geometry imagingGeometry = geometryTools.getGeometryFromWKT(imagingWkt);
+            userRequest.setImagingGeometry(imagingGeometry);
+        }
+
+        userRequest.setRequestType(userRequestInfo.getRequestType());
+        userRequest.setImagingPara(imagingPara);
+
+        userRequestDao.updateUserRequest(userRequest);
     }
 
     private String getNextRequestId() {
@@ -116,8 +142,19 @@ public class UserRequestService {
         Map<String, String> para = userRequest.getImagingPara();
         String paraTxt = ImagingParaConverter.toSring(para);
         userRequest.setImagingParaTxt(paraTxt);
-
         return userRequest;
+    }
+
+    public UserRequestSatellites getUserRequestSatellites(int userRequestSatellitesId) {
+        UserRequestSatellites userRequestSatellites = userRequestDao.getUserRequestSatellites(userRequestSatellitesId);
+        return userRequestSatellites;
+    }
+
+    public List<UserRequest> getUserRequestByDate(int day) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, day);
+        Date date = c.getTime();
+        return userRequestDao.selectUserRequestByDate(date);
     }
 
     public List<UserRequest> getUserRequestList(UserRequestCri cri) {
@@ -145,6 +182,14 @@ public class UserRequestService {
         return beautifyUserRequestList(userRequestList, pageNum);
     }
 
+    public List<UserRequestSatellites> getUsersSatellites() {
+        return userRequestDao.getAllUsersSatellites();
+    }
+
+    public List<UserRequestSatellites> getUsersSatellitesByRequestNum(int requestNum) {
+        return userRequestDao.getUsersSatellitesByRequestNum(requestNum);
+    }
+
     private List<UserRequest> beautifyUserRequestList(List<UserRequest> userRequestList, int pageNum) {
         int num = 1;
         Date zeroOfToday = TimeUtils.getZeroOfToday();
@@ -157,4 +202,5 @@ public class UserRequestService {
         }
         return userRequestList;
     }
+
 }
