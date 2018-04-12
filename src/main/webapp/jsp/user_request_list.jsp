@@ -211,6 +211,13 @@
             requestResult(0);
         }
     </script>
+    <style>
+        body,html {
+            margin: 0px 20px 0px 20px;
+            padding: 0;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 <h2 class="ui header">需求检索</h2>
@@ -221,7 +228,6 @@
         <a class="ui label" id="cri-requestSatellite" style="display: none">Satellite<div class="detail" id="cri-requestSatellite-value"></div> <i class="delete icon" ></i></a>
         <a class="ui label" id="cri-imagingMode" style="display: none">Imaging Mode<div class="detail" id="cri-imagingMode-value"></div> <i class="delete icon" ></i></a>
         <a class="ui label" id="cri-requestName" style="display: none">Request Name<div class="detail" id="cri-requestName-value"></div><i class="delete icon"></i></a>
-        <a class="ui label" id="cri-keyword" style="display: none">Keyword<div class="detail" id="cri-keyword-value"></div><i class="delete icon"></i></a>
         <a class="ui label" id="cri-dateStart" style="display: none">Date from<div class="detail" id="cri-dateStart-value"></div><i class="delete icon"></i></a>
         <a class="ui label" id="cri-dateEnd" style="display: none">Date to<div class="detail" id="cri-dateEnd-value"></div><i class="delete icon"></i></a>
         <a class="ui label" id="cri-onlyme" style="display: none">Only Me<div class="detail" id="cri-onlyme-value"></div><i class="delete icon"></i></a>

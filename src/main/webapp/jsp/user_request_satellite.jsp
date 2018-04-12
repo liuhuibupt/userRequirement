@@ -123,11 +123,11 @@
         }
         .left-side {
             float: left;
-            width: 23%;
+            width: 20%;
         }
         .right-side {
             float: right;
-            width: 75%;
+            width: 78%;
             height: 100%;
         }
 
@@ -135,8 +135,7 @@
 
 </head>
 <body>
-
-<c:if test="${userRequest.status != '需求提交不完整，缺少卫星信息'}">
+<h2>录入需求-拍摄需求
     <%--标签行--%>
     <div class="sixteen fields">
         <div class="field">
@@ -157,9 +156,6 @@
                 优先级<dev class="detail">${userRequest.priority}</dev>
             </a></c:if>
             <c:if test="${userRequest != null}"><a class="ui tag label">
-                需求状态<dev class="detail">${userRequest.status}</dev>
-            </a></c:if>
-            <c:if test="${userRequest != null}"><a class="ui tag label">
                 提交日期<dev class="detail"><fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/></dev>
             </a></c:if>
             <a class="ui tag label">
@@ -167,45 +163,16 @@
             </a>
         </div>
     </div>
-</c:if>
+
+</h2>
 <div class="ui divider"></div>
 
 <div class="left-side">
     <c:if test="${userRequest.status == '需求提交不完整，缺少卫星信息'}">
-        <h2>添加卫星参数</h2>
-        <%--标签行--%>
-        <div class="sixteen fields">
-            <div class="field">
-                <c:if test="${userRequest != null}"><a class="ui tag label">
-                    需求名称<dev class="detail">${userRequest.requestName}</dev>
-                </a></c:if>
-                <c:if test="${userRequest != null}"><a class="ui tag label">
-                    需求编号<dev class="detail">${userRequest.requestId}</dev>
-                </a></c:if>
-                <c:if test="${userRequest != null}"><a class="ui tag label">
-                    此需求为<dev class="detail">
-                    <c:if test="${userRequest.sensitive eq false}"></c:if>
-                    <c:if test="${userRequest.sensitive eq true}">非</c:if>
-                    敏感需求
-                </dev>
-                </a></c:if>
-                <c:if test="${userRequest != null}"><a class="ui tag label">
-                    优先级<dev class="detail">${userRequest.priority}</dev>
-                </a></c:if>
-                <c:if test="${userRequest != null}"><a class="ui tag label">
-                    需求状态<dev class="detail">${userRequest.status}</dev>
-                </a></c:if>
-                <c:if test="${userRequest != null}"><a class="ui tag label">
-                    提交日期<dev class="detail"><fmt:formatDate value="${userRequest.submitTime}" pattern="yyyy-MM-dd HH:mm:ss"/></dev>
-                </a></c:if>
-                <a class="ui tag label">
-                    需求提交人<dev class="detail">${submitter.displayName}</dev>
-                </a>
-            </div>
-        </div>
+        <h3>添加卫星参数</h3>
     </c:if>
     <c:if test="${userRequest.status != '需求提交不完整，缺少卫星信息'}">
-        <h2>继续添加卫星参数</h2>
+        <h3>继续添加卫星参数</h3>
     </c:if>
     <div class="ui divider"></div>
     <form class="ui form" action="addUserRequestSatellites" method="post" onsubmit="return destroy()">
@@ -421,7 +388,7 @@
 </div>
 <div class="right-side">
     <c:if test="${userRequest.status != '需求提交不完整，缺少卫星信息'}">
-        <h2>已添加的卫星参数列表</h2>
+        <h3>已添加的卫星参数列表</h3>
         <div class="ui divider"></div>
         <%--需求列表--%>
         <table class="ui celled table">

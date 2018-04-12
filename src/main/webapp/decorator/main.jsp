@@ -92,7 +92,7 @@
         </div>
 
         <a class="item" href="test">test</a>
-        <a class="item" href="test2">testbutton</a>
+        <a class="item" href="test2">test2</a>
 
         <div class="right menu">
             <div class="ui simple dropdown item">
