@@ -29,15 +29,6 @@ public class UserRequestSatellites {
     @Column(name = "request_satellites")
     private String requestSatellites;
 
-    @Column(name = "imaging_mode")
-    private String imagingMode;
-
-    @Column(name = "imaging_duration")
-    private String imagingDuration;
-
-    @Column(name = "is_multi_grid")
-    private boolean isMultiGrid;
-
     @Column(name = "request_start")
     private Date requestStart;
 
@@ -46,12 +37,6 @@ public class UserRequestSatellites {
 
     @Column(name = "shoot_num")
     private int shootNum;
-
-    @Column(name = "product_delivery_model")
-    private String productDeliveryModel;
-
-    @Column(name = "product_delivery_url")
-    private String productDeliveryURL;
 
     public int getId() {
         return id;
@@ -77,30 +62,6 @@ public class UserRequestSatellites {
         this.requestSatellites = requestSatellites;
     }
 
-    public String getImagingMode() {
-        return imagingMode;
-    }
-
-    public void setImagingMode(String imagingMode) {
-        this.imagingMode = imagingMode;
-    }
-
-    public String getImagingDuration() {
-        return imagingDuration;
-    }
-
-    public void setImagingDuration(String imagingDuration) {
-        this.imagingDuration = imagingDuration;
-    }
-
-    public boolean isMultiGrid() {
-        return isMultiGrid;
-    }
-
-    public void setMultiGrid(boolean multiGrid) {
-        isMultiGrid = multiGrid;
-    }
-
     public Date getRequestStart() {
         return requestStart;
     }
@@ -123,22 +84,6 @@ public class UserRequestSatellites {
 
     public void setShootNum(int shootNum) {
         this.shootNum = shootNum;
-    }
-
-    public String getProductDeliveryModel() {
-        return productDeliveryModel;
-    }
-
-    public void setProductDeliveryModel(String productDeliveryModel) {
-        this.productDeliveryModel = productDeliveryModel;
-    }
-
-    public String getProductDeliveryURL() {
-        return productDeliveryURL;
-    }
-
-    public void setProductDeliveryURL(String productDeliveryURL) {
-        this.productDeliveryURL = productDeliveryURL;
     }
 }
 

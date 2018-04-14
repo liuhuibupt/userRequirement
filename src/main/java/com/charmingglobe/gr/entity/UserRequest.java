@@ -99,6 +99,42 @@ public class UserRequest {
     @Transient
     private String label;
 
+    @Column(name = "request_satellites")
+    private String requestSatellites;
+
+    @Column(name = "imaging_duration")
+    private String imagingDuration;
+
+    @Column(name = "is_multi_grid")
+    private boolean isMultiGrid;
+
+    @Column(name = "request_start")
+    private Date requestStart;
+
+    @Column(name = "request_end")
+    private Date requestEnd;
+
+    @Column(name = "shoot_num")
+    private int shootNum;
+
+    @Column(name = "product_delivery_model")
+    private int productDeliveryModel;
+
+    @Column(name = "product_delivery_time")
+    private int productDeliveryTime;
+
+    @Column(name = "product_level")
+    private int productLevel;
+
+    @Column(name = "product_type")
+    private int productType;
+
+    @Column(name = "product_delivery_url")
+    private int productDeliveryURL;
+
+    @Column(name = "spectrum")
+    private int spectrum;
+
     public int getId() {
         return id;
     }
@@ -114,7 +150,6 @@ public class UserRequest {
     public void setNum(int num) {
         this.num = num;
     }
-
 
     public String getStatus() {
         return status;
@@ -132,7 +167,7 @@ public class UserRequest {
         this.submitTime = submitTime;
     }
 
-    public Date  getEditTime() {
+    public Date getEditTime() {
         return editTime;
     }
 
@@ -212,11 +247,11 @@ public class UserRequest {
         this.sideAngel = sideAngel;
     }
 
-    public java.lang.String getCloud() {
+    public String getCloud() {
         return cloud;
     }
 
-    public void setCloud(java.lang.String cloud) {
+    public void setCloud(String cloud) {
         this.cloud = cloud;
     }
 
@@ -276,6 +311,14 @@ public class UserRequest {
         this.comments = comments;
     }
 
+    public String getCoverage() {
+        return coverage;
+    }
+
+    public void setCoverage(String coverage) {
+        this.coverage = coverage;
+    }
+
     public String getImagingParaTxt() {
         return imagingParaTxt;
     }
@@ -292,15 +335,101 @@ public class UserRequest {
         this.label = label;
     }
 
-    public String getCoverage() {
-        return coverage;
+    public String getRequestSatellites() {
+        return requestSatellites;
     }
 
-    public void setCoverage(String coverage) {
-        this.coverage = coverage;
+    public void setRequestSatellites(String requestSatellites) {
+        this.requestSatellites = requestSatellites;
     }
 
+    public String getImagingDuration() {
+        return imagingDuration;
+    }
 
+    public void setImagingDuration(String imagingDuration) {
+        this.imagingDuration = imagingDuration;
+    }
+
+    public boolean isMultiGrid() {
+        return isMultiGrid;
+    }
+
+    public void setMultiGrid(boolean multiGrid) {
+        isMultiGrid = multiGrid;
+    }
+
+    public Date getRequestStart() {
+        return requestStart;
+    }
+
+    public void setRequestStart(Date requestStart) {
+        this.requestStart = requestStart;
+    }
+
+    public Date getRequestEnd() {
+        return requestEnd;
+    }
+
+    public void setRequestEnd(Date requestEnd) {
+        this.requestEnd = requestEnd;
+    }
+
+    public int getShootNum() {
+        return shootNum;
+    }
+
+    public void setShootNum(int shootNum) {
+        this.shootNum = shootNum;
+    }
+
+    public int getProductDeliveryModel() {
+        return productDeliveryModel;
+    }
+
+    public void setProductDeliveryModel(int productDeliveryModel) {
+        this.productDeliveryModel = productDeliveryModel;
+    }
+
+    public int getProductDeliveryTime() {
+        return productDeliveryTime;
+    }
+
+    public void setProductDeliveryTime(int productDeliveryTime) {
+        this.productDeliveryTime = productDeliveryTime;
+    }
+
+    public int getProductLevel() {
+        return productLevel;
+    }
+
+    public void setProductLevel(int productLevel) {
+        this.productLevel = productLevel;
+    }
+
+    public int getProductType() {
+        return productType;
+    }
+
+    public void setProductType(int productType) {
+        this.productType = productType;
+    }
+
+    public int getProductDeliveryURL() {
+        return productDeliveryURL;
+    }
+
+    public void setProductDeliveryURL(int productDeliveryURL) {
+        this.productDeliveryURL = productDeliveryURL;
+    }
+
+    public int getSpectrum() {
+        return spectrum;
+    }
+
+    public void setSpectrum(int spectrum) {
+        this.spectrum = spectrum;
+    }
 }
 
 
