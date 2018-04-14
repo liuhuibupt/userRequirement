@@ -213,19 +213,18 @@ public class UserRequestController {
 
     @RequestMapping("/EditUserRequestSatellite")
     public String editUserRequestSatellite(int userRequestSatelliteId, Model model){
-    return "";
+        UserRequestSatellites userRequestSatellites=userRequestService.getUserRequestSatellites(userRequestSatelliteId);
+        UserRequest userRequest=userRequestSatellites.getUserRequest();
+        model.addAttribute("userRequestSatellites", userRequestSatellites);
+        model.addAttribute("userRequest", userRequest);
+        int requestNum=userRequest.getId();
+        List<UserRequestSatellites> userSatelliteList = userRequestService.getUsersSatellitesByRequestNum(requestNum);
+        model.addAttribute("userSatelliteList", userSatelliteList);
+        Cavalier submitter = userRequest.getSubmitter();
+        model.addAttribute("submitter", submitter);
+
+    return "user_request_satellite";
     }
 
-
-    @RequestMapping("/test")
-    public String test() {
-        //return "testbutton";
-        return "test";
-    }
-    @RequestMapping("/test2")
-    public String test2() {
-       return "testbutton";
-       // return "test";
-    }
 
 }

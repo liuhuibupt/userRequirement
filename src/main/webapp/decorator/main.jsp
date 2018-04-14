@@ -63,36 +63,9 @@
     <div class="ui container">
         <a href="#" class="item">
             <img class="logo" src="./images/CG_logo_teal.png">
-            <!--长光卫星 - 地面资源中心的图片，，日后要更换！！！！！！-->
         </a>
         <a class="item" href="userRequest-list">用户需求</a>
         <a class="item" href="userRequest-add">新建需求</a>
-        <div class="menu">
-            <div class="ui simple dropdown item">未完成
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                <a class="item" href=""/>规划列表</a>
-                <a class="item" href=""/>光学A星</a>
-                <a class="item" href="">视频03星</a>
-                <a class="item" href="">视频04星</a>
-                <a class="item" href="">视频05星</a>
-                <a class="item" href="">视频06星</a>
-                <a class="item" href="">视频07星</a>
-                <a class="item" href="">视频08星</a>
-                 </div>
-            </div>
-        </div>
-        <div class="menu">
-            <div class="ui simple dropdown item">未完成
-                <i class="dropdown icon "></i>
-                <div class="menu">
-                    <a class="item" href=""/>产品交付</a>
-                </div>
-            </div>
-        </div>
-
-        <a class="item" href="test">test</a>
-        <a class="item" href="test2">test2</a>
 
         <div class="right menu">
             <div class="ui simple dropdown item">
@@ -104,9 +77,27 @@
                 </div>
             </div>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <a class="item" href="user-list">用户列表</a>
-            <a class="item" href="userAction-list">用户操作</a> </sec:authorize>
+            <div class="right menu">
+                <div class="ui simple dropdown item">用户管理
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                      <a class="item" href="user-list">用户列表</a>
+                        <a class="item" href="userAction-list">用户操作记录</a>
+                    </div>
+                </div>
+            </div>
+            </sec:authorize>
+            <div class="right menu">
+                <div class="ui simple dropdown item">工具
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href=""/>过境窗口查询</a>
+                        <a class="item" href=""/>经纬度转换</a>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 <div class="ui main container" style="min-height: 100px">
