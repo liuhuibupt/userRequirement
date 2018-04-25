@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by PANZHENG on 2017/11/17.
+ * EDITED by LIUHUI on 2018/4/16
  */
 @Service
 public class UserInitialization implements ApplicationListener<ContextRefreshedEvent> {
@@ -21,55 +21,18 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
     UserDao userDao;
 
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        tryInitAdmin();
-        tryInitAlex();
         tryInitHui();
         tryInitPan();
     }
 
-    private void tryInitAlex() {
-        String username = "alex";
-        List<Cavalier> userList = userDao.getUser(username);
-        if (userList == null || userList.size() == 0) {
-            Cavalier user = new Cavalier();
-            user.setUserName(username);
-            user.setDisplayName("Alex Pan");
-            user.setPassword("123456,");
-
-            user.setDepartmentName("数据中心二室");
-            user.setRole(UserRole.ROLE_ADMIN);
-
-            user.setLastRequestTime(new Date());
-            user.setEnable(true);
-            userDao.saveUser(user);
-        }
-    }
-
-    private void tryInitAdmin() {
-        String username = "admin";
-        List<Cavalier> userList = userDao.getUser(username);
-        if (userList == null || userList.size() == 0) {
-            Cavalier user = new Cavalier();
-            user.setUserName(username);
-            user.setDisplayName("ADMIN");
-            user.setPassword("admin");
-
-            user.setDepartmentName("数据中心二室");
-            user.setRole(UserRole.ROLE_ADMIN);
-
-            user.setLastRequestTime(new Date());
-            user.setEnable(true);
-            userDao.saveUser(user);
-        }
-    }
     private void tryInitHui() {
         String username = "hui";
         List<Cavalier> userList = userDao.getUser(username);
         if (userList == null || userList.size() == 0) {
             Cavalier user = new Cavalier();
             user.setUserName(username);
-            user.setDisplayName("Liuhui");
-            user.setPassword("admin");
+            user.setDisplayName("LiuHui");
+            user.setPassword("123456");
 
             user.setDepartmentName("数据中心一室");
             user.setRole(UserRole.ROLE_ADMIN);
@@ -85,8 +48,8 @@ public class UserInitialization implements ApplicationListener<ContextRefreshedE
         if (userList == null || userList.size() == 0) {
             Cavalier user = new Cavalier();
             user.setUserName(username);
-            user.setDisplayName("PanShengnan");
-            user.setPassword("admin");
+            user.setDisplayName("PanShengNan");
+            user.setPassword("123456");
 
             user.setDepartmentName("数据中心一室");
             user.setRole(UserRole.ROLE_ADMIN);

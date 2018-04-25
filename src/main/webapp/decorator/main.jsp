@@ -66,6 +66,7 @@
         </a>
         <a class="item" href="userRequest-list">用户需求</a>
         <a class="item" href="userRequest-add">新建需求</a>
+        <a class="item" href="test">test</a>
 
         <div class="right menu">
             <div class="ui simple dropdown item">

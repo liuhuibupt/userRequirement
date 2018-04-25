@@ -65,12 +65,12 @@ public class UserRequestService {
 
     public void addUserRequestSatellites(UserRequestSatellites userRequestSatellites,int requestNum,String imagingMode ) {
         UserRequest userRequest = userRequestDao.getUserRequestForWriting(requestNum);
-        userRequestSatellites.setImagingMode(imagingMode);
+      //  userRequestSatellites.setImagingMode(imagingMode);
         userRequestSatellites.setUserRequest(userRequest);
 
-        if(userRequestSatellites.getImagingDuration() == ""){
-            userRequestSatellites.setImagingDuration("30");
-        }
+//        if(userRequestSatellites.getImagingDuration() == ""){
+//            userRequestSatellites.setImagingDuration("30");
+//        }
         Date date=new Date();
         if(userRequestSatellites.getRequestStart()== null){
             userRequestSatellites.setRequestStart(date);

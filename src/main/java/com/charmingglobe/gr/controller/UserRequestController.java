@@ -24,8 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by PANZHENG on 2017/11/18.
- * Edit by Liuhui on 2018/3/25
+ * Created by Liuhui on 2018/3/25
  */
 @Controller
 public class UserRequestController {
@@ -150,16 +149,16 @@ public class UserRequestController {
     public String addUserRequestSatellites(UserRequestSatellites userRequestSatellites,int requestNum,Model model,String  isSubmit,String imagingMode101A,String imagingMode103B){
         String satellites=userRequestSatellites.getRequestSatellites();
         String imagingMode;
-        if(satellites.equals("JL101A"))
-            imagingMode = imagingMode101A;
-        else if(satellites.equals("JL103B"))
-            imagingMode = imagingMode103B;
-        else
-            imagingMode = userRequestSatellites.getImagingMode();
+//        if(satellites.equals("JL101A"))
+//            imagingMode = imagingMode101A;
+//        else if(satellites.equals("JL103B"))
+//            imagingMode = imagingMode103B;
+//        else
+//            imagingMode = userRequestSatellites.getImagingMode();
 
         if(isSubmit.equals("添加卫星")) {
             userRequestService.setUserRequestStatus(requestNum, RequestStatus.WAITINGFOR_SATELLITE);
-            userRequestService.addUserRequestSatellites(userRequestSatellites,requestNum,imagingMode);
+        //   userRequestService.addUserRequestSatellites(userRequestSatellites,requestNum,imagingMode);
             List<UserRequestSatellites> userSatelliteList = userRequestService.getUsersSatellitesByRequestNum(requestNum);
             model.addAttribute("userSatelliteList", userSatelliteList);
             UserRequest userRequest = userRequestService.getUserRequest(requestNum);
@@ -170,7 +169,7 @@ public class UserRequestController {
         }
         else {
             userRequestService.setUserRequestStatus(requestNum, RequestStatus.USER_REQUEST_SUBMITED);
-            userRequestService.addUserRequestSatellites(userRequestSatellites,requestNum,imagingMode);
+        //    userRequestService.addUserRequestSatellites(userRequestSatellites,requestNum,imagingMode);
             return "redirect:user_request_detail?requestNum="+requestNum;
         }
     }
@@ -226,5 +225,8 @@ public class UserRequestController {
     return "user_request_satellite";
     }
 
-
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
+    }
 }

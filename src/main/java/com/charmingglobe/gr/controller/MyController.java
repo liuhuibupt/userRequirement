@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MyController {
-
+//    待修改，添加按照今日搜索我提的所有用户需求
     @RequestMapping("/today")
     public String today(Model model) {
-
-        return "today";
+        return "user_request_list";
     }
 
     @RequestMapping("/sticky")

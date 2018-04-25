@@ -15,9 +15,5 @@ public class UserRequestAspect {
 
     @After("submitUserRequest()")
     public void addUserAction() {
-
-        System.out.println("11111111111111111111111111111111111");
-        System.out.println("11111111111111111111111111111111111");
-        System.out.println("11111111111111111111111111111111111");
     }
 }

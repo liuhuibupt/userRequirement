@@ -118,22 +118,22 @@ public class UserRequest {
     private int shootNum;
 
     @Column(name = "product_delivery_model")
-    private int productDeliveryModel;
+    private String  productDeliveryModel;
 
     @Column(name = "product_delivery_time")
-    private int productDeliveryTime;
+    private String productDeliveryTime;
 
     @Column(name = "product_level")
-    private int productLevel;
+    private String productLevel;
 
     @Column(name = "product_type")
-    private int productType;
+    private String productType;
 
     @Column(name = "product_delivery_url")
-    private int productDeliveryURL;
+    private String productDeliveryURL;
 
     @Column(name = "spectrum")
-    private int spectrum;
+    private String spectrum;
 
     public int getId() {
         return id;
@@ -383,51 +383,51 @@ public class UserRequest {
         this.shootNum = shootNum;
     }
 
-    public int getProductDeliveryModel() {
+    public String getProductDeliveryModel() {
         return productDeliveryModel;
     }
 
-    public void setProductDeliveryModel(int productDeliveryModel) {
+    public void setProductDeliveryModel(String productDeliveryModel) {
         this.productDeliveryModel = productDeliveryModel;
     }
 
-    public int getProductDeliveryTime() {
+    public String getProductDeliveryTime() {
         return productDeliveryTime;
     }
 
-    public void setProductDeliveryTime(int productDeliveryTime) {
+    public void setProductDeliveryTime(String productDeliveryTime) {
         this.productDeliveryTime = productDeliveryTime;
     }
 
-    public int getProductLevel() {
+    public String getProductLevel() {
         return productLevel;
     }
 
-    public void setProductLevel(int productLevel) {
+    public void setProductLevel(String productLevel) {
         this.productLevel = productLevel;
     }
 
-    public int getProductType() {
+    public String getProductType() {
         return productType;
     }
 
-    public void setProductType(int productType) {
+    public void setProductType(String productType) {
         this.productType = productType;
     }
 
-    public int getProductDeliveryURL() {
+    public String getProductDeliveryURL() {
         return productDeliveryURL;
     }
 
-    public void setProductDeliveryURL(int productDeliveryURL) {
+    public void setProductDeliveryURL(String productDeliveryURL) {
         this.productDeliveryURL = productDeliveryURL;
     }
 
-    public int getSpectrum() {
+    public String getSpectrum() {
         return spectrum;
     }
 
-    public void setSpectrum(int spectrum) {
+    public void setSpectrum(String spectrum) {
         this.spectrum = spectrum;
     }
 }
